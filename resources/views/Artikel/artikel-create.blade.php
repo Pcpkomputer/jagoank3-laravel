@@ -53,29 +53,39 @@
 <div class="container-fluid">
   <div class="row">
   
-  @include("Components.sidebar", array("selected"=>"banner"))
+  @include("Components.sidebar", array("selected"=>"artikel"))
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Tambah Banner</h1>
+        <h1 class="h2">Tambah Artikel</h1>
       </div>
         
       <form method="POST" action="">
-        <input type="hidden" name="_method" value="POST">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="_method" value="POST">
+      <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Label</label>
-          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Label">
+          <label class="mb-2" for="exampleInputEmail1">Title</label>
+          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Title">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Description</label>
-          <input type="text" class="form-control" placeholder="Description">
+          <label class="mb-2" for="exampleInputPassword1">Writer</label>
+          <select class="form-control" id="exampleFormControlSelect1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            </select>
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Banner</label>
+          <label class="mb-2" for="exampleInputPassword1">Content</label>
+          <textarea type="text" class="form-control" placeholder="Content"></textarea>
+        </div>
+        <div class="form-group mb-2">
+          <label class="mb-2" for="exampleInputPassword1">Image</label>
           <input type="file" class="form-control">
         </div>
-        <button type="submit" style="margin-top:15px;" class="btn btn-primary">Submit</button>
+        <button type="submit" style="margin-top:15px;" class="btn btn-primary">Update</button>
       </form>
            
       </div>

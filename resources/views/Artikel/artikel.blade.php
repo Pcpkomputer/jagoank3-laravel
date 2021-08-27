@@ -10,11 +10,11 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
 
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="{{url('/bootstrap-table.min.css')}}">
    
 
     <!-- Bootstrap core CSS -->
-<link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="{{url('/bootstrap.min.css')}}" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -61,15 +61,16 @@
         <h1 class="h2">Artikel</h1>
       </div>
       <div>
-          <a href="/banner/create"><button class="btn btn-success mb-3">Tambah</button></a>
+          <a href="/artikel/create"><button class="btn btn-success mb-3">Tambah</button></a>
       </div>
       <table id="table" data-toggle="table">
   <thead>
     <tr>
-      <th>Banner ID</th>
+      <th>Artikel ID</th>
       <th>Image</th>
-      <th>Label</th>
-      <th>Description</th>
+      <th>Title</th>
+      <th>Date Posted</th>
+      <th>Writer</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -79,11 +80,12 @@
       <td>
         <img src="" style="width:230px;height:150px"></img>
       </td>
-      <td>$1</td>
-      <td>asdasd</td>
+      <td>Ini adalah judul artikel 1</td>
+      <td>12/08/1998</td>
+      <td>Padang P.Y</td>
       <td>
-            <a href="/banner/update/1"><button class="btn btn-primary mb-3">Update</button></a>
-            <a href="/banner/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>
+            <a href="/artikel/update/1"><button class="btn btn-primary mb-3">Update</button></a>
+            <a href="/artikel/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>
       </td>
     </tr>
   </tbody>
@@ -99,7 +101,7 @@
     <script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js"></script>
 
       <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="../dashboard.js"></script>
-      <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+      <script src="{{url('/bootstrap-table.min.js')}}"></script>
       <script>
          $('#table').bootstrapTable({
              pagination:true

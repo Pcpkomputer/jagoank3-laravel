@@ -2,34 +2,55 @@
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link {{$selected=='dashboard' ? 'active':''}}" aria-current="page" href="#">
+            <a class="nav-link {{$selected=='dashboard' ? 'active':''}}" aria-current="page" href="{{ url('/dashboard') }}">
               <span data-feather="home"></span>
               Dashboard
+            </a>
+          </li>
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Data Training</span>
+        </h6>
+        <li class="nav-item">
+            <a class="nav-link {{$selected=='training' ? 'active':''}}" href="{{ url('/training') }}">
+              <span data-feather="file-text"></span>
+              Training
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{($selected=='kategoritraining' ? 'active':'')}}" href="{{ url('/kategoritraining') }}">
+              <span data-feather="file-text"></span>
+              Kategori Training
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{($selected=='kategoritraining' ? 'active':'')}}" href="{{ url('/kategoritraining') }}">
+              <span data-feather="file-text"></span>
+              Voucher Training
             </a>
           </li>
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
             <span>Data Master</span>
         </h6>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ url('/instruktur') }}">
               <span data-feather="file-text"></span>
-              Training
+              Instruktur
             </a>
-          </li>
+          </li> 
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ url('/shop') }}">
               <span data-feather="file-text"></span>
               Shop
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ url('/galeri') }}">
               <span data-feather="file-text"></span>
               Galeri
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{($selected=='artikel') ? 'active':''}}" href="#">
+            <a class="nav-link {{($selected=='artikel') ? 'active':''}}" href="{{ url('/artikel') }}">
               <span data-feather="file-text"></span>
               Artikel
             </a>
@@ -39,7 +60,7 @@
             <span>Data Account</span>
         </h6>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ url('/user') }}">
               <span data-feather="file-text"></span>
               User
             </a>
@@ -51,7 +72,7 @@
             <span>Data Reports</span>
         </h6>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ url('/order') }}">
               <span data-feather="file-text"></span>
               Order
             </a>
@@ -62,7 +83,7 @@
             <span>Data Extra</span>
         </h6>
         <li class="nav-item">
-            <a class="nav-link {{($selected=='banner' ? 'active':'')}}" href="#">
+            <a class="nav-link {{($selected=='banner' ? 'active':'')}}" href="{{ url('/banner') }}">
               <span data-feather="file-text"></span>
               Banner
             </a>

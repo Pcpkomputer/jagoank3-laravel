@@ -52,31 +52,43 @@
 
 <div class="container-fluid">
   <div class="row">
-  
-  @include("Components.sidebar", array("selected"=>"banner"))
+   
+    
+    @include("Components.sidebar", array("selected"=>"training"))
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Tambah Banner</h1>
+        <h1 class="h2">Training</h1>
       </div>
-        
-      <form method="POST" action="">
-        <input type="hidden" name="_method" value="POST">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Label</label>
-          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Label">
-        </div>
-        <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Description</label>
-          <input type="text" class="form-control" placeholder="Description">
-        </div>
-        <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Banner</label>
-          <input type="file" class="form-control">
-        </div>
-        <button type="submit" style="margin-top:15px;" class="btn btn-primary">Submit</button>
-      </form>
+      <div>
+          <a href="/training/create"><button class="btn btn-success mb-3">Tambah</button></a>
+      </div>
+      <table id="table" data-toggle="table">
+  <thead>
+    <tr>
+      <th>Training ID</th>
+      <th>Nama Training</th>
+      <th>Kategori Training</th>
+      <th>Batch</th>
+      <th>Date Posted</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Training 1</td>
+      <td>Kemnaker RI</td>
+      <td>11</td>
+      <td>12/12/12</td>
+      <td>
+            <a href="/training/update/1"><button class="btn btn-primary mb-3">Update</button></a>
+            <a href="/training/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          
            
       </div>
     </main>
@@ -89,7 +101,9 @@
       <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="../dashboard.js"></script>
       <script src="{{url('/bootstrap-table.min.js')}}"></script>
       <script>
-        
+         $('#table').bootstrapTable({
+             pagination:true
+            })
       </script>
     </body>
 </html>

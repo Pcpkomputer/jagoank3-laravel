@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\KategoriTrainingController;
+use App\Http\Controllers\TrainingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,4 +50,28 @@ Route::prefix('artikel')->group(function(){
     Route::post("/create",[ArtikelController::class,"create_post"]);
     Route::put("/update/{id}",[ArtikelController::class,"update_post"]);
 });
+
+// Kategori Training Route
+Route::prefix('kategoritraining')->group(function(){
+    Route::get("/",[KategoriTrainingController::class,"show"]);
+    Route::get("/create",[KategoriTrainingController::class,"create"]);
+    Route::get("/update/{id}",[KategoriTrainingController::class,"update"]);
+    Route::get("/delete/{id}",[KategoriTrainingController::class,"delete"]);
+
+    Route::post("/create",[KategoriTrainingController::class,"create_post"]);
+    Route::put("/update/{id}",[KategoriTrainingController::class,"update_post"]);
+});
+
+
+// Training Route
+Route::prefix('training')->group(function(){
+    Route::get("/",[TrainingController::class,"show"]);
+    Route::get("/create",[TrainingController::class,"create"]);
+    Route::get("/update/{id}",[TrainingController::class,"update"]);
+    Route::get("/delete/{id}",[TrainingController::class,"delete"]);
+
+    Route::post("/create",[TrainingController::class,"create_post"]);
+    Route::put("/update/{id}",[TrainingController::class,"update_post"]);
+});
+
 
