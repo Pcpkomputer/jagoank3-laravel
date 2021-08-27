@@ -22,3 +22,7 @@ Route::get('/dashboard', function(Request $request){
     
     return view("dashboard");
 });
+
+Route::get("/banner", function(Request $request){
+    return view("Banner.banner");
+});
