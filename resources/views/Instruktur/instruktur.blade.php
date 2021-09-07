@@ -66,24 +66,32 @@
       <table id="table" data-toggle="table">
   <thead>
     <tr>
-      <th>Galeri ID</th>
-      <th>Image</th>
-      <th>Title</th>
+      <th>ID Instruktur</th>
+      <th>Foto</th>
+      <th>Nama</th>
+      <th>Tentang</th>
+      <th>Posisi</th>
+      <th>Video YT</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
+  @foreach ($instruktur as $instruktur)
     <tr>
-      <td>1</td>
-      <td>
-        <img src="" style="width:230px;height:150px"></img>
-      </td>
-      <td>Ini caption gallery 1</td>
-      <td>
-            <a href="/artikel/update/1"><button class="btn btn-primary mb-3">Update</button></a>
-            <a href="/artikel/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>
-      </td>
-    </tr>
+        <td>{{$instruktur->id_instruktur}}</td>
+        <td>
+          <img src="storage/instruktur/{{$instruktur->foto}}" style="width:150px;height:150px"></img>
+        </td>
+        <td>{{$instruktur->nama}}</td>
+        <td>{{$instruktur->tentang}}</td>
+        <td>{{$instruktur->posisi}}</td>
+        <td>{{$instruktur->videoyt}}</td>
+        <td>
+              <a href="/instruktur/update/{{$instruktur->id_instruktur}}"><button class="btn btn-primary mb-3">Update</button></a>
+              <a href="/instruktur/delete/{{$instruktur->id_instruktur}}"><button class="btn btn-danger mb-3">Delete</button></a>
+        </td>
+      </tr>
+  @endforeach
   </tbody>
 </table>
           

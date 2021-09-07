@@ -60,34 +60,32 @@
         <h1 class="h2">Update Instruktur</h1>
       </div>
         
-      <form method="POST" action="">
+      <form method="POST" enctype="multipart/form-data" action="">
       <input type="hidden" name="_method" value="PUT">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">ID Artikel</label>
-          <input readonly type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID Artikel">
+          <label class="mb-2" for="exampleInputEmail1">ID Instruktur</label>
+          <input required name="id_instruktur" readonly value="{{$instruktur->id_instruktur}}" type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID Instruktur">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Title</label>
-          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Title">
+          <label class="mb-2" for="exampleInputEmail1">Nama</label>
+          <input required name="nama" type="text" value="{{$instruktur->nama}}"  class="form-control" aria-describedby="emailHelp" placeholder="Nama">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Writer</label>
-          <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            </select>
+          <label class="mb-2" for="exampleInputPassword1">Tentang</label>
+          <textarea required name="tentang" class="form-control" placeholder="Tentang">{{$instruktur->tentang}}</textarea>
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Content</label>
-          <textarea type="text" class="form-control" placeholder="Content"></textarea>
+          <label class="mb-2" for="exampleInputEmail1">Posisi</label>
+          <input required name="posisi" value="{{$instruktur->posisi}}" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Posisi">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Image</label>
-          <input type="file" class="form-control">
+          <label class="mb-2" for="exampleInputEmail1">Video YT</label>
+          <input required name="videoyt"  value="{{$instruktur->videoyt}}" type="text" class="form-control" aria-describedby="emailHelp" placeholder="#####">
+        </div>
+        <div class="form-group mb-2">
+          <label class="mb-2" for="exampleInputPassword1">Foto</label>
+          <input name="foto" type="file" class="form-control">
         </div>
         <button type="submit" style="margin-top:15px;" class="btn btn-primary">Update</button>
       </form>

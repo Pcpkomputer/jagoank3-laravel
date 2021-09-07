@@ -60,32 +60,30 @@
         <h1 class="h2">Tambah Instruktur</h1>
       </div>
         
-      <form method="POST" action="">
-      <input type="hidden" name="_method" value="POST">
-      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Title</label>
-          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Title">
-        </div>
-        <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Writer</label>
-          <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            </select>
-        </div>
-        <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Content</label>
-          <textarea type="text" class="form-control" placeholder="Content"></textarea>
-        </div>
-        <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Image</label>
-          <input type="file" class="form-control">
-        </div>
-        <button type="submit" style="margin-top:15px;" class="btn btn-primary">Update</button>
+      <form method="POST" enctype="multipart/form-data" action="">
+          <input type="hidden" name="_method" value="POST">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <div class="form-group mb-2">
+              <label class="mb-2" for="exampleInputEmail1">Nama</label>
+              <input required name="nama" type="text" value=""  class="form-control" aria-describedby="emailHelp" placeholder="Nama">
+            </div>
+            <div class="form-group mb-2">
+              <label class="mb-2" for="exampleInputPassword1">Tentang</label>
+              <textarea required name="tentang" class="form-control" placeholder="Tentang"></textarea>
+            </div>
+            <div class="form-group mb-2">
+              <label class="mb-2" for="exampleInputEmail1">Posisi</label>
+              <input required name="posisi" value="" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Posisi">
+            </div>
+            <div class="form-group mb-2">
+              <label class="mb-2" for="exampleInputEmail1">Video YT</label>
+              <input required name="videoyt"  value="" type="text" class="form-control" aria-describedby="emailHelp" placeholder="#####">
+            </div>
+            <div class="form-group mb-2">
+              <label class="mb-2" for="exampleInputPassword1">Foto</label>
+              <input required name="foto" type="file" class="form-control">
+            </div>
+            <button type="submit" style="margin-top:15px;" class="btn btn-success">Tambah</button>
       </form>
            
       </div>
