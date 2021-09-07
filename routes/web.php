@@ -7,6 +7,10 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\KategoriTrainingController;
 use App\Http\Controllers\TrainingController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\InstrukturController;
+use App\Http\Controllers\ShopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,5 +77,59 @@ Route::prefix('training')->group(function(){
     Route::post("/create",[TrainingController::class,"create_post"]);
     Route::put("/update/{id}",[TrainingController::class,"update_post"]);
 });
+
+
+// User Route
+Route::prefix('user')->group(function(){
+    Route::get("/",[UserController::class,"show"]);
+    Route::get("/create",[UserController::class,"create"]);
+    Route::get("/update/{id}",[UserController::class,"update"]);
+    Route::get("/delete/{id}",[UserController::class,"delete"]);
+
+    Route::post("/create",[UserController::class,"create_post"]);
+    Route::put("/update/{id}",[UserController::class,"update_post"]);
+});
+
+
+// Galeri Route
+Route::prefix('galeri')->group(function(){
+    Route::get("/",[GaleriController::class,"show"]);
+    Route::get("/create",[GaleriController::class,"create"]);
+    Route::get("/update/{id}",[GaleriController::class,"update"]);
+    Route::get("/delete/{id}",[GaleriController::class,"delete"]);
+
+    Route::post("/create",[GaleriController::class,"create_post"]);
+    Route::put("/update/{id}",[GaleriController::class,"update_post"]);
+});
+
+
+// Instruktur Route
+Route::prefix('instruktur')->group(function(){
+    Route::get("/",[InstrukturController::class,"show"]);
+    Route::get("/create",[InstrukturController::class,"create"]);
+    Route::get("/update/{id}",[InstrukturController::class,"update"]);
+    Route::get("/delete/{id}",[InstrukturController::class,"delete"]);
+
+    Route::post("/create",[InstrukturController::class,"create_post"]);
+    Route::put("/update/{id}",[InstrukturController::class,"update_post"]);
+});
+
+
+// Shop Route
+Route::prefix('shop')->group(function(){
+    Route::get("/",[ShopController::class,"show"]);
+    Route::get("/create",[IShopontroller::class,"create"]);
+    Route::get("/update/{id}",[ShopController::class,"update"]);
+    Route::get("/delete/{id}",[IShopontroller::class,"delete"]);
+
+    Route::post("/create",[IShopontroller::class,"create_post"]);
+    Route::put("/update/{id}",[ShopController::class,"update_post"]);
+});
+
+
+
+
+
+
 
 

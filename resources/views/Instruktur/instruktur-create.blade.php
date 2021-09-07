@@ -34,7 +34,7 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="../../dashboard.css" rel="stylesheet">
+    <link href="../dashboard.css" rel="stylesheet">
   </head>
   <body>
     
@@ -53,23 +53,37 @@
 <div class="container-fluid">
   <div class="row">
   
-  @include("Components.sidebar", array("selected"=>"training"))
+  @include("Components.sidebar", array("selected"=>"instruktur"))
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Update Kategori Training</h1>
+        <h1 class="h2">Tambah Instruktur</h1>
       </div>
         
       <form method="POST" action="">
-      <input type="hidden" name="_method" value="PUT">
+      <input type="hidden" name="_method" value="POST">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
-      <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">ID Kategori Training</label>
-          <input readonly required type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID Kategori Training">
+        <div class="form-group mb-2">
+          <label class="mb-2" for="exampleInputEmail1">Title</label>
+          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Title">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Nama Kategori Training</label>
-          <input type="text" required class="form-control" aria-describedby="emailHelp" placeholder="Label">
+          <label class="mb-2" for="exampleInputPassword1">Writer</label>
+          <select class="form-control" id="exampleFormControlSelect1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            </select>
+        </div>
+        <div class="form-group mb-2">
+          <label class="mb-2" for="exampleInputPassword1">Content</label>
+          <textarea type="text" class="form-control" placeholder="Content"></textarea>
+        </div>
+        <div class="form-group mb-2">
+          <label class="mb-2" for="exampleInputPassword1">Image</label>
+          <input type="file" class="form-control">
         </div>
         <button type="submit" style="margin-top:15px;" class="btn btn-primary">Update</button>
       </form>
@@ -82,7 +96,7 @@
      <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js"></script>
 
-      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="../../dashboard.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="../dashboard.js"></script>
       <script src="{{url('/bootstrap-table.min.js')}}"></script>
       <script>
         

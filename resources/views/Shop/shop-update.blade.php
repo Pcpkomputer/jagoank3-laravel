@@ -53,23 +53,41 @@
 <div class="container-fluid">
   <div class="row">
   
-  @include("Components.sidebar", array("selected"=>"training"))
+  @include("Components.sidebar", array("selected"=>"shop"))
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Update Kategori Training</h1>
+        <h1 class="h2">Update Shop</h1>
       </div>
         
       <form method="POST" action="">
       <input type="hidden" name="_method" value="PUT">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">ID Kategori Training</label>
-          <input readonly required type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID Kategori Training">
+          <label class="mb-2" for="exampleInputEmail1">ID Artikel</label>
+          <input readonly type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID Artikel">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Nama Kategori Training</label>
-          <input type="text" required class="form-control" aria-describedby="emailHelp" placeholder="Label">
+          <label class="mb-2" for="exampleInputEmail1">Title</label>
+          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Title">
+        </div>
+        <div class="form-group mb-2">
+          <label class="mb-2" for="exampleInputPassword1">Writer</label>
+          <select class="form-control" id="exampleFormControlSelect1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            </select>
+        </div>
+        <div class="form-group mb-2">
+          <label class="mb-2" for="exampleInputPassword1">Content</label>
+          <textarea type="text" class="form-control" placeholder="Content"></textarea>
+        </div>
+        <div class="form-group mb-2">
+          <label class="mb-2" for="exampleInputPassword1">Image</label>
+          <input type="file" class="form-control">
         </div>
         <button type="submit" style="margin-top:15px;" class="btn btn-primary">Update</button>
       </form>

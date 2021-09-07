@@ -23,7 +23,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{($selected=='kategoritraining' ? 'active':'')}}" href="{{ url('/kategoritraining') }}">
+            <a class="nav-link {{($selected=='vouchertraining' ? 'active':'')}}" href="{{ url('/vouchertraining') }}">
               <span data-feather="file-text"></span>
               Voucher Training
             </a>
@@ -32,19 +32,19 @@
             <span>Data Master</span>
         </h6>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('/instruktur') }}">
+            <a class="nav-link {{$selected==='instruktur' ? 'active':''}}" href="{{ url('/instruktur') }}">
               <span data-feather="file-text"></span>
               Instruktur
             </a>
           </li> 
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/shop') }}">
+            <a class="nav-link {{$selected==='shop' ? 'active':''}}" href="{{ url('/shop') }}">
               <span data-feather="file-text"></span>
               Shop
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/galeri') }}">
+            <a class="nav-link {{($selected=='galeri' ? 'active':'')}}" href="{{ url('/galeri') }}">
               <span data-feather="file-text"></span>
               Galeri
             </a>
@@ -60,11 +60,12 @@
             <span>Data Account</span>
         </h6>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('/user') }}">
+            <a class="nav-link {{($selected=='user') ? 'active':''}}" href="{{ url('/user') }}">
               <span data-feather="file-text"></span>
               User
             </a>
           </li>
+
 
 
 
@@ -74,7 +75,14 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ url('/order') }}">
               <span data-feather="file-text"></span>
-              Order
+              Invoice Pelatihan
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('/order') }}">
+              <span data-feather="file-text"></span>
+              Invoice Shop
             </a>
           </li>
 
