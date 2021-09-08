@@ -66,6 +66,7 @@ class InstrukturController extends Controller
         $fileName   = time() . '.' . $image->getClientOriginalExtension();
 
         Storage::disk('local')->putFileAs('', $image, 'public'.'/instruktur'.'/'.$fileName);
+        
 
         $insert = DB::insert("insert into instruktur (nama,tentang,posisi,videoyt,foto) VALUES (?,?,?,?,?)",[$nama,$tentang,$posisi,$videoyt,$fileName]);
 

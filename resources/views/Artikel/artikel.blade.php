@@ -60,34 +60,43 @@
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Artikel</h1>
       </div>
+      <div class="flash-message">
+        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+          @if(Session::has('alert-' . $msg))
+          <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}</p>
+          @endif
+        @endforeach
+      </div>
       <div>
           <a href="/artikel/create"><button class="btn btn-success mb-3">Tambah</button></a>
       </div>
       <table id="table" data-toggle="table">
   <thead>
     <tr>
-      <th>Artikel ID</th>
-      <th>Image</th>
-      <th>Title</th>
-      <th>Date Posted</th>
-      <th>Writer</th>
+      <th>ID Artikel</th>
+      <th>Gambar Artikel</th>
+      <th>Judul Artikel</th>
+      <th>Tanggal Dibuat</th>
+      <th>Penulis</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>1</td>
-      <td>
-        <img src="" style="width:230px;height:150px"></img>
-      </td>
-      <td>Ini adalah judul artikel 1</td>
-      <td>12/08/1998</td>
-      <td>Padang P.Y</td>
-      <td>
-            <a href="/artikel/update/1"><button class="btn btn-primary mb-3">Update</button></a>
-            <a href="/artikel/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>
-      </td>
-    </tr>
+    @foreach($artikel as $artikel)
+        <tr>
+          <td>{{$artikel->id_artikel}}</td>
+          <td>
+            <img src="/storage/artikel/{{$artikel->gambar_artikel}}" style="width:230px;height:150px"></img>
+          </td>
+          <td>{{$artikel->judul_artikel}}</td>
+          <td>{{$artikel->tanggal_dibuat}}</td>
+          <td>{{$artikel->username}}</td>
+          <td>
+                <a href="/artikel/update/{{$artikel->id_artikel}}"><button class="btn btn-primary mb-3">Update</button></a>
+                <a href="/artikel/delete/{{$artikel->id_artikel}}"><button class="btn btn-danger mb-3">Delete</button></a>
+          </td>
+        </tr>
+    @endforeach
   </tbody>
 </table>
           
