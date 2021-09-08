@@ -118,11 +118,11 @@ Route::prefix('instruktur')->group(function(){
 // Shop Route
 Route::prefix('shop')->group(function(){
     Route::get("/",[ShopController::class,"show"]);
-    Route::get("/create",[IShopontroller::class,"create"]);
+    Route::get("/create",[ShopController::class,"create"]);
     Route::get("/update/{id}",[ShopController::class,"update"]);
-    Route::get("/delete/{id}",[IShopontroller::class,"delete"]);
+    Route::get("/delete/{id}",[ShopController::class,"delete"]);
 
-    Route::post("/create",[IShopontroller::class,"create_post"]);
+    Route::post("/create",[ShopController::class,"create_post"]);
     Route::put("/update/{id}",[ShopController::class,"update_post"]);
 });
 

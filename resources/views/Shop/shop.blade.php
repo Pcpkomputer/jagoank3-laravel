@@ -60,30 +60,43 @@
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Shop</h1>
       </div>
+      <div class="flash-message">
+        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+          @if(Session::has('alert-' . $msg))
+          <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}</p>
+          @endif
+        @endforeach
+      </div>
       <div>
-          <a href="/instruktur/create"><button class="btn btn-success mb-3">Tambah</button></a>
+          <a href="/shop/create"><button class="btn btn-success mb-3">Tambah</button></a>
       </div>
       <table id="table" data-toggle="table">
   <thead>
     <tr>
-      <th>Galeri ID</th>
-      <th>Image</th>
-      <th>Title</th>
+      <th>ID Item</th>
+      <th>Gambar Barang</th>
+      <th>Nama Barang</th>
+      <th>Deskripsi</th>
+      <th>Harga</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>1</td>
-      <td>
-        <img src="" style="width:230px;height:150px"></img>
-      </td>
-      <td>Ini caption gallery 1</td>
-      <td>
-            <a href="/artikel/update/1"><button class="btn btn-primary mb-3">Update</button></a>
-            <a href="/artikel/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>
-      </td>
-    </tr>
+      @foreach($shop as $shop)
+          <tr>
+              <td>{{$shop->id_item}}</td>
+              <td>
+                <img src="/storage/shop/{{$shop->gambar_barang}}" style="width:230px;height:150px"></img>
+              </td>
+              <td>{{$shop->nama_barang}}</td>
+              <td>{{$shop->deskripsi}}</td>
+              <td>{{$shop->harga}}</td>
+              <td>
+                    <a href="/shop/update/{{$shop->id_item}}"><button class="btn btn-primary mb-3">Update</button></a>
+                    <a href="/shop/delete/{{$shop->id_item}}"><button class="btn btn-danger mb-3">Delete</button></a>
+              </td>
+        </tr>
+      @endforeach
   </tbody>
 </table>
           

@@ -60,32 +60,26 @@
         <h1 class="h2">Tambah Shop</h1>
       </div>
         
-      <form method="POST" action="">
+      <form method="POST" action="" enctype="multipart/form-data">
       <input type="hidden" name="_method" value="POST">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Title</label>
-          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Title">
+          <label class="mb-2" for="exampleInputEmail1">Nama Barang</label>
+          <input name="nama" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Nama Barang">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Writer</label>
-          <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            </select>
+          <label class="mb-2" for="exampleInputPassword1">Deskripsi</label>
+          <textarea name="deskripsi" required type="text" class="form-control" placeholder="Deskripsi"></textarea>
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Content</label>
-          <textarea type="text" class="form-control" placeholder="Content"></textarea>
+          <label class="mb-2" for="exampleInputEmail1">Harga</label>
+          <input name="harga" required type="number" class="form-control" aria-describedby="emailHelp" placeholder="Harga">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Image</label>
-          <input type="file" class="form-control">
+          <label class="mb-2" for="exampleInputPassword1">Gambar Barang</label>
+          <input name="foto" required type="file"  class="form-control">
         </div>
-        <button type="submit" style="margin-top:15px;" class="btn btn-primary">Update</button>
+        <button type="submit" style="margin-top:15px;" class="btn btn-success">Tambah</button>
       </form>
            
       </div>

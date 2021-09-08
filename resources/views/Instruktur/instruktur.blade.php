@@ -60,6 +60,13 @@
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Instruktur</h1>
       </div>
+      <div class="flash-message">
+        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+          @if(Session::has('alert-' . $msg))
+          <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}</p>
+          @endif
+        @endforeach
+      </div>
       <div>
           <a href="/instruktur/create"><button class="btn btn-success mb-3">Tambah</button></a>
       </div>
