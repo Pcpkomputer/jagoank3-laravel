@@ -60,32 +60,18 @@
         <h1 class="h2">Tambah Galeri</h1>
       </div>
         
-      <form method="POST" action="">
+      <form method="POST" action="" enctype="multipart/form-data">
       <input type="hidden" name="_method" value="POST">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Title</label>
-          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Title">
+          <label class="mb-2" for="exampleInputEmail1">Judul Galeri</label>
+          <input required name="judul" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Title">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Writer</label>
-          <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            </select>
+          <label class="mb-2" for="exampleInputPassword1">Gambar</label>
+          <input required name="foto" type="file" class="form-control">
         </div>
-        <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Content</label>
-          <textarea type="text" class="form-control" placeholder="Content"></textarea>
-        </div>
-        <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Image</label>
-          <input type="file" class="form-control">
-        </div>
-        <button type="submit" style="margin-top:15px;" class="btn btn-primary">Update</button>
+        <button type="submit" style="margin-top:15px;" class="btn btn-success">Tambah</button>
       </form>
            
       </div>

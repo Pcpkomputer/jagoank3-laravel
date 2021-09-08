@@ -29,13 +29,21 @@ class InstrukturController extends Controller
         $instruktur = DB::select('select * from instruktur WHERE id_instruktur=?',[$id]);
 
         if(count($instruktur)==0){
-            return redirect("/instruktur")->with("alert-info","Tidak ditemukan instruktur dengan id tersebut...");;
+            return redirect("/instruktur")->with("alert-info","Tidak ditemukan instruktur dengan id tersebut...");
         }
         
         return view("Instruktur.instruktur-update", ['instruktur'=>$instruktur[0]]);
     }
 
     public function delete(Request $request, $id){
+
+
+        $gambar = DB::select("select foto from instruktur where id_instruktur=?",[$id]);
+        if(count($gambar)>0){
+            if(file_exists(Storage::disk('local')->path("public/instruktur/".$gambar[0]->foto))){
+                unlink(Storage::disk('local')->path("public/instruktur/".$gambar[0]->foto));
+            }
+        }
 
         $delete = DB::delete("delete from instruktur where id_instruktur=?",[$id]);
         
@@ -68,6 +76,13 @@ class InstrukturController extends Controller
     public function update_post(Request $request, $id){
 
         if($request->hasFile("foto")){
+
+            $gambar = DB::select("select foto from instruktur where id_instruktur=?",[$id]);
+            if(count($gambar)>0){
+                if(file_exists(Storage::disk('local')->path("public/instruktur/".$gambar[0]->foto))){
+                    unlink(Storage::disk('local')->path("public/instruktur/".$gambar[0]->foto));
+                }
+            }
 
             $validated = $request->validate([
                 'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',

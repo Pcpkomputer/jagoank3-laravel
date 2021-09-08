@@ -28,7 +28,7 @@ class ShopController extends Controller
         $shop = DB::select('select * from shop WHERE id_item=?',[$id]);
 
         if(count($shop)==0){
-            return redirect("/shop");
+            return redirect("/shop")->with("alert-info","Tidak ditemukan instruktur dengan id tersebut...");
         }
 
         return view("Shop.shop-update", ["shop"=>$shop[0]]);
@@ -74,10 +74,10 @@ class ShopController extends Controller
 
         if($request->hasFile("foto")){
 
-            $gambar = DB::select("select gambar_barang from shop where id_item=?",[$id])[0];
-            if(count($gambar>0)){
-                if(file_exists(Storage::disk('local')->path("public/shop/".$gambar->gambar_barang))){
-                    unlink(Storage::disk('local')->path("public/shop/".$gambar->gambar_barang));
+            $gambar = DB::select("select gambar_barang from shop where id_item=?",[$id]);
+            if(count($gambar)>0){
+                if(file_exists(Storage::disk('local')->path("public/shop/".$gambar[0]->gambar_barang))){
+                    unlink(Storage::disk('local')->path("public/shop/".$gambar[0]->gambar_barang));
                 }
             }
 

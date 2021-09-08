@@ -60,37 +60,25 @@
         <h1 class="h2">Update Galeri</h1>
       </div>
         
-      <form method="POST" action="">
+      <form method="POST" action="" enctype="multipart/form-data">
       <input type="hidden" name="_method" value="PUT">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">ID Artikel</label>
-          <input readonly type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID Artikel">
+          <label class="mb-2" for="exampleInputEmail1">ID Galeri</label>
+          <input readonly name="id" value="{{$galeri->id_galeri}}" type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID Galeri">
+        </div>
+
+        <div class="form-group mb-2">
+          <label class="mb-2" for="exampleInputEmail1">Judul Galeri</label>
+          <input name="judul" value="{{$galeri->judul}}" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Title">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Title</label>
-          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Title">
-        </div>
-        <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Writer</label>
-          <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            </select>
-        </div>
-        <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Content</label>
-          <textarea type="text" class="form-control" placeholder="Content"></textarea>
-        </div>
-        <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Image</label>
-          <input type="file" class="form-control">
+          <label class="mb-2" for="exampleInputPassword1">Gambar</label>
+          <input name="foto" type="file" class="form-control">
         </div>
         <button type="submit" style="margin-top:15px;" class="btn btn-primary">Update</button>
       </form>
+           
            
       </div>
     </main>

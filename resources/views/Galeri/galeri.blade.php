@@ -61,29 +61,31 @@
         <h1 class="h2">Galeri</h1>
       </div>
       <div>
-          <a href="/artikel/create"><button class="btn btn-success mb-3">Tambah</button></a>
+          <a href="/galeri/create"><button class="btn btn-success mb-3">Tambah</button></a>
       </div>
       <table id="table" data-toggle="table">
   <thead>
     <tr>
-      <th>Galeri ID</th>
-      <th>Image</th>
-      <th>Title</th>
+      <th>ID Galeri</th>
+      <th>Gambar</th>
+      <th>Judul Galeri</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>1</td>
-      <td>
-        <img src="" style="width:230px;height:150px"></img>
-      </td>
-      <td>Ini caption gallery 1</td>
-      <td>
-            <a href="/artikel/update/1"><button class="btn btn-primary mb-3">Update</button></a>
-            <a href="/artikel/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>
-      </td>
-    </tr>
+      @foreach($galeri as $galeri) 
+          <tr>
+          <td>{{$galeri->id_galeri}}</td>
+          <td>
+            <img src="/storage/galeri/{{$galeri->gambar}}" style="width:230px;height:150px"></img>
+          </td>
+          <td>{{$galeri->judul}}</td>
+          <td>
+                <a href="/galeri/update/{{$galeri->id_galeri}}"><button class="btn btn-primary mb-3">Update</button></a>
+                <a href="/galeri/delete/{{$galeri->id_galeri}}"><button class="btn btn-danger mb-3">Delete</button></a>
+          </td>
+        </tr>
+      @endforeach
   </tbody>
 </table>
           
