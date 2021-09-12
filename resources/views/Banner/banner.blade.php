@@ -60,32 +60,41 @@
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Banner</h1>
       </div>
+      <div class="flash-message">
+        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+          @if(Session::has('alert-' . $msg))
+          <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}</p>
+          @endif
+        @endforeach
+      </div>
       <div>
           <a href="/banner/create"><button class="btn btn-success mb-3">Tambah</button></a>
       </div>
       <table id="table" data-toggle="table">
   <thead>
     <tr>
-      <th>Banner ID</th>
-      <th>Image</th>
-      <th>Label</th>
-      <th>Description</th>
+      <th>ID Banner</th>
+      <th>Gambar</th>
+      <th>Caption</th>
+      <th>Deskripsi</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>1</td>
-      <td>
-        <img src="" style="width:230px;height:150px"></img>
-      </td>
-      <td>$1</td>
-      <td>asdasd</td>
-      <td>
-            <a href="/banner/update/1"><button class="btn btn-primary mb-3">Update</button></a>
-            <a href="/banner/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>
-      </td>
-    </tr>
+      @foreach($banner as $banner)
+          <tr>
+          <td>{{$banner->id_banner}}</td>
+          <td>
+            <img src="/storage/banner/{{$banner->gambar}}" style="width:230px;height:150px"></img>
+          </td>
+          <td>{{$banner->caption}}</td>
+          <td>{{$banner->deskripsi}}</td>
+          <td>
+                <a href="/banner/update/{{$banner->id_banner}}"><button class="btn btn-primary mb-3">Update</button></a>
+                <a href="/banner/delete/{{$banner->id_banner}}"><button class="btn btn-danger mb-3">Delete</button></a>
+          </td>
+        </tr>
+      @endforeach
   </tbody>
 </table>
           

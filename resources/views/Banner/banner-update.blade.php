@@ -60,26 +60,26 @@
         <h1 class="h2">Update Banner</h1>
       </div>
         
-      <form method="POST" action="">
-      <input type="hidden" name="_method" value="PUT">
-      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-      <div class="form-group mb-2">
+      <form method="POST" action="" enctype="multipart/form-data">
+        <input type="hidden" name="_method" value="PUT">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <div class="form-group mb-2">
           <label class="mb-2" for="exampleInputEmail1">ID Banner</label>
-          <input readonly type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID Banner">
+          <input value="{{$banner->id_banner}}" readonly required name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID Banner">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Label</label>
-          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Label">
+          <label class="mb-2" for="exampleInputEmail1">Caption</label>
+          <input  value="{{$banner->caption}}" required name="caption" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Caption">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Description</label>
-          <input type="text" class="form-control" placeholder="Description">
+          <label class="mb-2" for="exampleInputPassword1">Deskripsi</label>
+          <input  value="{{$banner->deskripsi}}" required name="deskripsi" type="text" class="form-control" placeholder="Deskripsi">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Banner</label>
-          <input type="file" class="form-control">
+          <label class="mb-2" for="exampleInputPassword1">Gambar</label>
+          <input name="foto" type="file" class="form-control">
         </div>
-        <button type="submit" style="margin-top:15px;" class="btn btn-primary">Update</button>
+        <button type="submit" style="margin-top:15px;" class="btn btn-primary">Submit</button>
       </form>
            
       </div>

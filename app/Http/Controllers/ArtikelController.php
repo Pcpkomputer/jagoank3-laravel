@@ -37,7 +37,18 @@ class ArtikelController extends Controller
     }
 
     public function delete(Request $request, $id){
-        return "delete";
+
+        $gambar = DB::select("select gambar_artikel from artikel where id_artikel=?",[$id]);
+
+        if(count($gambar)>0){
+            if(file_exists(Storage::disk('local')->path("public/artikel/".$gambar[0]->gambar_artikel))){
+                unlink(Storage::disk('local')->path("public/artikel/".$gambar[0]->gambar_artikel));
+            }
+        }
+
+        $delete = DB::delete("delete from artikel WHERE id_artikel=?",[$id]);
+      
+        return redirect("/artikel")->with("alert-success","Sukses menghapus artikel...");
     }
 
     public function create_post(Request $request){

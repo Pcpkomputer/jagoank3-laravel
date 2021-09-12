@@ -4,13 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
+function random_strings($length_of_string) 
+{ 
+    $str_result = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz'; 
+    return substr(str_shuffle($str_result), 0, $length_of_string); 
+} 
 
 class BannerController extends Controller
 {
     public function show(Request $request)
     {
-        return view("Banner.banner");
+        $banner = DB::select("SELECT * FROM banner");
+        return view("Banner.banner",["banner"=>$banner]);
     }
 
 
@@ -20,18 +28,92 @@ class BannerController extends Controller
     }
 
     public function update(Request $request, $id){
-        return view("Banner.banner-update");
+
+        $banner = DB::select("SELECT * FROM banner WHERE id_banner=?",[$id]);
+
+        if(count($banner)==0){
+            return redirect("/banner")->with("alert-info","Tidak ditemukan banner dengan id tersebut");
+        }
+
+
+        return view("Banner.banner-update", ["banner"=>$banner[0]]);
     }
 
     public function delete(Request $request, $id){
-        return "delete";
+        
+        $gambar = DB::select("select gambar from banner where id_banner=?",[$id]);
+
+        if(count($gambar)>0){
+            if(file_exists(Storage::disk('local')->path("public/banner".$gambar[0]->gambar))){
+                unlink(Storage::disk('local')->path("public/banner/".$gambar[0]->gambar));
+            }
+        }
+
+        $delete = DB::delete("delete from banner WHERE id_banner=?",[$id]);
+      
+        return redirect("/banner")->with("alert-success","Sukses menghapus banner...");
+
     }
 
-    public function create_post(Request $request, $id){
-        return "create post";
+    public function create_post(Request $request){
+
+        $validated = $request->validate([
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
+
+        $caption = $request->caption;
+        $deskripsi = $request->deskripsi;
+
+        $image      = $request->file('foto');
+        $fileName   = time() . '.' . $image->getClientOriginalExtension();
+
+        Storage::disk('local')->putFileAs('', $image, 'public'.'/banner'.'/'.$fileName);
+
+        //$current_date = date('Y-m-d H:i:s');
+
+        $insert = DB::insert("insert into banner (gambar,caption,deskripsi) VALUES (?,?,?)",[$fileName,$caption,$deskripsi]);
+
+        return redirect("/banner")->with("alert-success","Sukses menambahkan banner...");
     }
 
     public function update_post(Request $request, $id){
-        return "update_post";
+
+
+        if($request->hasFile("foto")){
+
+            $gambar = DB::select("select gambar from banner where id_banner=?",[$id]);
+            if(count($gambar)>0){
+                if(file_exists(Storage::disk('local')->path("public/banner/".$gambar[0]->gambar))){
+                    unlink(Storage::disk('local')->path("public/banner/".$gambar[0]->gambar));
+                }
+            }
+
+            $validated = $request->validate([
+                'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+    
+           
+            $caption = $request->caption;
+            $deskripsi = $request->deskripsi;
+
+            $image      = $request->file('foto');
+            $fileName   = time() . '.' . $image->getClientOriginalExtension();
+    
+            Storage::disk('local')->putFileAs('', $image, 'public'.'/gambar'.'/'.$fileName);
+    
+            $update = DB::update("update banner SET caption=?,deskripsi=?,gambar=? WHERE id_banner=?",[$caption,$deskripsi,$fileName,$id]);
+    
+            return redirect("/banner")->with("alert-success","Sukses mengubah banner...");;
+        }
+        else{
+
+            $caption = $request->caption;
+            $deskripsi = $request->deskripsi;
+    
+             $update = DB::update("update banner SET caption=?,deskripsi=? WHERE id_banner=?",[$caption,$deskripsi,$id]);
+    
+            return redirect("/banner")->with("alert-success","Sukses mengubah banner...");;
+        }
+
     }
 }
