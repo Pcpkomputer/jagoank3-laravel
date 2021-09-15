@@ -61,7 +61,7 @@
         <h1 class="h2">User</h1>
       </div>
       <div>
-          <a href="/artikel/create"><button class="btn btn-success mb-3">Tambah</button></a>
+          <a href="/user/create"><button class="btn btn-success mb-3">Tambah</button></a>
       </div>
       <table id="table" data-toggle="table">
   <thead>
@@ -78,20 +78,22 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>1</td>
-      <td>Ini adalah judul artikel 1</td>
-      <td>12/08/1998</td>
-      <td>Padang P.Y</td>
-      <td>Ini adalah judul artikel 1</td>
-      <td>12/08/1998</td>
-      <td>Padang P.Y</td>
-      <td>zAads2312</td>
-      <td>
-            <a href="/user/update/1"><button class="btn btn-primary mb-3">Update</button></a>
-            <a href="/user/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>
-      </td>
-    </tr>
+      @foreach($user as $user)
+          <tr>
+          <td>{{$user->user_id}}</td>
+          <td>{{$user->nama}}</td>
+          <td>{{$user->username}}</td>
+          <td>{{$user->nickname}}</td>
+          <td>{{$user->email}}</td>
+          <td>{{$user->no_telepon}}</td>
+          <td>{{$user->kata_sandi}}</td>
+          <td>{{$user->referral_code}}</td>
+          <td>
+                <a href="/user/update/{{$user->user_id}}"><button class="btn btn-primary mb-3">Update</button></a>
+                <a href="/user/delete/{{$user->user_id}}"><button class="btn btn-danger mb-3">Delete</button></a>
+          </td>
+        </tr>
+      @endforeach
   </tbody>
 </table>
           

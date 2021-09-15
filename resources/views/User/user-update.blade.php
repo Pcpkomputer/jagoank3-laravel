@@ -64,32 +64,34 @@
       <input type="hidden" name="_method" value="PUT">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">ID Artikel</label>
-          <input readonly type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID Artikel">
+          <label class="mb-2" for="exampleInputEmail1">ID User</label>
+          <input readonly required value="{{$user->user_id}}" name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID User">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Title</label>
-          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Title">
+          <label class="mb-2" for="exampleInputEmail1">Nama</label>
+          <input required name="nama" value="{{$user->nama}}" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Nama">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Writer</label>
-          <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            </select>
+          <label class="mb-2" for="exampleInputEmail1">Username</label>
+          <input required name="username" value="{{$user->username}}" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Username">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Content</label>
-          <textarea type="text" class="form-control" placeholder="Content"></textarea>
+          <label class="mb-2" for="exampleInputEmail1">Nickname</label>
+          <input required name="nickname" value="{{$user->nickname}}" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Nickname">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputPassword1">Image</label>
-          <input type="file" class="form-control">
+          <label class="mb-2" for="exampleInputEmail1">Email</label>
+          <input required name="email" value="{{$user->email}}" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email">
         </div>
-        <button type="submit" style="margin-top:15px;" class="btn btn-primary">Update</button>
+        <div class="form-group mb-2">
+          <label class="mb-2" for="exampleInputEmail1">No. Telepon</label>
+          <input required name="no_telepon" value="{{$user->no_telepon}}" type="text" class="form-control" aria-describedby="emailHelp" placeholder="No. Telepon">
+        </div>
+        <div class="form-group mb-2">
+          <label class="mb-2" for="exampleInputEmail1">Kata Sandi</label>
+          <input required name="kata_sandi" value="{{$user->kata_sandi}}" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Kata Sandi">
+        </div>
+        <button required type="submit" style="margin-top:15px;" class="btn btn-primary">Update</button>
       </form>
            
       </div>

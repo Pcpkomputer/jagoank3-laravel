@@ -75,7 +75,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ url('/order') }}">
               <span data-feather="file-text"></span>
-              Invoice Pelatihan
+              Invoice Training
             </a>
           </li>
 

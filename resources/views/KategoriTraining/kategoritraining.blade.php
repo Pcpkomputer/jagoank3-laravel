@@ -66,20 +66,22 @@
       <table id="table" data-toggle="table">
   <thead>
     <tr>
-      <th>Kategori Training ID</th>
+      <th>ID Kategori Training</th>
       <th>Nama Kategori Training</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>1</td>
-      <td>Kemnaker RI</td>
+   @foreach($kategoritraining as $kategoritraining)
+   <tr>
+      <td>{{$kategoritraining->id_kategoritraining}}</td>
+      <td>{{$kategoritraining->nama_kategoritraining}}</td>
       <td>
-            <a href="/kategoritraining/update/1"><button class="btn btn-primary mb-3">Update</button></a>
-            <a href="/kategoritraining/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>
+            <a href="/kategoritraining/update/{{$kategoritraining->id_kategoritraining}}"><button class="btn btn-primary mb-3">Update</button></a>
+            <a href="/kategoritraining/delete/{{$kategoritraining->id_kategoritraining}}"><button class="btn btn-danger mb-3">Delete</button></a>
       </td>
     </tr>
+   @endforeach
   </tbody>
 </table>
           

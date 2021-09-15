@@ -60,14 +60,35 @@
         <h1 class="h2">Tambah Kategori Training</h1>
       </div>
         
-      <form method="POST" action="">
+      <form id="formTambahSubKategoriTraining" method="POST" action="">
         <input type="hidden" name="_method" value="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group mb-2">
           <label class="mb-2" for="exampleInputEmail1">Nama Kategori Training</label>
-          <input required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Nama Kategori Training">
+          <input required type="text" name="namakategoritraining" class="form-control" aria-describedby="emailHelp" placeholder="Nama Kategori Training">
         </div>
-        <button type="submit" style="margin-top:15px;" class="btn btn-primary">Submit</button>
+        <div class="form-group mb-2">
+          <label class="mb-2" for="exampleInputEmail1">Sub Kategori Training</label>
+          <div style="display:flex;flex-direction:row">
+              <input id="inputNamaKategoriTraining" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Sub Kategori Training">
+              <div id="btnTambahSubKategori" class="btn btn-primary">+</div>
+            </div>
+        </div>
+        <div class="form-group mb-2" style="margin-top:25px">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Nama Sub Kategori</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="bodyTableSubKategori">
+               
+                </tbody>
+              </table>
+        </div>
+        <button type="submit" id="realSubmit" style="margin-top:15px;display:none" class="btn btn-success">Tambah</button>
+        <button type="button" id="fakeSubmit" style="margin-top:15px;" class="btn btn-success">Tambah</button>
       </form>
            
       </div>
@@ -81,7 +102,71 @@
       <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="../dashboard.js"></script>
       <script src="{{url('/bootstrap-table.min.js')}}"></script>
       <script>
-        
+          $(document).on("click","#btnTambahSubKategori",()=>{
+             let subkategori = document.querySelector("#inputNamaKategoriTraining").value;
+             if(subkategori.length>0){
+
+               let input = document.createElement("input");
+               input.type="hidden";
+               input.value=subkategori;
+               input.name="subkategori[]";
+               input.id="subkategori_";
+
+               document.querySelector("#formTambahSubKategoriTraining").appendChild(input);
+
+               let count = document.querySelectorAll("#bodyTableSubKategori tr").length;
+
+               document.querySelector("#bodyTableSubKategori").innerHTML=
+               document.querySelector("#bodyTableSubKategori").innerHTML+
+               `
+               <tr>
+                      <th style="text-align:center;vertical-align:middle">${subkategori}</th>
+                      <td>
+                        <button type="button" id="hapusRowSubKategori" data-id="${count+1}" class="btn btn-danger">Hapus</button>
+                      </td>
+                </tr>
+               `
+
+               document.querySelector("#inputNamaKategoriTraining").value="";
+             }
+
+             
+             else{
+              alert("Isikan Sub Kategori Training");
+             }
+          })
+
+
+          $(document).on("click","#fakeSubmit",()=>{
+              let row = document.querySelector("#bodyTableSubKategori").querySelectorAll("tr");
+              if(row.length===0){
+                alert("Isikan Sub Kategori!");
+              }
+              else{
+                document.querySelector("#realSubmit").click();
+              }
+          })
+
+
+
+          $(document).on("click","#hapusRowSubKategori",(e)=>{
+
+             let id = e.currentTarget.getAttribute("data-id");
+
+             let input = document.querySelectorAll("#subkategori_");
+
+             input.forEach((el,index)=>{
+               if(index+1===parseInt(id)){
+                  el.outerHTML="";
+               }
+             })
+             
+             e.currentTarget.parentNode.parentNode.outerHTML="";
+          
+          })
+
+
+
       </script>
     </body>
 </html>
