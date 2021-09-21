@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\InstrukturController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\VoucherTrainingController;
 
 use App\Http\Middleware\IsAuthenticate;
 
@@ -172,6 +173,18 @@ Route::middleware([IsAuthenticate::class])->group(function () {
 
             Route::post("/create",[ShopController::class,"create_post"]);
             Route::put("/update/{id}",[ShopController::class,"update_post"]);
+        });
+
+
+          // Voucher Training Route
+          Route::prefix('vouchertraining')->group(function(){
+            Route::get("/",[VoucherTrainingController::class,"show"]);
+            Route::get("/create",[VoucherTrainingController::class,"create"]);
+            Route::get("/update/{id}",[VoucherTrainingController::class,"update"]);
+            Route::get("/delete/{id}",[VoucherTrainingController::class,"delete"]);
+
+            Route::post("/create",[VoucherTrainingController::class,"create_post"]);
+            Route::put("/update/{id}",[VoucherTrainingController::class,"update_post"]);
         });
 
 
