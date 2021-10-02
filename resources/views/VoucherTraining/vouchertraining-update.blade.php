@@ -53,46 +53,35 @@
 <div class="container-fluid">
   <div class="row">
   
-  @include("Components.sidebar", array("selected"=>"user"))
+  @include("Components.sidebar", array("selected"=>"vouchertraining"))
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Update User</h1>
+        <h1 class="h2">Update Voucher Training</h1>
       </div>
         
       <form method="POST" action="">
       <input type="hidden" name="_method" value="PUT">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">ID User</label>
-          <input readonly required value="{{$user->user_id}}" name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID User">
+          <label class="mb-2" for="exampleInputEmail1">ID Voucher Training</label>
+          <input readonly value="{{$vouchertraining->id_vouchertraining}}" required name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID Voucher Training">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Nama</label>
-          <input required name="nama" value="{{$user->nama}}" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Nama">
+          <label class="mb-2" for="exampleInputEmail1">Kode Voucher</label>
+          <input value="{{$vouchertraining->kode_voucher}}" required name="kode" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Kode Voucher">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Username</label>
-          <input required name="username" value="{{$user->username}}" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Username">
+          <label class="mb-2" for="exampleInputEmail1">Nominal</label>
+          <input value="{{$vouchertraining->nominal}}" required name="nominal" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Nominal">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Nickname</label>
-          <input required name="nickname" value="{{$user->nickname}}" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Nickname">
-        </div>
-        <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Email</label>
-          <input required name="email" value="{{$user->email}}" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email">
-        </div>
-        <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">No. Telepon</label>
-          <input required name="no_telepon" value="{{$user->no_telepon}}" type="text" class="form-control" aria-describedby="emailHelp" placeholder="No. Telepon">
-        </div>
-        <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Kata Sandi</label>
-          <input required name="kata_sandi" value="{{$user->kata_sandi}}" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Kata Sandi">
+          <label class="mb-2" for="exampleInputEmail1">Jumlah Voucher</label>
+          <input value="{{$vouchertraining->jumlahvoucher}}" required name="jumlah" type="number" class="form-control" aria-describedby="emailHelp" placeholder="Jumlah Voucher">
         </div>
         <button required type="submit" style="margin-top:15px;" class="btn btn-primary">Update</button>
       </form>
+           
            
       </div>
     </main>

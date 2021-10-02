@@ -219,9 +219,33 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Promo & Paket</h1>
       </div>
-        
+        <div class="container" style="padding:0px;margin:0px;">
+            <div class="row">
+            <div class="col-lg-2">
+                  <label class="mb-2" for="exampleInputEmail1">Nama Paket Pelatihanx</label>
+                  <input type="text" class="form-control" style="width:100%"/>
+                </div>
+                <div class="col-lg-2">
+                 <label class="mb-2" for="exampleInputEmail1">Harga Paket</label>
+                  <input type="text" class="form-control" style="width:100%"/>
+                </div>
+                <div class="col-lg-2">
+                <label class="mb-2" for="exampleInputEmail1">Harga Paket (Jika Promo)</label>
+                  <input type="text" class="form-control" style="width:100%"/>
+                </div>
+              
+                <div class="col-lg-2" style="display:flex;align-items:center">
+                  <label style="margin-right:15px">Sedang Promo?</label>
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                </div>
 
-        <button type="submit" style="margin-top:15px;" class="btn btn-primary">Submit</button>
+                <div class="col-lg-4" style="display:flex;align-items:center">
+                  asdasd
+                </div>
+           </div>
+        </div>
+
+        <button type="submit" style="margin-top:50px;margin-bottom:50px;" class="btn btn-primary">Submit</button>
       </form>
            
       </div>

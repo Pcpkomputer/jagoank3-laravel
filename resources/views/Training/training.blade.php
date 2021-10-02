@@ -69,6 +69,7 @@
       <th>Training ID</th>
       <th>Nama Training</th>
       <th>Kategori Training</th>
+      <th>Tipe Training</th>
       <th>Batch</th>
       <th>Date Posted</th>
       <th>Action</th>
@@ -79,6 +80,7 @@
       <td>1</td>
       <td>Training 1</td>
       <td>Kemnaker RI</td>
+      <td>Online</td>
       <td>11</td>
       <td>12/12/12</td>
       <td>

@@ -15,9 +15,10 @@ class VoucherTrainingController extends Controller
     public function show(Request $request)
     {
 
+        $vouchertraining = DB::select("SELECT * FROM voucher_training");
 
 
-        return view("VoucherTraining.vouchertraining");
+        return view("VoucherTraining.vouchertraining", ["vouchertraining"=>$vouchertraining]);
     }
 
 
@@ -29,21 +30,41 @@ class VoucherTrainingController extends Controller
 
     public function update(Request $request, $id){
 
+        $vouchertraining = DB::select("SELECT * FROM voucher_training WHERE id_vouchertraining=?",[$id]);
 
-        return view("VoucherTraining.vouchertraining-update");
+        if(count($vouchertraining)==0){
+            return redirect("/vouchertraining")->with("alert-info","Tidak ditemukan voucher dengan id tersebut...");
+        }
+
+        return view("VoucherTraining.vouchertraining-update", ["vouchertraining"=>$vouchertraining[0]]);
     }
 
     public function delete(Request $request, $id){
-        return "delete";
+
+        $delete = DB::delete("DELETE FROM voucher_training WHERE id_vouchertraining=?",[$id]);
+
+       return redirect("/vouchertraining")->with("alert-success","Sukses menghapus voucher training...");
     }
 
     public function create_post(Request $request){
-        
-        return "create_post";
+
+        $kode = $request->kode;
+        $nominal = $request->nominal;
+        $jumlah = $request->jumlah;
+
+        $insert = DB::insert("INSERT INTO voucher_training (kode_voucher,nominal,jumlahvoucher) VALUES (?,?,?)",[$kode,$nominal,$jumlah]);
+
+        return redirect("/vouchertraining")->with("alert-success","Sukses menambahkan voucher training...");
     }
 
     public function update_post(Request $request, $id){
 
-        return "update_post";
+        $kode = $request->kode;
+        $nominal = $request->nominal;
+        $jumlah = $request->jumlah;
+
+        $update = DB::update("UPDATE voucher_training SET kode_voucher=?,nominal=?,jumlahvoucher=? WHERE id_vouchertraining=?",[$kode,$nominal,$jumlah,$id]);
+        
+        return redirect("/vouchertraining")->with("alert-success","Sukses mengubah voucher training...");
     }
 }
