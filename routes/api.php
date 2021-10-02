@@ -36,6 +36,15 @@ Route::get("/instruktur", function (Request $request){
     return $instruktur;
 });
 
+Route::get("/instruktur/{id}", function (Request $request){
+    $id = $request->id;
+
+    $instruktur = DB::select("SELECT * FROM instruktur WHERE id_instruktur=?",[$id]);
+
+    return $instruktur;
+    
+});
+
 
 Route::get("/shop", function (Request $request){
     
