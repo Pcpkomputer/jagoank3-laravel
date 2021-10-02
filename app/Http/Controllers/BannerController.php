@@ -7,12 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-function random_strings($length_of_string) 
-{ 
-    $str_result = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz'; 
-    return substr(str_shuffle($str_result), 0, $length_of_string); 
-} 
-
 class BannerController extends Controller
 {
     public function show(Request $request)
@@ -44,7 +38,7 @@ class BannerController extends Controller
         $gambar = DB::select("select gambar from banner where id_banner=?",[$id]);
 
         if(count($gambar)>0){
-            if(file_exists(Storage::disk('local')->path("public/banner".$gambar[0]->gambar))){
+            if(file_exists(Storage::disk('local')->path("public/banner/".$gambar[0]->gambar))){
                 unlink(Storage::disk('local')->path("public/banner/".$gambar[0]->gambar));
             }
         }
