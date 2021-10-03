@@ -60,6 +60,14 @@ Route::get("/artikel", function (Request $request){
     return $artikel;
 });
 
+Route::get("/artikel/{id}", function (Request $request){
+    $id = $request->id;
+
+    $artikel = DB::select("SELECT artikel.*,admin.username FROM artikel INNER JOIN admin ON admin.id_admin=artikel.penulis WHERE id_artikel=?",[$id]);
+
+    return $artikel;
+});
+
 Route::get("/galeri", function (Request $request){
     $galeri = DB::select("SELECT * FROM galeri");
 

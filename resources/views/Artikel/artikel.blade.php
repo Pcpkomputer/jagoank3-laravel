@@ -78,6 +78,7 @@
       <th>Judul Artikel</th>
       <th>Tanggal Dibuat</th>
       <th>Penulis</th>
+      <th>Kategori</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -91,6 +92,7 @@
           <td>{{$artikel->judul_artikel}}</td>
           <td>{{$artikel->tanggal_dibuat}}</td>
           <td>{{$artikel->username}}</td>
+          <td>{{$artikel->kategori}}</td>
           <td>
                 <a href="/artikel/update/{{$artikel->id_artikel}}"><button class="btn btn-primary mb-3">Update</button></a>
                 <a href="/artikel/delete/{{$artikel->id_artikel}}"><button class="btn btn-danger mb-3">Delete</button></a>

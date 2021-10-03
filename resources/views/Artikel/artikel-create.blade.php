@@ -69,6 +69,10 @@
           <input required type="text" name="judul" class="form-control" aria-describedby="emailHelp" placeholder="Judul">
         </div>
         <div class="form-group mb-2">
+          <label class="mb-2" for="exampleInputEmail1">Kategori Artikel</label>
+          <input required type="text" name="kategori" class="form-control" aria-describedby="emailHelp" placeholder="Kategori">
+        </div>
+        <div class="form-group mb-2">
           <label class="mb-2" for="exampleInputPassword1">Konten</label>
           <textarea required id="konten" name="konten" type="text" class="form-control" placeholder="Konten"></textarea>
         </div>

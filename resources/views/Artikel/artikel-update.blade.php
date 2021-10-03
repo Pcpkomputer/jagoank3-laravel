@@ -73,6 +73,10 @@
           <input required type="text" value="{{$artikel->judul_artikel}}" name="judul" class="form-control" aria-describedby="emailHelp" placeholder="Judul">
         </div>
         <div class="form-group mb-2">
+          <label class="mb-2" for="exampleInputEmail1">Kategori Artikel</label>
+          <input required type="text" value="{{$artikel->kategori}}" name="kategori" class="form-control" aria-describedby="emailHelp" placeholder="Kategori">
+        </div>
+        <div class="form-group mb-2">
           <label class="mb-2" for="exampleInputPassword1">Konten</label>
           <textarea required id="konten" name="konten" type="text" class="form-control" placeholder="Konten">{{$artikel->konten}}</textarea>
         </div>

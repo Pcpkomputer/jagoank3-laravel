@@ -59,6 +59,7 @@ class ArtikelController extends Controller
 
         $judul = $request->judul;
         $konten = $request->konten;
+        $kategori = $request->kategori;
 
         $image      = $request->file('foto');
         $fileName   = time() . '.' . $image->getClientOriginalExtension();
@@ -67,7 +68,7 @@ class ArtikelController extends Controller
 
         $current_date = date('Y-m-d H:i:s');
 
-        $insert = DB::insert("insert into artikel (gambar_artikel,judul_artikel,tanggal_dibuat,penulis,konten) VALUES (?,?,?,?,?)",[$fileName,$judul,$current_date,$request->session()->get("credentials")["id_admin"],$konten]);
+        $insert = DB::insert("insert into artikel (gambar_artikel,judul_artikel,tanggal_dibuat,kategori,penulis,konten) VALUES (?,?,?,?,?,?)",[$fileName,$judul,$current_date,$kategori,$request->session()->get("credentials")["id_admin"],$konten]);
 
         return redirect("/artikel")->with("alert-success","Sukses menambahkan artikel...");
     }
@@ -91,13 +92,14 @@ class ArtikelController extends Controller
            
             $judul = $request->judul;
             $konten = $request->konten;
+            $kategori = $request->kategori;
 
             $image      = $request->file('foto');
             $fileName   = time() . '.' . $image->getClientOriginalExtension();
     
             Storage::disk('local')->putFileAs('', $image, 'public'.'/artikel'.'/'.$fileName);
     
-            $update = DB::update("update artikel SET judul_artikel=?,gambar_artikel=?,konten=? WHERE id_artikel=?",[$judul,$fileName,$konten,$id]);
+            $update = DB::update("update artikel SET judul_artikel=?,gambar_artikel=?,konten=?,kategori=? WHERE id_artikel=?",[$judul,$fileName,$konten,$kategori,$id]);
     
             return redirect("/artikel")->with("alert-success","Sukses mengubah artikel...");;
         }
@@ -105,8 +107,9 @@ class ArtikelController extends Controller
     
             $judul = $request->judul;
             $konten = $request->konten;
+            $kategori = $request->kategori;
     
-            $update = DB::update("update artikel SET judul_artikel=?,konten=? WHERE id_artikel=?",[$judul,$konten,$id]);
+            $update = DB::update("update artikel SET judul_artikel=?,konten=?,kategori=? WHERE id_artikel=?",[$judul,$konten,$kategori,$id]);
     
             return redirect("/artikel")->with("alert-success","Sukses mengubah artikel..");;
         }
