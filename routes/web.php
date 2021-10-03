@@ -13,6 +13,7 @@ use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\InstrukturController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\VoucherTrainingController;
+use App\Http\Controllers\DashboardTextController;
 
 use App\Http\Middleware\IsAuthenticate;
 
@@ -186,6 +187,20 @@ Route::middleware([IsAuthenticate::class])->group(function () {
             Route::post("/create",[VoucherTrainingController::class,"create_post"]);
             Route::put("/update/{id}",[VoucherTrainingController::class,"update_post"]);
         });
+
+
+
+          // Dashboard Text Route
+          Route::prefix('dashboardtext')->group(function(){
+            Route::get("/",[DashboardTextController::class,"show"]);
+            // Route::get("/create",[DashboardTextController::class,"create"]);
+            // Route::get("/update/{id}",[DashboardTextController::class,"update"]);
+            // Route::get("/delete/{id}",[DashboardTextController::class,"delete"]);
+
+            Route::post("/create",[DashboardTextController::class,"create_post"]);
+            Route::put("/update/{id}",[DashboardTextController::class,"update_post"]);
+        });
+
 
 
 });

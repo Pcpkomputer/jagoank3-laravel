@@ -95,6 +95,10 @@
               <span data-feather="file-text"></span>
               Banner
             </a>
+            <a class="nav-link {{($selected=='dashboardtext' ? 'active':'')}}" href="{{ url('/dashboardtext') }}">
+              <span data-feather="file-text"></span>
+              Dashboard Text
+            </a>
           </li>
         <!-- <li class="nav-item">
             <a class="nav-link" href="#">

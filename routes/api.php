@@ -65,3 +65,11 @@ Route::get("/galeri", function (Request $request){
 
     return $galeri;
 });
+
+
+Route::get("/dashboardtext", function (Request $request){
+    $dashboardtext = DB::select("SELECT * FROM dashboardtext WHERE id_dashboardtext=0");
+    $parsed = json_decode($dashboardtext[0]->json);
+
+    return $parsed;
+});
