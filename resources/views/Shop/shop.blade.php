@@ -86,7 +86,7 @@
           <tr>
               <td>{{$shop->id_item}}</td>
               <td>
-                <img src="/storage/shop/{{$shop->gambar_barang}}" style="width:230px;height:150px"></img>
+                <img src="/storage/public/shop/{{$shop->gambar_barang}}" style="width:230px;height:150px"></img>
               </td>
               <td>{{$shop->nama_barang}}</td>
               <td>{{$shop->deskripsi}}</td>

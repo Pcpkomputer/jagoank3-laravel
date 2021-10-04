@@ -87,7 +87,7 @@
         <tr>
           <td>{{$artikel->id_artikel}}</td>
           <td>
-            <img src="/storage/artikel/{{$artikel->gambar_artikel}}" style="width:230px;height:150px"></img>
+            <img src="/storage/public/artikel/{{$artikel->gambar_artikel}}" style="width:230px;height:150px"></img>
           </td>
           <td>{{$artikel->judul_artikel}}</td>
           <td>{{$artikel->tanggal_dibuat}}</td>

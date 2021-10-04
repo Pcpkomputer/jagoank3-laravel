@@ -84,7 +84,7 @@
           <tr>
           <td>{{$galeri->id_galeri}}</td>
           <td>
-            <img src="/storage/galeri/{{$galeri->gambar}}" style="width:230px;height:150px"></img>
+            <img src="/storage/public/galeri/{{$galeri->gambar}}" style="width:230px;height:150px"></img>
           </td>
           <td>{{$galeri->judul}}</td>
           <td>

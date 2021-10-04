@@ -85,7 +85,7 @@
           <tr>
           <td>{{$banner->id_banner}}</td>
           <td>
-            <img src="/storage/banner/{{$banner->gambar}}" style="width:230px;height:150px"></img>
+            <img src="/storage/public/banner/{{$banner->gambar}}" style="width:230px;height:150px"></img>
           </td>
           <td>{{$banner->caption}}</td>
           <td>{{$banner->deskripsi}}</td>

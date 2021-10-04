@@ -87,7 +87,7 @@
     <tr>
         <td>{{$instruktur->id_instruktur}}</td>
         <td>
-          <img src="/storage/instruktur/{{$instruktur->foto}}" style="width:150px;height:150px"></img>
+          <img src="/storage/public/instruktur/{{$instruktur->foto}}" style="width:150px;height:150px"></img>
         </td>
         <td>{{$instruktur->nama}}</td>
         <td>{{$instruktur->tentang}}</td>
