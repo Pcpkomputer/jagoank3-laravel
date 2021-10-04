@@ -34,7 +34,7 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="../dashboard.css" rel="stylesheet">
+    <link href="{{url('/dashboard.css')}}" rel="stylesheet">
   </head>
   <body>
     
@@ -45,12 +45,12 @@
   </button>
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="#">Sign out</a>
+      <a class="nav-link px-3" href="{{url('/admin/logout')}}">Sign out</a>
     </div>
   </div>
 </header>
 
-<div class="container-fluid">
+<div class="container-fluid" style="margin-bottom:35px">
   <div class="row">
    
     
@@ -68,7 +68,7 @@
         @endforeach
       </div>
       <div>
-          <a href="/galeri/create"><button class="btn btn-success mb-3">Tambah</button></a>
+          <a href="/admin/galeri/create"><button class="btn btn-success mb-3">Tambah</button></a>
       </div>
       <table id="table" data-toggle="table">
   <thead>
@@ -88,8 +88,8 @@
           </td>
           <td>{{$galeri->judul}}</td>
           <td>
-                <a href="/galeri/update/{{$galeri->id_galeri}}"><button class="btn btn-primary mb-3">Update</button></a>
-                <a href="/galeri/delete/{{$galeri->id_galeri}}"><button class="btn btn-danger mb-3">Delete</button></a>
+                <a href="/admin/galeri/update/{{$galeri->id_galeri}}"><button class="btn btn-primary mb-3">Update</button></a>
+                <a href="/admin/galeri/delete/{{$galeri->id_galeri}}"><button class="btn btn-danger mb-3">Delete</button></a>
           </td>
         </tr>
       @endforeach

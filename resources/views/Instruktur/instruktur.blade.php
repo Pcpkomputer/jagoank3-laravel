@@ -34,7 +34,7 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="../dashboard.css" rel="stylesheet">
+    <link href="{{url('/dashboard.css')}}" rel="stylesheet">
   </head>
   <body>
     
@@ -45,12 +45,12 @@
   </button>
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="#">Sign out</a>
+      <a class="nav-link px-3" href="{{url('/admin/logout')}}">Sign out</a>
     </div>
   </div>
 </header>
 
-<div class="container-fluid">
+<div class="container-fluid" style="margin-bottom:35px">
   <div class="row">
    
     
@@ -68,7 +68,7 @@
         @endforeach
       </div>
       <div>
-          <a href="/instruktur/create"><button class="btn btn-success mb-3">Tambah</button></a>
+          <a href="/admin/instruktur/create"><button class="btn btn-success mb-3">Tambah</button></a>
       </div>
       <table id="table" data-toggle="table">
   <thead>
@@ -87,15 +87,15 @@
     <tr>
         <td>{{$instruktur->id_instruktur}}</td>
         <td>
-          <img src="storage/instruktur/{{$instruktur->foto}}" style="width:150px;height:150px"></img>
+          <img src="/storage/instruktur/{{$instruktur->foto}}" style="width:150px;height:150px"></img>
         </td>
         <td>{{$instruktur->nama}}</td>
         <td>{{$instruktur->tentang}}</td>
         <td>{{$instruktur->posisi}}</td>
         <td>{{$instruktur->videoyt}}</td>
         <td>
-              <a href="/instruktur/update/{{$instruktur->id_instruktur}}"><button class="btn btn-primary mb-3">Update</button></a>
-              <a href="/instruktur/delete/{{$instruktur->id_instruktur}}"><button class="btn btn-danger mb-3">Delete</button></a>
+              <a href="/admin/instruktur/update/{{$instruktur->id_instruktur}}"><button class="btn btn-primary mb-3">Update</button></a>
+              <a href="/admin/instruktur/delete/{{$instruktur->id_instruktur}}"><button class="btn btn-danger mb-3">Delete</button></a>
         </td>
       </tr>
   @endforeach

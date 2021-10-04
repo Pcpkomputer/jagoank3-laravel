@@ -33,7 +33,7 @@ class VoucherTrainingController extends Controller
         $vouchertraining = DB::select("SELECT * FROM voucher_training WHERE id_vouchertraining=?",[$id]);
 
         if(count($vouchertraining)==0){
-            return redirect("/vouchertraining")->with("alert-info","Tidak ditemukan voucher dengan id tersebut...");
+            return redirect("/admin/vouchertraining")->with("alert-info","Tidak ditemukan voucher dengan id tersebut...");
         }
 
         return view("VoucherTraining.vouchertraining-update", ["vouchertraining"=>$vouchertraining[0]]);
@@ -43,7 +43,7 @@ class VoucherTrainingController extends Controller
 
         $delete = DB::delete("DELETE FROM voucher_training WHERE id_vouchertraining=?",[$id]);
 
-       return redirect("/vouchertraining")->with("alert-success","Sukses menghapus voucher training...");
+       return redirect("/admin/vouchertraining")->with("alert-success","Sukses menghapus voucher training...");
     }
 
     public function create_post(Request $request){
@@ -54,7 +54,7 @@ class VoucherTrainingController extends Controller
 
         $insert = DB::insert("INSERT INTO voucher_training (kode_voucher,nominal,jumlahvoucher) VALUES (?,?,?)",[$kode,$nominal,$jumlah]);
 
-        return redirect("/vouchertraining")->with("alert-success","Sukses menambahkan voucher training...");
+        return redirect("/admin/vouchertraining")->with("alert-success","Sukses menambahkan voucher training...");
     }
 
     public function update_post(Request $request, $id){
@@ -65,6 +65,6 @@ class VoucherTrainingController extends Controller
 
         $update = DB::update("UPDATE voucher_training SET kode_voucher=?,nominal=?,jumlahvoucher=? WHERE id_vouchertraining=?",[$kode,$nominal,$jumlah,$id]);
         
-        return redirect("/vouchertraining")->with("alert-success","Sukses mengubah voucher training...");
+        return redirect("/admin/vouchertraining")->with("alert-success","Sukses mengubah voucher training...");
     }
 }

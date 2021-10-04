@@ -29,7 +29,7 @@ class ArtikelController extends Controller
         $artikel = DB::select("SELECT * FROM artikel WHERE id_artikel=?",[$id]);
 
         if(count($artikel)==0){
-            return redirect("/artikel")->with("alert-info","Tidak ditemukan artikel dengan id tersebut");
+            return redirect("/admin/artikel")->with("alert-info","Tidak ditemukan artikel dengan id tersebut");
         }
 
 
@@ -48,7 +48,7 @@ class ArtikelController extends Controller
 
         $delete = DB::delete("delete from artikel WHERE id_artikel=?",[$id]);
       
-        return redirect("/artikel")->with("alert-success","Sukses menghapus artikel...");
+        return redirect("/admin/artikel")->with("alert-success","Sukses menghapus artikel...");
     }
 
     public function create_post(Request $request){
@@ -70,7 +70,7 @@ class ArtikelController extends Controller
 
         $insert = DB::insert("insert into artikel (gambar_artikel,judul_artikel,tanggal_dibuat,kategori,penulis,konten) VALUES (?,?,?,?,?,?)",[$fileName,$judul,$current_date,$kategori,$request->session()->get("credentials")["id_admin"],$konten]);
 
-        return redirect("/artikel")->with("alert-success","Sukses menambahkan artikel...");
+        return redirect("/admin/artikel")->with("alert-success","Sukses menambahkan artikel...");
     }
 
     public function update_post(Request $request, $id){
@@ -101,7 +101,7 @@ class ArtikelController extends Controller
     
             $update = DB::update("update artikel SET judul_artikel=?,gambar_artikel=?,konten=?,kategori=? WHERE id_artikel=?",[$judul,$fileName,$konten,$kategori,$id]);
     
-            return redirect("/artikel")->with("alert-success","Sukses mengubah artikel...");;
+            return redirect("/admin/artikel")->with("alert-success","Sukses mengubah artikel...");;
         }
         else{
     
@@ -111,7 +111,7 @@ class ArtikelController extends Controller
     
             $update = DB::update("update artikel SET judul_artikel=?,konten=?,kategori=? WHERE id_artikel=?",[$judul,$konten,$kategori,$id]);
     
-            return redirect("/artikel")->with("alert-success","Sukses mengubah artikel..");;
+            return redirect("/admin/artikel")->with("alert-success","Sukses mengubah artikel..");;
         }
 
 

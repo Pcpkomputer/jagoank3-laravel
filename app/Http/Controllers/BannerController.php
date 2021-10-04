@@ -26,7 +26,7 @@ class BannerController extends Controller
         $banner = DB::select("SELECT * FROM banner WHERE id_banner=?",[$id]);
 
         if(count($banner)==0){
-            return redirect("/banner")->with("alert-info","Tidak ditemukan banner dengan id tersebut");
+            return redirect("/admin/banner")->with("alert-info","Tidak ditemukan banner dengan id tersebut");
         }
 
 
@@ -45,7 +45,7 @@ class BannerController extends Controller
 
         $delete = DB::delete("delete from banner WHERE id_banner=?",[$id]);
       
-        return redirect("/banner")->with("alert-success","Sukses menghapus banner...");
+        return redirect("/admin/banner")->with("alert-success","Sukses menghapus banner...");
 
     }
 
@@ -67,7 +67,7 @@ class BannerController extends Controller
 
         $insert = DB::insert("insert into banner (gambar,caption,deskripsi) VALUES (?,?,?)",[$fileName,$caption,$deskripsi]);
 
-        return redirect("/banner")->with("alert-success","Sukses menambahkan banner...");
+        return redirect("/admin/banner")->with("alert-success","Sukses menambahkan banner...");
     }
 
     public function update_post(Request $request, $id){
@@ -97,7 +97,7 @@ class BannerController extends Controller
     
             $update = DB::update("update banner SET caption=?,deskripsi=?,gambar=? WHERE id_banner=?",[$caption,$deskripsi,$fileName,$id]);
     
-            return redirect("/banner")->with("alert-success","Sukses mengubah banner...");;
+            return redirect("/admin/banner")->with("alert-success","Sukses mengubah banner...");;
         }
         else{
 
@@ -106,7 +106,7 @@ class BannerController extends Controller
     
              $update = DB::update("update banner SET caption=?,deskripsi=? WHERE id_banner=?",[$caption,$deskripsi,$id]);
     
-            return redirect("/banner")->with("alert-success","Sukses mengubah banner...");;
+            return redirect("/admin/banner")->with("alert-success","Sukses mengubah banner...");;
         }
 
     }

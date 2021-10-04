@@ -28,7 +28,7 @@ class DashboardTextController extends Controller
         // $banner = DB::select("SELECT * FROM banner WHERE id_banner=?",[$id]);
 
         // if(count($banner)==0){
-        //     return redirect("/banner")->with("alert-info","Tidak ditemukan banner dengan id tersebut");
+        //     return redirect("/admin/banner")->with("alert-info","Tidak ditemukan banner dengan id tersebut");
         // }
 
 
@@ -47,7 +47,7 @@ class DashboardTextController extends Controller
 
         // $delete = DB::delete("delete from banner WHERE id_banner=?",[$id]);
       
-        // return redirect("/banner")->with("alert-success","Sukses menghapus banner...");
+        // return redirect("/admin/banner")->with("alert-success","Sukses menghapus banner...");
 
         return "delete";
 
@@ -61,11 +61,11 @@ class DashboardTextController extends Controller
 
         if(count($exist)>0){
             $update = DB::update("UPDATE dashboardtext SET json=? WHERE id_dashboardtext=0",[$json]);
-            return redirect("/dashboardtext")->with("alert-success","Sukses mengubah dashboard text...");
+            return redirect("/admin/dashboardtext")->with("alert-success","Sukses mengubah dashboard text...");
         }
         else{
             $insert = DB::insert("INSERT INTO dashboardtext (id_dashboardtext,json) VALUE (?,?)",[0,$json]);
-            return redirect("/dashboardtext")->with("alert-success","Sukses menambah dashboard text...");
+            return redirect("/admin/dashboardtext")->with("alert-success","Sukses menambah dashboard text...");
         }
 
 
@@ -98,7 +98,7 @@ class DashboardTextController extends Controller
     
         //     $update = DB::update("update banner SET caption=?,deskripsi=?,gambar=? WHERE id_banner=?",[$caption,$deskripsi,$fileName,$id]);
     
-        //     return redirect("/banner")->with("alert-success","Sukses mengubah banner...");;
+        //     return redirect("/admin/banner")->with("alert-success","Sukses mengubah banner...");;
         // }
         // else{
 
@@ -107,7 +107,7 @@ class DashboardTextController extends Controller
     
         //      $update = DB::update("update banner SET caption=?,deskripsi=? WHERE id_banner=?",[$caption,$deskripsi,$id]);
     
-        //     return redirect("/banner")->with("alert-success","Sukses mengubah banner...");;
+        //     return redirect("/admin/banner")->with("alert-success","Sukses mengubah banner...");;
         // }
 
         return "update post";

@@ -27,7 +27,7 @@ class GaleriController extends Controller
         $galeri = DB::select('select * from galeri where id_galeri=?',[$id]);
 
         if(count($galeri)==0){
-            return redirect("/galeri")->with("alert-info","Tidak ditemukan galeri dengan id tersebut...");
+            return redirect("/admin/galeri")->with("alert-info","Tidak ditemukan galeri dengan id tersebut...");
         }
         
 
@@ -46,7 +46,7 @@ class GaleriController extends Controller
 
         $delete = DB::delete("delete from galeri WHERE id_galeri=?",[$id]);
       
-        return redirect("/galeri")->with("alert-success","Sukses menghapus galeri...");
+        return redirect("/admin/galeri")->with("alert-success","Sukses menghapus galeri...");
     }
 
     public function create_post(Request $request){
@@ -64,7 +64,7 @@ class GaleriController extends Controller
 
         $insert = DB::insert("insert into galeri (judul,gambar) VALUES (?,?)",[$judul,$fileName]);
 
-        return redirect("/galeri")->with("alert-success","Sukses menambah item...");
+        return redirect("/admin/galeri")->with("alert-success","Sukses menambah item...");
     }
 
     public function update_post(Request $request, $id){
@@ -92,7 +92,7 @@ class GaleriController extends Controller
     
             $update = DB::update("update galeri SET judul=?,gambar=? WHERE id_galeri=?",[$judul,$fileName,$id]);
     
-            return redirect("/galeri")->with("alert-success","Sukses mengubah galeri...");;
+            return redirect("/admin/galeri")->with("alert-success","Sukses mengubah galeri...");;
         }
         else{
     
@@ -100,7 +100,7 @@ class GaleriController extends Controller
     
             $update = DB::update("update galeri SET judul=? WHERE id_galeri=?",[$judul,$id]);
     
-            return redirect("/galeri")->with("alert-success","Sukses mengubah galeri...");;
+            return redirect("/admin/galeri")->with("alert-success","Sukses mengubah galeri...");;
         }
 
     }

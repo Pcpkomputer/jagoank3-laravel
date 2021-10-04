@@ -20,7 +20,7 @@ class IsAuthenticate
             return $next($request);
         }
         else{
-            return redirect("/");
+            return redirect("/admin");
         }
     }
 }

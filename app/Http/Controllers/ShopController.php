@@ -28,7 +28,7 @@ class ShopController extends Controller
         $shop = DB::select('select * from shop WHERE id_item=?',[$id]);
 
         if(count($shop)==0){
-            return redirect("/shop")->with("alert-info","Tidak ditemukan instruktur dengan id tersebut...");
+            return redirect("/admin/shop")->with("alert-info","Tidak ditemukan instruktur dengan id tersebut...");
         }
 
         return view("Shop.shop-update", ["shop"=>$shop[0]]);
@@ -46,7 +46,7 @@ class ShopController extends Controller
 
         $delete = DB::delete("delete from shop WHERE id_item=?",[$id]);
       
-        return redirect("/shop")->with("alert-success","Sukses menghapus item...");
+        return redirect("/admin/shop")->with("alert-success","Sukses menghapus item...");
     }
 
     public function create_post(Request $request){
@@ -66,7 +66,7 @@ class ShopController extends Controller
 
         $insert = DB::insert("insert into shop (nama_barang,deskripsi,harga,gambar_barang) VALUES (?,?,?,?)",[$nama,$deskripsi,$harga,$fileName]);
 
-        return redirect("/shop")->with("alert-success","Sukses menambah item...");
+        return redirect("/admin/shop")->with("alert-success","Sukses menambah item...");
 
     }
 
@@ -96,7 +96,7 @@ class ShopController extends Controller
     
             $update = DB::update("update shop SET nama_barang=?,deskripsi=?,harga=?,gambar_barang=? WHERE id_item=?",[$nama,$deskripsi,$harga,$fileName,$id]);
     
-            return redirect("/shop")->with("alert-success","Sukses mengubah item...");;
+            return redirect("/admin/shop")->with("alert-success","Sukses mengubah item...");;
         }
         else{
     
@@ -107,7 +107,7 @@ class ShopController extends Controller
     
             $update = DB::update("update shop SET nama_barang=?,deskripsi=?,harga=? WHERE id_item=?",[$nama,$deskripsi,$harga,$id]);
     
-            return redirect("/shop")->with("alert-success","Sukses mengubah item...");;
+            return redirect("/admin/shop")->with("alert-success","Sukses mengubah item...");;
         }
 
       

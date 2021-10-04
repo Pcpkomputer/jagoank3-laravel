@@ -34,7 +34,7 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="../dashboard.css" rel="stylesheet">
+    <link href="{{url('/dashboard.css')}}" rel="stylesheet">
   </head>
   <body>
     
@@ -45,7 +45,7 @@
   </button>
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="#">Sign out</a>
+      <a class="nav-link px-3" href="{{url('/admin/logout')}}">Sign out</a>
     </div>
   </div>
 </header>

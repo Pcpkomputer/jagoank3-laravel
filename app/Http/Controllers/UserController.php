@@ -54,7 +54,7 @@ class UserController extends Controller
 
         $insert = DB::insert("INSERT INTO user (nama,username,nickname,email,no_telepon,kata_sandi,referral_code) VALUES (?,?,?,?,?,?,?)",[$nama, $username,$nickname,$email,$no_telepon,$kata_sandi,random_strings(6)]);
 
-        return redirect("/user")->with("alert-success","Sukses membuat user baru...");
+        return redirect("/admin/user")->with("alert-success","Sukses membuat user baru...");
     }
 
     public function update_post(Request $request, $id){
@@ -68,6 +68,6 @@ class UserController extends Controller
 
         $insert = DB::insert("UPDATE user SET nama=?,username=?,nickname=?,email=?,no_telepon=?,kata_sandi=? WHERE user_id=?",[$nama, $username,$nickname,$email,$no_telepon,$kata_sandi,$id]);
 
-        return redirect("/user")->with("alert-success","Sukses mengubah user...");
+        return redirect("/admin/user")->with("alert-success","Sukses mengubah user...");
     }
 }

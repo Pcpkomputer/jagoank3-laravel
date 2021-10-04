@@ -47,7 +47,7 @@ class KategoriTrainingController extends Controller
             $insert2 = DB::insert("INSERT INTO subkategori_training VALUES (?,?)",[$lastid,$value]);
         }
 
-        return redirect("/kategoritraining")->with("alert-success","Sukses menambahkan kategori training...");
+        return redirect("/admin/kategoritraining")->with("alert-success","Sukses menambahkan kategori training...");
     }
 
     public function update_post(Request $request, $id){
@@ -62,6 +62,6 @@ class KategoriTrainingController extends Controller
             $insert = DB::insert("INSERT INTO subkategori_training VALUES (?,?)",[$id,$value]);
         }
 
-        return redirect("/kategoritraining")->with("alert-success","Sukses mengubah kategori training...");
+        return redirect("/admin/kategoritraining")->with("alert-success","Sukses mengubah kategori training...");
     }
 }

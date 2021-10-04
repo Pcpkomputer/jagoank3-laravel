@@ -2,7 +2,7 @@
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link {{$selected=='dashboard' ? 'active':''}}" aria-current="page" href="{{ url('/dashboard') }}">
+            <a class="nav-link {{$selected=='dashboard' ? 'active':''}}" aria-current="page" href="{{ url('/admin/dashboard') }}">
               <span data-feather="home"></span>
               Dashboard
             </a>
@@ -11,19 +11,19 @@
             <span>Data Training</span>
         </h6>
         <li class="nav-item">
-            <a class="nav-link {{$selected=='training' ? 'active':''}}" href="{{ url('/training') }}">
+            <a class="nav-link {{$selected=='training' ? 'active':''}}" href="{{ url('/admin/training') }}">
               <span data-feather="file-text"></span>
               Training
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{($selected=='kategoritraining' ? 'active':'')}}" href="{{ url('/kategoritraining') }}">
+            <a class="nav-link {{($selected=='kategoritraining' ? 'active':'')}}" href="{{ url('/admin/kategoritraining') }}">
               <span data-feather="file-text"></span>
               Kategori Training
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{($selected=='vouchertraining' ? 'active':'')}}" href="{{ url('/vouchertraining') }}">
+            <a class="nav-link {{($selected=='vouchertraining' ? 'active':'')}}" href="{{ url('/admin/vouchertraining') }}">
               <span data-feather="file-text"></span>
               Voucher Training
             </a>
@@ -32,25 +32,25 @@
             <span>Data Master</span>
         </h6>
         <li class="nav-item">
-            <a class="nav-link {{$selected==='instruktur' ? 'active':''}}" href="{{ url('/instruktur') }}">
+            <a class="nav-link {{$selected==='instruktur' ? 'active':''}}" href="{{ url('/admin/instruktur') }}">
               <span data-feather="file-text"></span>
               Instruktur
             </a>
           </li> 
           <li class="nav-item">
-            <a class="nav-link {{$selected==='shop' ? 'active':''}}" href="{{ url('/shop') }}">
+            <a class="nav-link {{$selected==='shop' ? 'active':''}}" href="{{ url('/admin/shop') }}">
               <span data-feather="file-text"></span>
               Shop
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{($selected=='galeri' ? 'active':'')}}" href="{{ url('/galeri') }}">
+            <a class="nav-link {{($selected=='galeri' ? 'active':'')}}" href="{{ url('/admin/galeri') }}">
               <span data-feather="file-text"></span>
               Galeri
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{($selected=='artikel') ? 'active':''}}" href="{{ url('/artikel') }}">
+            <a class="nav-link {{($selected=='artikel') ? 'active':''}}" href="{{ url('/admin/artikel') }}">
               <span data-feather="file-text"></span>
               Artikel
             </a>
@@ -60,7 +60,7 @@
             <span>Data Account</span>
         </h6>
         <li class="nav-item">
-            <a class="nav-link {{($selected=='user') ? 'active':''}}" href="{{ url('/user') }}">
+            <a class="nav-link {{($selected=='user') ? 'active':''}}" href="{{ url('/admin/user') }}">
               <span data-feather="file-text"></span>
               User
             </a>
@@ -73,14 +73,14 @@
             <span>Data Reports</span>
         </h6>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('/order') }}">
+            <a class="nav-link" href="{{ url('/admin/order') }}">
               <span data-feather="file-text"></span>
               Invoice Training
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/order') }}">
+            <a class="nav-link" href="{{ url('/admin/order') }}">
               <span data-feather="file-text"></span>
               Invoice Shop
             </a>
@@ -91,11 +91,11 @@
             <span>Data Extra</span>
         </h6>
         <li class="nav-item">
-            <a class="nav-link {{($selected=='banner' ? 'active':'')}}" href="{{ url('/banner') }}">
+            <a class="nav-link {{($selected=='banner' ? 'active':'')}}" href="{{ url('/admin/banner') }}">
               <span data-feather="file-text"></span>
               Banner
             </a>
-            <a class="nav-link {{($selected=='dashboardtext' ? 'active':'')}}" href="{{ url('/dashboardtext') }}">
+            <a class="nav-link {{($selected=='dashboardtext' ? 'active':'')}}" href="{{ url('/admin/dashboardtext') }}">
               <span data-feather="file-text"></span>
               Dashboard Text
             </a>

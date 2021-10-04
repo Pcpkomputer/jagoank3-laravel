@@ -34,7 +34,7 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="../dashboard.css" rel="stylesheet">
+    <link href="{{url('/dashboard.css')}}" rel="stylesheet">
   </head>
   <body>
     
@@ -45,12 +45,12 @@
   </button>
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="#">Sign out</a>
+      <a class="nav-link px-3" href="{{url('/admin/logout')}}">Sign out</a>
     </div>
   </div>
 </header>
 
-<div class="container-fluid">
+<div class="container-fluid" style="margin-bottom:35px">
   <div class="row">
    
     
@@ -61,7 +61,7 @@
         <h1 class="h2">Training</h1>
       </div>
       <div>
-          <a href="/training/create"><button class="btn btn-success mb-3">Tambah</button></a>
+          <a href="/admin/training/create"><button class="btn btn-success mb-3">Tambah</button></a>
       </div>
       <table id="table" data-toggle="table">
   <thead>
@@ -84,8 +84,8 @@
       <td>11</td>
       <td>12/12/12</td>
       <td>
-            <a href="/training/update/1"><button class="btn btn-primary mb-3">Update</button></a>
-            <a href="/training/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>
+            <a href="/admin/training/update/1"><button class="btn btn-primary mb-3">Update</button></a>
+            <a href="/admin/training/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>
       </td>
     </tr>
   </tbody>

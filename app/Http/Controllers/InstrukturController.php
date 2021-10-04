@@ -29,7 +29,7 @@ class InstrukturController extends Controller
         $instruktur = DB::select('select * from instruktur WHERE id_instruktur=?',[$id]);
 
         if(count($instruktur)==0){
-            return redirect("/instruktur")->with("alert-info","Tidak ditemukan instruktur dengan id tersebut...");
+            return redirect("/admin/instruktur")->with("alert-info","Tidak ditemukan instruktur dengan id tersebut...");
         }
         
         return view("Instruktur.instruktur-update", ['instruktur'=>$instruktur[0]]);
@@ -47,7 +47,7 @@ class InstrukturController extends Controller
 
         $delete = DB::delete("delete from instruktur where id_instruktur=?",[$id]);
         
-        return redirect("/instruktur")->with("alert-success","Sukses menghapus instruktur...");;
+        return redirect("/admin/instruktur")->with("alert-success","Sukses menghapus instruktur...");;
     }
 
     public function create_post(Request $request){
@@ -70,7 +70,7 @@ class InstrukturController extends Controller
 
         $insert = DB::insert("insert into instruktur (nama,tentang,posisi,videoyt,foto) VALUES (?,?,?,?,?)",[$nama,$tentang,$posisi,$videoyt,$fileName]);
 
-        return redirect("/instruktur")->with("alert-success","Sukses menambah instruktur...");;
+        return redirect("/admin/instruktur")->with("alert-success","Sukses menambah instruktur...");;
 
     }
 
@@ -102,7 +102,7 @@ class InstrukturController extends Controller
 
             $update = DB::update("update instruktur SET nama=?,foto=?,tentang=?,posisi=?,videoyt=? where id_instruktur=?",[$nama,$fileName,$tentang,$posisi,$videoyt,$id_instruktur]);
 
-            return redirect("/instruktur")->with("alert-success","Sukses mengubah instruktur...");;
+            return redirect("/admin/instruktur")->with("alert-success","Sukses mengubah instruktur...");;
         }
         else{
 
@@ -114,7 +114,7 @@ class InstrukturController extends Controller
 
             $update = DB::update("update instruktur SET nama=?,tentang=?,posisi=?,videoyt=? where id_instruktur=?",[$nama,$tentang,$posisi,$videoyt,$id_instruktur]);
          
-            return redirect("/instruktur")->with("alert-success","Sukses mengubah instruktur...");;
+            return redirect("/admin/instruktur")->with("alert-success","Sukses mengubah instruktur...");;
         }
 
         
