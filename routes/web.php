@@ -14,6 +14,7 @@ use App\Http\Controllers\InstrukturController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\VoucherTrainingController;
 use App\Http\Controllers\DashboardTextController;
+use App\Http\Controllers\OurClientController;
 
 use App\Http\Middleware\IsAuthenticate;
 
@@ -202,6 +203,17 @@ Route::middleware([IsAuthenticate::class])->group(function () {
     
                 Route::post("/create",[DashboardTextController::class,"create_post"]);
                 Route::put("/update/{id}",[DashboardTextController::class,"update_post"]);
+            });
+
+            // Our Client Route
+            Route::prefix('ourclient')->group(function(){
+                Route::get("/",[OurClientController::class,"show"]);
+                Route::get("/create",[OurClientController::class,"create"]);
+                Route::get("/update/{id}",[OurClientController::class,"update"]);
+                Route::get("/delete/{id}",[OurClientController::class,"delete"]);
+    
+                Route::post("/create",[OurClientController::class,"create_post"]);
+                Route::put("/update/{id}",[OurClientController::class,"update_post"]);
             });
 
         });

@@ -77,11 +77,18 @@
       <div style="margin-top:30px">
           <h3>Section 2</h3>
           @foreach($dashboardtext->section2 as $index => $section2)
-          <div id="section2" style="margin-top:20px">
-             <label>Text {{$index+1}}</label>
-             <input name="judulsection2" value="{{$section2->judul}}" placeholder="Judul" style="margin-top:10px" type="text" class="form-control">
-             <input name="subjudulsection2" value="{{$section2->subjudul}}" placeholder="Sub Judul" style="margin-top:10px" type="text" class="form-control">
-             <textarea name="isisection2" placeholder="Isi Section" class="form-control" style="width:100%;margin-top:20px;height:200px">{{$section2->isi}}</textarea>
+          <div id="section2" class="row" style="margin-top:20px">
+              <div class="col-lg-8">
+                <label>Text {{$index+1}}</label>
+                <input name="judulsection2" value="{{$section2->judul}}" placeholder="Judul" style="margin-top:10px" type="text" class="form-control">
+                <input name="subjudulsection2" value="{{$section2->subjudul}}" placeholder="Sub Judul" style="margin-top:10px" type="text" class="form-control">
+                <textarea name="isisection2" placeholder="Isi Section" class="form-control" style="width:100%;margin-top:20px;height:200px">{{$section2->isi}}</textarea>
+              </div>
+              <div class="col-lg-4" style="display:flex;flex-direction:column">
+                <label>Gambar {{$index+1}}</label>
+                <input accept="image/*" style="margin-top:15px;margin-bottom:15px" type="file" id="{{'section2gambarfake-'.$index}}"/>
+                <img id="section2gambarfakeimage-{{$index}}" src="/storage/public/section2/section2gambar-{{$index}}.jpg" style="background-color:whitesmoke;height:300px">
+              </div>
           </div>
           @endforeach
       </div>
@@ -94,10 +101,14 @@
     </div>
     </main>
   </div>
-  <form id="formdashboardtext" style="display:none" method="POST" action="dashboardtext/create">
+  <form id="formdashboardtext" style="display:none" enctype="multipart/form-data" method="POST" action="dashboardtext/create">
       <input type="hidden" name="_method" value="POST">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <input name="jsonpayload" id="jsonpayload" type="text"/>
+
+      <input name="section2gambar-0" type="file" id="section2gambarreal-0"/>
+      <input name="section2gambar-1" type="file" id="section2gambarreal-1"/>
+      <input name="section2gambar-2" type="file" id="section2gambarreal-2"/>
   </form>
 </div>
 
@@ -136,6 +147,25 @@
             document.querySelector("#formdashboardtext").submit();
           })
          
+      </script>
+      <script>
+         $(document).on("change","#section2gambarfake-0", (e)=>{
+          let url = URL.createObjectURL(e.target.files[0]);
+          document.querySelector("#section2gambarfakeimage-0").src=url;
+          document.querySelector("#section2gambarreal-0").files=e.target.files;
+         });
+
+         $(document).on("change","#section2gambarfake-1", (e)=>{
+          let url = URL.createObjectURL(e.target.files[0]);
+          document.querySelector("#section2gambarfakeimage-1").src=url;
+          document.querySelector("#section2gambarreal-1").files=e.target.files;
+         });
+
+         $(document).on("change","#section2gambarfake-2", (e)=>{
+          let url = URL.createObjectURL(e.target.files[0]);
+          document.querySelector("#section2gambarfakeimage-2").src=url;
+          document.querySelector("#section2gambarreal-2").files=e.target.files;
+         });
       </script>
     </body>
 </html>

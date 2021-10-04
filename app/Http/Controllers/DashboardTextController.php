@@ -59,6 +59,16 @@ class DashboardTextController extends Controller
 
         $exist = DB::select("SELECT * FROM dashboardtext WHERE id_dashboardtext=0");
 
+        if($request->hasFile("section2gambar-0")){
+            Storage::disk('local')->putFileAs('', $request["section2gambar-0"], 'public'.'/section2'.'/'.'section2gambar-0.jpg');
+        }
+        if($request->hasFile("section2gambar-1")){
+            Storage::disk('local')->putFileAs('', $request->section2gambar-0, 'public'.'/section2'.'/'.'section2gambar-1.jpg');
+        }
+        if($request->hasFile("section2gambar-2")){
+            Storage::disk('local')->putFileAs('', $request->section2gambar-0, 'public'.'/section2'.'/'.'section2gambar-2.jpg');
+        }
+
         if(count($exist)>0){
             $update = DB::update("UPDATE dashboardtext SET json=? WHERE id_dashboardtext=0",[$json]);
             return redirect("/admin/dashboardtext")->with("alert-success","Sukses mengubah dashboard text...");

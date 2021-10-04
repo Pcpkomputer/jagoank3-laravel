@@ -99,6 +99,10 @@
               <span data-feather="file-text"></span>
               Dashboard Text
             </a>
+            <a class="nav-link {{($selected=='ourclient' ? 'active':'')}}" href="{{ url('/admin/ourclient') }}">
+              <span data-feather="file-text"></span>
+              Our Client
+            </a>
           </li>
         <!-- <li class="nav-item">
             <a class="nav-link" href="#">
