@@ -84,11 +84,13 @@
                 <input name="subjudulsection2" value="{{$section2->subjudul}}" placeholder="Sub Judul" style="margin-top:10px" type="text" class="form-control">
                 <textarea name="isisection2" placeholder="Isi Section" class="form-control" style="width:100%;margin-top:20px;height:200px">{{$section2->isi}}</textarea>
               </div>
-              <div class="col-lg-4" style="display:flex;flex-direction:column">
-                <label>Gambar {{$index+1}}</label>
-                <input accept="image/*" style="margin-top:15px;margin-bottom:15px" type="file" id="{{'section2gambarfake-'.$index}}"/>
-                <img id="section2gambarfakeimage-{{$index}}" src="/storage/public/section2/section2gambar-{{$index}}.jpg" style="background-color:whitesmoke;height:300px">
-              </div>
+              @if($index<2)
+                <div class="col-lg-4" style="display:flex;flex-direction:column">
+                  <label>Gambar {{$index+1}}</label>
+                  <input accept="image/*" style="margin-top:15px;margin-bottom:15px" type="file" id="{{'section2gambarfake-'.$index}}"/>
+                  <img id="section2gambarfakeimage-{{$index}}" src="/storage/public/section2/section2gambar-{{$index}}.jpg" style="background-color:whitesmoke;height:300px">
+                </div>
+              @endif
           </div>
           @endforeach
       </div>

@@ -81,3 +81,11 @@ Route::get("/dashboardtext", function (Request $request){
 
     return $parsed;
 });
+
+
+
+Route::get("/ourclient", function (Request $request){
+    $ourclient = DB::select("SELECT * FROM ourclient");
+    
+    return $ourclient;
+});
