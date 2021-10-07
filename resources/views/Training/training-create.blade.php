@@ -222,25 +222,32 @@
         <div class="container" style="padding:0px;margin:0px;">
             <div class="row">
             <div class="col-lg-2">
-                  <label class="mb-2" for="exampleInputEmail1">Nama Paket Pelatihanx</label>
-                  <input type="text" class="form-control" style="width:100%"/>
+                  <label class="mb-2" for="exampleInputEmail1">Nama Paket Pelatihan</label>
+                  <input name="paketpelatihan_nama" type="text" class="form-control" style="width:100%"/>
                 </div>
                 <div class="col-lg-2">
                  <label class="mb-2" for="exampleInputEmail1">Harga Paket</label>
-                  <input type="text" class="form-control" style="width:100%"/>
+                  <input name="paketpelatihan_harga" type="text" class="form-control" style="width:100%"/>
                 </div>
                 <div class="col-lg-2">
                 <label class="mb-2" for="exampleInputEmail1">Harga Paket (Jika Promo)</label>
-                  <input type="text" class="form-control" style="width:100%"/>
+                  <input name="paketpelatihan_hargapromo" type="text" class="form-control" style="width:100%"/>
                 </div>
               
-                <div class="col-lg-2" style="display:flex;align-items:center">
+                <div class="col-lg-2" style="display:flex;align-items:center;justify-content:center">
                   <label style="margin-right:15px">Sedang Promo?</label>
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                  <input name="sedangpromo" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                 </div>
 
-                <div class="col-lg-4" style="display:flex;align-items:center">
-                  asdasd
+                <div class="col-lg-2">
+                <label class="mb-2" for="exampleInputEmail1">Promo Berakhir?</label>
+                  <input name="paketpelatihan_tanggalpromoberakhir" type="date" class="form-control" style="width:100%"/>
+                  <input name="paketpelatihan_waktupromoberakhir" type="time" class="form-control" style="width:100%"/>
+                </div>
+                
+
+                <div class="col-lg-2" style="display:flex;align-items:center">
+                   <button id="btnTambahPelatihan" type="button" class="btn btn-primary">Tambah</button>
                 </div>
            </div>
         </div>
@@ -259,7 +266,37 @@
       <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="{{url('/dashboard.js')}}"></script>
       <script src="{{url('/bootstrap-table.min.js')}}"></script>
       <script>
-        
+          $(document).on("click","#btnTambahPelatihan",(e)=>{
+             let namapaketpelatihan = document.querySelector("input[name=paketpelatihan_nama]").value;
+             let hargapaketpelatihan = document.querySelector("input[name=paketpelatihan_harga]").value;
+             let hargapromopaketpelatihan = document.querySelector("input[name=paketpelatihan_hargapromo]").value;
+             let sedangpromo = document.querySelector("input[name=sedangpromo]").checked;
+
+             let paketpelatihan_tanggalpromoberakhir = document.querySelector("input[name=paketpelatihan_tanggalpromoberakhir]").value;
+             let paketpelatihan_waktupromoberakhir = document.querySelector("input[name=paketpelatihan_waktupromoberakhir]").value;
+
+             if(sedangpromo){
+
+                let notFilled = namapaketpelatihan.length===0 || hargapaketpelatihan.length===0;
+
+                if(notFilled || paketpelatihan_tanggalpromoberakhir.length===0 || paketpelatihan_waktupromoberakhir.length===0){
+                  alert("Isikan nama, harga, tanggal promo dan waktu promo berakhir...");
+                }
+                else{
+                  alert("uwooggh");
+                }
+             }  
+             else{
+                let notFilled = namapaketpelatihan.length===0 || hargapaketpelatihan.length===0;
+                
+                if(notFilled){
+                    alert("Isikan nama, dan harga pelatihan...");
+                }
+                else{
+                    alert("kkk");
+                } 
+             }
+          })
       </script>
     </body>
 </html>
