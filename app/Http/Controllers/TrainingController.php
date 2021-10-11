@@ -4,19 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 
 class TrainingController extends Controller
 {
     public function show(Request $request)
     {
+      
+
         return view("Training.training");
     }
 
 
     public function create(Request $request)
     {
-        return view("Training.training-create");
+        $galeri = DB::select("SELECT * FROM galeri");
+
+        return view("Training.training-create", ["galeri"=>$galeri]);
     }
 
     public function update(Request $request, $id){

@@ -9,7 +9,7 @@
     <title>Jagoan K3 - Web Admin</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{url('/bootstrap-table.min.css')}}">
    
 
@@ -72,10 +72,14 @@
             </div>
 
             <div class="form-group mb-2">
-              <label class="mb-2" for="exampleInputEmail1">Stok</label>
-              <input required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Stok">
+              <label class="mb-2" for="exampleInputEmail1">Nominal Penerima Hasil Dari Referral</label>
+              <input required type="number" class="form-control" aria-describedby="emailHelp" placeholder="Nominal Penerima Hasil Dari Referral">
             </div>
 
+            <div class="form-group mb-2">
+              <label class="mb-2" for="exampleInputEmail1">Nominal Pemotongan Dari Referral</label>
+              <input required type="number" class="form-control" aria-describedby="emailHelp" placeholder="Nominal Pemotongan Dari Referral">
+            </div>
 
             <div class="form-group mb-2">
               <label class="mb-2" for="exampleInputEmail1">Kategori Training</label>
@@ -92,11 +96,6 @@
             <div class="form-group mb-2">
               <label class="mb-2" for="exampleInputEmail1">Sub Kategori Training</label>
               <select class="form-control" id="exampleFormControlSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
                 </select>
             </div>
 
@@ -119,27 +118,29 @@
               <div class="form-group mb-2">
                     <label class="mb-2" for="exampleInputEmail1">Galeri</label>
                     <div style="display:flex;flex-direction:row">
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                        <select id="galeriselect" class="form-control">
+                           @foreach($galeri as $galeri)
+                              <option value="{{$galeri->gambar}}">{{$galeri->judul}}</option>
+                           @endforeach
                         </select>
-                        <button type="button">Tambah</button>
+                        <button id="btnTambahGaleriSelect" class="btn-primary" style="border:none" type="button">Tambah</button>
                     </div>
                   </div>
 
-                  <ul class="list-group" style="max-height:150px;margin-top:20px;height:150px;background-color:whitesmoke">
-                    <li class="list-group-item" style="display:flex;flex-direction:row;justify-content:space-between">
-                        <div>Galeri 1</div>
+                  <ul class="list-group" style="max-height:150px;overflow:auto;margin-top:20px;height:150px;background-color:whitesmoke">
+                    <!-- <li class="list-group-item" style="display:flex;flex-direction:row;justify-content:space-between">
+                        <div style="display:flex;flex-direction:row">
+                            <img src="testing.jpg" style="width:50px;height:50px"></img>
+                            <div style="margin-left:10px;display:flex;justify-content:center;align-items:center">asdasd</div>
+                        </div>
+                  
                         <div style="cursor:pointer">
                           <svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                             <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                           </svg>
                        </div>
-                    </li>
+                    </li> -->
                   </ul>
 
 
@@ -189,27 +190,29 @@
                   <div class="form-group mb-2">
                     <label class="mb-2" for="exampleInputEmail1">Testimoni</label>
                     <div style="display:flex;flex-direction:row">
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                        <select id="testimoniselect" class="form-control" id="exampleFormControlSelect1">
                         </select>
-                        <button type="button">Tambah</button>
+                        <button class="btn-primary" style="border:none" type="button">Tambah</button>
                     </div>
                   </div>
 
                   <ul class="list-group" style="max-height:150px;margin-top:20px;height:150px;background-color:whitesmoke">
-                    <li class="list-group-item" style="display:flex;flex-direction:row;justify-content:space-between">
-                        <div>Galeri 1</div>
+                    <!-- <li class="list-group-item" style="display:flex;flex-direction:row;justify-content:space-between">
+                        <div style="display:flex;flex-direction:row">
+                            <div>
+                              asddadasdsaas
+                            </div>
+                            <div style="margin-left:10px;word-break:break-all;margin-right:10px">
+                              asddadasdsaasasddadasdsaasasddadasdsaasasddadasdsaasasddadasdsaasasddadasdsaasasddadasdsaas
+                            </div>
+                        </div>
                         <div style="cursor:pointer">
                           <svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                             <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                           </svg>
                        </div>
-                    </li>
+                    </li> -->
                   </ul>
 
 
@@ -220,21 +223,21 @@
         <h1 class="h2">Promo & Paket</h1>
       </div>
         <div class="container" style="padding:0px;margin:0px;">
-            <div class="row">
+            <div class="row" style="justify-content:center;align-items:center">
             <div class="col-lg-2">
                   <label class="mb-2" for="exampleInputEmail1">Nama Paket Pelatihan</label>
                   <input name="paketpelatihan_nama" type="text" class="form-control" style="width:100%"/>
                 </div>
                 <div class="col-lg-2">
                  <label class="mb-2" for="exampleInputEmail1">Harga Paket</label>
-                  <input name="paketpelatihan_harga" type="text" class="form-control" style="width:100%"/>
+                  <input name="paketpelatihan_harga" type="number" class="form-control" style="width:100%"/>
                 </div>
                 <div class="col-lg-2">
                 <label class="mb-2" for="exampleInputEmail1">Harga Paket (Jika Promo)</label>
-                  <input name="paketpelatihan_hargapromo" type="text" class="form-control" style="width:100%"/>
+                  <input name="paketpelatihan_hargapromo" type="number" class="form-control" style="width:100%"/>
                 </div>
               
-                <div class="col-lg-2" style="display:flex;align-items:center;justify-content:center">
+                <div class="col-lg-1" style="display:flex;align-items:center;justify-content:center;flex-direction:column">
                   <label style="margin-right:15px">Sedang Promo?</label>
                   <input name="sedangpromo" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                 </div>
@@ -244,12 +247,43 @@
                   <input name="paketpelatihan_tanggalpromoberakhir" type="date" class="form-control" style="width:100%"/>
                   <input name="paketpelatihan_waktupromoberakhir" type="time" class="form-control" style="width:100%"/>
                 </div>
+
+
+                <div class="col-lg-1" style="margin-bottom:20px">
+                <label class="mb-2" for="exampleInputEmail1">Stok Kursi</label>
+                  <input name="paketpelatihan_stokkursi" type="number" class="form-control" style="width:100%"/>
+                </div>
                 
 
                 <div class="col-lg-2" style="display:flex;align-items:center">
                    <button id="btnTambahPelatihan" type="button" class="btn btn-primary">Tambah</button>
                 </div>
            </div>
+           <div id="containerRenderPromoDanPaket" style="margin-top:40px">
+               <!-- <div style="background-color:whitesmoke;display:flex;flex-direction:row;padding:20px;border-radius:5px;font-weight:bold;margin-bottom:20px">
+                  <div style="flex:1">
+                        <div style="display:flex;flex-direction:row;margin-bottom:5px">
+                            <div style="font-size:15px">Nama Paket Pelatihan : </div>
+                            <div style="margin-left:5px">Ini adalah pelatihan A</div>
+                        </div>
+                        <div style="display:flex;flex-direction:row;margin-bottom:5px">
+                            <div style="font-size:15px">Harga Pelatihan : Rp.</div>
+                            <div style="margin-left:5px">5000</div>
+                        </div>
+                        <div style="display:flex;flex-direction:row;margin-bottom:5px">
+                            <div style="font-size:15px">Harga Pelatihan (Jika Promo) : Rp.</div>
+                            <div style="margin-left:5px">500</div>
+                        </div>
+                        <div style="display:flex;flex-direction:row;margin-bottom:5px">
+                            <div style="font-size:15px">Tanggal Berakhir Promo : </div>
+                            <div style="margin-left:5px">2019-12-13 08:00</div>
+                        </div>
+                  </div>
+                  <div style="display:flex;justify-content:center;align-items:center">
+                        <div class="btn btn-danger">asdsad</div>
+                  </div>
+              </div> -->
+          </div>
         </div>
 
         <button type="submit" style="margin-top:50px;margin-bottom:50px;" class="btn btn-primary">Submit</button>
@@ -262,40 +296,150 @@
 
      <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="{{url('/dashboard.js')}}"></script>
       <script src="{{url('/bootstrap-table.min.js')}}"></script>
       <script>
+        $(document).ready(function() {
+            $('#testimoniselect').select2();
+        });
+
+
+        $(document).ready(function() {
+            $('#galeriselect').select2({
+              templateResult:function(state){
+                let image = state.id;
+                let $state = $(
+                  `<div style="display:flex;flex-direction:row">
+                    <img src="{{url('/storage/public/galeri/${image}')}}" style="height:50px;width:50px"></img>
+                    <div style="margin-left:10px;margin-right:10px;display:flex;justify-content:center;align-items:center">${state.text}</div>
+                </div>`
+                )
+                return $state;
+              }
+            });
+        });
+      </script>
+      <script>
+
+          let promodanpaket = [];
+
+          function makeid(length) {
+              var result           = '';
+              var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+              var charactersLength = characters.length;
+              for ( var i = 0; i < length; i++ ) {
+                result += characters.charAt(Math.floor(Math.random() * 
+          charactersLength));
+            }
+            return result;
+          }
+
+          function renderPromoDanPaket(payload){
+            let container = document.querySelector("#containerRenderPromoDanPaket");
+            let html = ``;
+            promodanpaket.forEach((payload,index)=>{
+               html = html+`
+            <div data-id="${payload.id}" style="background-color:whitesmoke;display:flex;flex-direction:row;padding:20px;border-radius:5px;font-weight:bold;margin-bottom:20px">
+                  <div style="flex:1">
+                        <div style="display:flex;flex-direction:row;margin-bottom:5px">
+                            <div style="font-size:15px">Nama Paket Pelatihan : </div>
+                            <div style="margin-left:5px">${payload.namapaketpelatihan}</div>
+                        </div>
+                        <div style="display:flex;flex-direction:row;margin-bottom:5px">
+                            <div style="font-size:15px">Harga Pelatihan : Rp.</div>
+                            <div style="margin-left:5px">${payload.hargapaketpelatihan}</div>
+                        </div>
+                        <div style="display:flex;flex-direction:row;margin-bottom:5px">
+                            <div style="font-size:15px">Stok Kursi :</div>
+                            <div style="margin-left:5px">${payload.stokkursi}</div>
+                        </div>
+                        <div style="display:flex;flex-direction:row;margin-bottom:5px">
+                            <div style="font-size:15px">Harga Pelatihan (Jika Promo) : Rp.</div>
+                            <div style="margin-left:5px">${payload.hargapromopaketpelatihan}</div>
+                        </div>
+                        <div style="display:flex;flex-direction:row;margin-bottom:5px">
+                            <div style="font-size:15px">Tanggal Berakhir Promo : </div>
+                            <div style="margin-left:5px">${payload.paketpelatihan_tanggalpromoberakhir} ${payload.paketpelatihan_waktupromoberakhir}</div>
+                        </div>
+                  </div>
+                  <div style="display:flex;justify-content:center;align-items:center">
+                        <div id="btnHapusPaketDanPromo" class="btn btn-danger">Hapus</div>
+                  </div>
+              </div>
+            `
+            });
+            container.innerHTML = html;
+          }
+
+          $(document).on("click","#btnHapusPaketDanPromo",(e)=>{
+            let id = e.target.parentNode.parentNode.getAttribute("data-id");
+            promodanpaket = promodanpaket.filter((el,index)=>{
+                return el.id!==id;
+            })
+            renderPromoDanPaket();
+          })
+
           $(document).on("click","#btnTambahPelatihan",(e)=>{
              let namapaketpelatihan = document.querySelector("input[name=paketpelatihan_nama]").value;
              let hargapaketpelatihan = document.querySelector("input[name=paketpelatihan_harga]").value;
              let hargapromopaketpelatihan = document.querySelector("input[name=paketpelatihan_hargapromo]").value;
              let sedangpromo = document.querySelector("input[name=sedangpromo]").checked;
+             let stokkursi = document.querySelector("input[name=paketpelatihan_stokkursi]").value;
 
              let paketpelatihan_tanggalpromoberakhir = document.querySelector("input[name=paketpelatihan_tanggalpromoberakhir]").value;
              let paketpelatihan_waktupromoberakhir = document.querySelector("input[name=paketpelatihan_waktupromoberakhir]").value;
 
              if(sedangpromo){
 
-                let notFilled = namapaketpelatihan.length===0 || hargapaketpelatihan.length===0;
+                let notFilled = namapaketpelatihan.length===0 || hargapaketpelatihan.length===0  || stokkursi.length===0;
 
                 if(notFilled || paketpelatihan_tanggalpromoberakhir.length===0 || paketpelatihan_waktupromoberakhir.length===0){
-                  alert("Isikan nama, harga, tanggal promo dan waktu promo berakhir...");
+                  alert("Isikan nama, harga, tanggal promo, waktu promo berakhir dan stok kursi...");
                 }
                 else{
-                  alert("uwooggh");
+                  let payload = {
+                    id:makeid(5),
+                    namapaketpelatihan,
+                    hargapaketpelatihan,
+                    hargapromopaketpelatihan,
+                    stokkursi,
+                    sedangpromo,
+                    paketpelatihan_tanggalpromoberakhir,
+                    paketpelatihan_waktupromoberakhir
+                  }
+
+                  promodanpaket.push(payload);
+                  renderPromoDanPaket(payload);
                 }
              }  
              else{
-                let notFilled = namapaketpelatihan.length===0 || hargapaketpelatihan.length===0;
+                let notFilled = namapaketpelatihan.length===0 || hargapaketpelatihan.length===0 || stokkursi.length===0;
                 
                 if(notFilled){
-                    alert("Isikan nama, dan harga pelatihan...");
+                    alert("Isikan nama, harga pelatihan, dan stok kursi...");
                 }
                 else{
-                    alert("kkk");
+                  let payload = {
+                    id:makeid(5),
+                    namapaketpelatihan,
+                    hargapaketpelatihan,
+                    hargapromopaketpelatihan,
+                    sedangpromo,
+                    stokkursi,
+                    paketpelatihan_tanggalpromoberakhir,
+                    paketpelatihan_waktupromoberakhir
+                  }
+
+                  promodanpaket.push(payload);
+                  renderPromoDanPaket(payload);
                 } 
              }
+          })
+
+          $(document).on("click","#btnTambahGaleriSelect",()=>{
+            let val = document.querySelector("#galeriselect").value;
+            alert(val);
           })
       </script>
     </body>
