@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Middleware\IsAuthenticate;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,3 +90,4 @@ Route::get("/ourclient", function (Request $request){
     
     return $ourclient;
 });
+

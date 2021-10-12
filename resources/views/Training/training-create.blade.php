@@ -83,20 +83,21 @@
 
             <div class="form-group mb-2">
               <label class="mb-2" for="exampleInputEmail1">Kategori Training</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <select required id="selectKategoriTraining" class="form-control" id="exampleFormControlSelect1">
+                @foreach($kategoritraining as $kategoritraining)
+                    <option value="{{$kategoritraining->id_kategoritraining}}">{{$kategoritraining->nama_kategoritraining}}</option>
+                @endforeach
                 </select>
             </div>
 
 
             <div class="form-group mb-2">
               <label class="mb-2" for="exampleInputEmail1">Sub Kategori Training</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                </select>
+              <select required id="selectSubKategoriTraining" class="form-control" id="exampleFormControlSelect1">
+                @foreach($subkategori as $subkategori)
+                    <option value="{{$subkategori->nama_subkategoritraining}}">{{$subkategori->nama_subkategoritraining}}</option>
+                @endforeach
+              </select>
             </div>
 
 
@@ -191,6 +192,9 @@
                     <label class="mb-2" for="exampleInputEmail1">Testimoni</label>
                     <div style="display:flex;flex-direction:row">
                         <select id="testimoniselect" class="form-control" id="exampleFormControlSelect1">
+                          @foreach($testimoni as $testimoni)
+                            <option value="{{$testimoni->id_pelatihantestimoni}}">{{$testimoni->testimoni}}</option>
+                          @endforeach
                         </select>
                         <button class="btn-primary" style="border:none" type="button">Tambah</button>
                     </div>
@@ -300,6 +304,36 @@
       <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="{{url('/dashboard.js')}}"></script>
       <script src="{{url('/bootstrap-table.min.js')}}"></script>
       <script>
+
+        $(document).on("change","#selectKategoriTraining",async ()=>{
+           let id = document.querySelector("#selectKategoriTraining").value;
+
+           let request = await fetch(`/api/get/subkategori/${id}`);
+           let json = await request.json();
+           
+           let request2 = await fetch(`/api/get/testimoni/${id}`);
+           let json2 = await request2.json();
+
+           let subkategori = ``;
+           let testimoni = ``;
+
+           json.forEach((item,index)=>{
+             subkategori = subkategori+`
+                <option value="${item.nama_subkategoritraining}">${item.nama_subkategoritraining}</option>
+             `
+           });
+
+           json2.forEach((item,index)=>{
+             testimoni = testimoni+`
+                <option value="${item.id_pelatihantestimoni}">${item.testimoni}</option>
+             `
+           });
+
+           document.querySelector("#selectSubKategoriTraining").innerHTML=subkategori;
+           document.querySelector("#testimoniselect").innerHTML=testimoni;
+
+        })
+
         $(document).ready(function() {
             $('#testimoniselect').select2();
         });

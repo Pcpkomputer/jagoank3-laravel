@@ -20,9 +20,15 @@ class TrainingController extends Controller
 
     public function create(Request $request)
     {
+        $kategoritraining = DB::select("SELECT * FROM kategori_training");
         $galeri = DB::select("SELECT * FROM galeri");
 
-        return view("Training.training-create", ["galeri"=>$galeri]);
+        if(count($kategoritraining)>0){
+            $subkategori = DB::select("SELECT * FROM subkategori_training WHERE id_kategoritraining=?",[$kategoritraining[0]->id_kategoritraining]);
+            $testimoni = DB::select("SELECT * FROM pelatihan_testimoni WHERE id_kategoritraining=?",[$kategoritraining[0]->id_kategoritraining]);
+        }
+
+        return view("Training.training-create", ["galeri"=>$galeri, "testimoni"=>$testimoni, "subkategori"=>$subkategori, "kategoritraining"=>$kategoritraining]);
     }
 
     public function update(Request $request, $id){

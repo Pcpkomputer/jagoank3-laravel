@@ -218,6 +218,20 @@ Route::middleware([IsAuthenticate::class])->group(function () {
 
         });
 
+
+        /// EXTRA
+        Route::get("/api/get/subkategori/{id}", function(Request $request){
+            $id = $request->id;
+            $subkategori = DB::select("SELECT * FROM subkategori_training WHERE id_kategoritraining=?",[$id]);
+            return $subkategori;
+        });
+
+        Route::get("/api/get/testimoni/{id}", function(Request $request){
+            $id = $request->id;
+            $testimoni = DB::select("SELECT * FROM pelatihan_testimoni WHERE id_kategoritraining=?",[$id]);
+            return $testimoni;
+        });
+
 });
 
 
