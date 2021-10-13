@@ -66,27 +66,38 @@
 
         <input id="inputJsonGaleri" type="hidden" name="galeri">
         <input id="inputJsonTestimoni" type="hidden" name="testimoni">
+        <input id="inputJsonPelatihan" type="hidden" name="pelatihan">
+        <input id="inputJsonModulYoutube" type="hidden" name="modulyoutube">
 
         <div class="container row m-0" style="padding:0px;padding-bottom:30px">
             <div class="col-lg-6">
             <div class="form-group mb-2">
               <label class="mb-2" for="exampleInputEmail1">Nama Training</label>
-              <input required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Nama Training">
+              <input required name="namatraining" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Nama Training">
             </div>
 
             <div class="form-group mb-2">
+              <label class="mb-2" for="exampleInputEmail1">Tipe Training</label>
+              <select name="tipetraining" required class="form-control" id="selecttipetraining">
+                  <option value="Online">Online</option>
+                  <option value="Offline">Offline</option>
+              </select>
+            </div>
+
+
+            <div class="form-group mb-2">
               <label class="mb-2" for="exampleInputEmail1">Nominal Penerima Hasil Dari Referral</label>
-              <input required type="number" class="form-control" aria-describedby="emailHelp" placeholder="Nominal Penerima Hasil Dari Referral">
+              <input name="nominalpenerimareferral" required type="number" class="form-control" aria-describedby="emailHelp" placeholder="Nominal Penerima Hasil Dari Referral">
             </div>
 
             <div class="form-group mb-2">
               <label class="mb-2" for="exampleInputEmail1">Nominal Pemotongan Dari Referral</label>
-              <input required type="number" class="form-control" aria-describedby="emailHelp" placeholder="Nominal Pemotongan Dari Referral">
+              <input name="nominalpemotonganreferral" required type="number" class="form-control" aria-describedby="emailHelp" placeholder="Nominal Pemotongan Dari Referral">
             </div>
 
             <div class="form-group mb-2">
               <label class="mb-2" for="exampleInputEmail1">Kategori Training</label>
-              <select required id="selectKategoriTraining" class="form-control" id="exampleFormControlSelect1">
+              <select name="kategoritraining" required id="selectKategoriTraining" class="form-control" id="exampleFormControlSelect1">
                 @foreach($kategoritraining as $kategoritraining)
                     <option value="{{$kategoritraining->id_kategoritraining}}">{{$kategoritraining->nama_kategoritraining}}</option>
                 @endforeach
@@ -96,7 +107,7 @@
 
             <div class="form-group mb-2">
               <label class="mb-2" for="exampleInputEmail1">Sub Kategori Training</label>
-              <select required id="selectSubKategoriTraining" class="form-control" id="exampleFormControlSelect1">
+              <select name="subkategoritraining" required id="selectSubKategoriTraining" class="form-control" id="exampleFormControlSelect1">
                 @foreach($subkategori as $subkategori)
                     <option value="{{$subkategori->nama_subkategoritraining}}">{{$subkategori->nama_subkategoritraining}}</option>
                 @endforeach
@@ -106,22 +117,22 @@
 
               <div class="form-group mb-2">
                 <label class="mb-2" for="exampleInputEmail1">Deskripsi Singkat</label>
-                <textarea required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Deskripsi Singkat"></textarea>
+                <textarea name="deskripsisingkat" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Deskripsi Singkat"></textarea>
               </div>
               <div class="form-group mb-2">
                 <label class="mb-2" for="exampleInputEmail1">Batch</label>
-                <input required type="number" class="form-control" aria-describedby="emailHelp" placeholder="Isikan Batch">
+                <input name="batch" required type="number" class="form-control" aria-describedby="emailHelp" placeholder="Isikan Batch">
               </div>
 
 
               <div class="form-group mb-2">
                 <label class="mb-2" for="exampleInputEmail1">Gambar</label>
-                <input required type="file" class="form-control" aria-describedby="emailHelp">
+                <input name="foto" required type="file" class="form-control" aria-describedby="emailHelp">
               </div>
 
               <div class="form-group mb-2">
                 <label class="mb-2" for="exampleInputEmail1">Jadwal Training</label>
-                <input required type="date" class="form-control" aria-describedby="emailHelp" placeholder="1">
+                <input name="jadwaltraining" required type="date" class="form-control" aria-describedby="emailHelp" placeholder="1">
               </div>
 
 
@@ -162,38 +173,38 @@
 
                 <div class="form-group mb-2">
                     <label class="mb-2" for="exampleInputEmail1">Deskripsi Penuh</label>
-                    <textarea required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Deskripsi Singkat"></textarea>
+                    <textarea name="deskripsipenuh" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Deskripsi Singkat"></textarea>
                   </div>
 
 
                 <div class="form-group mb-2">
                     <label class="mb-2" for="exampleInputEmail1">Persyaratan</label>
-                    <textarea required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Persyaratan"></textarea>
+                    <textarea name="persyaratan" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Persyaratan"></textarea>
                   </div>
 
 
                   <div class="form-group mb-2">
                     <label class="mb-2" for="exampleInputEmail1">Fasilitas</label>
-                    <textarea required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Fasilitas"></textarea>
+                    <textarea name="fasilitas" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Fasilitas"></textarea>
                   </div>
                   
 
 
                   <div class="form-group mb-2">
                     <label class="mb-2" for="exampleInputEmail1">Info Pendaftaran</label>
-                    <textarea required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Info Pendaftaran"></textarea>
+                    <textarea name="infopendaftaran" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Info Pendaftaran"></textarea>
                   </div>
 
 
                   <div class="form-group mb-2">
                     <label class="mb-2" for="exampleInputEmail1">Instruktur</label>
-                    <textarea required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Instruktur"></textarea>
+                    <textarea name="instruktur" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Instruktur"></textarea>
                   </div>
 
 
                   <div class="form-group mb-2">
                     <label class="mb-2" for="exampleInputEmail1">Ulasan</label>
-                    <textarea required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ulasan"></textarea>
+                    <textarea name="ulasan" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ulasan"></textarea>
                   </div>
 
 
@@ -227,6 +238,38 @@
                        </div>
                     </li> -->
                   </ul>
+
+
+                  
+
+                  <div id="inputFormContainerModulYoutube" class="form-group mb-2" style="margin-top:10px">
+                    <label class="mb-2" for="exampleInputEmail1">Modul Youtube</label>
+                    <div style="display:flex;flex-direction:row">
+                        <input placeholder="contoh: 9xbBGKJtQD8" id="inputModulYoutube" class="form-control" type="text">
+                        <button id="btnTambahModulYoutubeSelect" class="btn-primary" style="border:none" type="button">Tambah</button>
+                    </div>
+                  </div>
+
+
+                  <ul class="list-group" id="containerListModulYoutube" style="max-height:150px;overflow:auto;margin-top:20px;height:150px;background-color:whitesmoke">
+                    <!-- <li class="list-group-item" style="display:flex;flex-direction:row;justify-content:space-between">
+                        <div style="display:flex;flex-direction:row">
+                            <div>
+                              <iframe width="100" height="100" src="https://www.youtube.com/embed/9xbBGKJtQD8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div style="margin-left:10px;word-break:break-all;margin-right:10px;display:flex;justify-content:center;align-items:center">
+                              aD26xZ
+                            </div>
+                        </div>
+                        <div style="cursor:pointer;display:flex;justify-content:center;align-items:center">
+                          <svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                          </svg>
+                       </div>
+                    </li> -->
+                  </ul>
+
 
 
             </div>
@@ -334,12 +377,13 @@
 
            json2.forEach((item,index)=>{
              testimoni = testimoni+`
-                <option value="${item.id_pelatihantestimoni}">${item.testimoni}</option>
+                <option data-id="${item.id_pelatihantestimoni}" data-nama="${item.nama}" value="${item.id_pelatihantestimoni}">${item.testimoni}</option>
              `
            });
 
            document.querySelector("#selectSubKategoriTraining").innerHTML=subkategori;
            document.querySelector("#testimoniselect").innerHTML=testimoni;
+          
 
         })
 
@@ -564,14 +608,63 @@
                     })
                   });
 
+
+                  let listmodulyoutube = document.querySelectorAll("#listModulYoutube");
+                  let modulyoutube = [];
+                  listmodulyoutube.forEach((el,index)=>{
+                    let url = el.getAttribute("data-youtube");
+                    modulyoutube.push(url);
+                  });
+
                   document.querySelector("#inputJsonGaleri").value=JSON.stringify(galeri);
                   document.querySelector("#inputJsonTestimoni").value=JSON.stringify(testimoni);
+                  document.querySelector("#inputJsonPelatihan").value=JSON.stringify(promodanpaket);
+                  document.querySelector("#inputJsonModulYoutube").value=JSON.stringify(modulyoutube);
 
-                  
+                  document.querySelector("#btnRealSubmit").click();
 
               }
+
+
+           
+
            });
 
+          //  $(document).on("change", "#selecttipetraining",()=>{
+          //   alert("123");
+          //  })
+
+          $(document).on("click","#btnTambahModulYoutubeSelect",()=>{
+             let value = document.querySelector("#inputModulYoutube").value;
+             if(value.length===0){
+                alert("Isikan Modul Youtube");
+             }
+             else{
+                let container = document.querySelector("#containerListModulYoutube");
+                container.innerHTML = container.innerHTML+`
+                <li id="listModulYoutube" data-youtube="${value}" class="list-group-item" style="display:flex;flex-direction:row;justify-content:space-between">
+                        <div style="display:flex;flex-direction:row">
+                            <div>
+                              <iframe width="100" height="100" src="https://www.youtube.com/embed/${value}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div style="margin-left:10px;word-break:break-all;margin-right:10px;display:flex;justify-content:center;align-items:center">
+                              ${value}
+                            </div>
+                        </div>
+                        <div id="deleteListModul" style="cursor:pointer;display:flex;justify-content:center;align-items:center">
+                          <svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                          </svg>
+                       </div>
+                    </li>
+                `
+             }
+          });
+
+          $(document).on("click","#deleteListModul",(e)=>{
+              e.currentTarget.parentNode.outerHTML=``;
+          })
            
       </script>
     </body>

@@ -76,6 +76,7 @@
     </tr>
   </thead>
   <tbody>
+    @foreach($training as $training)
     <tr>
       <td>1</td>
       <td>Training 1</td>
@@ -88,6 +89,7 @@
             <a href="/admin/training/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>
       </td>
     </tr>
+    @endforeach
   </tbody>
 </table>
           
