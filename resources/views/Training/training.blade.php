@@ -70,20 +70,18 @@
       <th>Nama Training</th>
       <th>Kategori Training</th>
       <th>Tipe Training</th>
-      <th>Batch</th>
-      <th>Date Posted</th>
+      <th>Jadwal Training</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
     @foreach($training as $training)
     <tr>
-      <td>1</td>
-      <td>Training 1</td>
+      <td>{{$training->id_training}}</td>
+      <td>{{$training->namatraining}}</td>
       <td>Kemnaker RI</td>
-      <td>Online</td>
-      <td>11</td>
-      <td>12/12/12</td>
+      <td>{{$training->tipetraining}}</td>
+      <td>{{$training->jadwaltraining}}</td>
       <td>
             <a href="/admin/training/update/1"><button class="btn btn-primary mb-3">Update</button></a>
             <a href="/admin/training/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>

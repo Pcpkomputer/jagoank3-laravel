@@ -34,7 +34,16 @@ class TrainingController extends Controller
     }
 
     public function update(Request $request, $id){
-        return view("Training.training-update");
+
+        $kategoritraining = DB::select("SELECT * FROM kategori_training");
+        $galeri = DB::select("SELECT * FROM galeri");
+
+        if(count($kategoritraining)>0){
+            $subkategori = DB::select("SELECT * FROM subkategori_training WHERE id_kategoritraining=?",[$kategoritraining[0]->id_kategoritraining]);
+            $testimoni = DB::select("SELECT * FROM pelatihan_testimoni INNER JOIN user ON pelatihan_testimoni.user_id=user.user_id WHERE id_kategoritraining=?",[$kategoritraining[0]->id_kategoritraining]);
+        }
+
+        return view("Training.training-update", ["galeri"=>$galeri, "testimoni"=>$testimoni, "subkategori"=>$subkategori, "kategoritraining"=>$kategoritraining]);
     }
 
     public function delete(Request $request, $id){
@@ -76,14 +85,14 @@ class TrainingController extends Controller
 
         $payload = [$namatraining,$tipetraining,$nominalpenerimareferral,$nominalpemotonganreferral,$kategoritraining,
         $subkategoritraining,$deskripsisingkat,$batch,$jadwaltraining,$deskripsipenuh,$persyaratan,$fasilitas,$infopendaftaran,
-        $instruktur,$ulasan,$galeri,$testimoni,$modulyoutube];
+        $instruktur,$ulasan,$galeri,$testimoni,$modulyoutube,$fileName];
         
 
         $insert = DB::insert("INSERT INTO training 
         (namatraining,tipetraining,nominalpenerimareferral,
         nominalpemotonganreferral,kategoritraining,subkategoritraining,deskripsisingkat,
         batch,jadwaltraining,deskripsipenuh,persyaratan,fasilitas,infopendaftaran,
-        instruktur,ulasan,galeri,testimoni,modulyoutube) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",$payload);
+        instruktur,ulasan,galeri,testimoni,modulyoutube,foto) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",$payload);
 
         $lastid = DB::getPdo()->lastInsertId();
         
