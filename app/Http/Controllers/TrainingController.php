@@ -25,7 +25,7 @@ class TrainingController extends Controller
 
         if(count($kategoritraining)>0){
             $subkategori = DB::select("SELECT * FROM subkategori_training WHERE id_kategoritraining=?",[$kategoritraining[0]->id_kategoritraining]);
-            $testimoni = DB::select("SELECT * FROM pelatihan_testimoni WHERE id_kategoritraining=?",[$kategoritraining[0]->id_kategoritraining]);
+            $testimoni = DB::select("SELECT * FROM pelatihan_testimoni INNER JOIN user ON pelatihan_testimoni.user_id=user.user_id WHERE id_kategoritraining=?",[$kategoritraining[0]->id_kategoritraining]);
         }
 
         return view("Training.training-create", ["galeri"=>$galeri, "testimoni"=>$testimoni, "subkategori"=>$subkategori, "kategoritraining"=>$kategoritraining]);

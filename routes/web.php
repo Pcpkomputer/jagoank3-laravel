@@ -228,7 +228,7 @@ Route::middleware([IsAuthenticate::class])->group(function () {
 
         Route::get("/api/get/testimoni/{id}", function(Request $request){
             $id = $request->id;
-            $testimoni = DB::select("SELECT * FROM pelatihan_testimoni WHERE id_kategoritraining=?",[$id]);
+            $testimoni = DB::select("SELECT * FROM pelatihan_testimoni INNER JOIN user ON pelatihan_testimoni.user_id=user.user_id WHERE id_kategoritraining=?",[$id]);
             return $testimoni;
         });
 

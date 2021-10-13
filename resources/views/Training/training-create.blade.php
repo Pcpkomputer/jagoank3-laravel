@@ -60,9 +60,12 @@
         <h1 class="h2">Tambah Training</h1>
       </div>
         
-      <form method="POST" action="">
+      <form method="POST" action="" enctype="multipart/form-data">
         <input type="hidden" name="_method" value="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+        <input id="inputJsonGaleri" type="hidden" name="galeri">
+        <input id="inputJsonTestimoni" type="hidden" name="testimoni">
 
         <div class="container row m-0" style="padding:0px;padding-bottom:30px">
             <div class="col-lg-6">
@@ -107,7 +110,13 @@
               </div>
               <div class="form-group mb-2">
                 <label class="mb-2" for="exampleInputEmail1">Batch</label>
-                <input required type="number" class="form-control" aria-describedby="emailHelp" placeholder="1">
+                <input required type="number" class="form-control" aria-describedby="emailHelp" placeholder="Isikan Batch">
+              </div>
+
+
+              <div class="form-group mb-2">
+                <label class="mb-2" for="exampleInputEmail1">Gambar</label>
+                <input required type="file" class="form-control" aria-describedby="emailHelp">
               </div>
 
               <div class="form-group mb-2">
@@ -121,14 +130,14 @@
                     <div style="display:flex;flex-direction:row">
                         <select id="galeriselect" class="form-control">
                            @foreach($galeri as $galeri)
-                              <option value="{{$galeri->gambar}}">{{$galeri->judul}}</option>
+                              <option data-id="{{$galeri->id_galeri}}" value="{{$galeri->gambar}}">{{$galeri->judul}}</option>
                            @endforeach
                         </select>
                         <button id="btnTambahGaleriSelect" class="btn-primary" style="border:none" type="button">Tambah</button>
                     </div>
                   </div>
 
-                  <ul class="list-group" style="max-height:150px;overflow:auto;margin-top:20px;height:150px;background-color:whitesmoke">
+                  <ul class="list-group" id="containerListGaleri" style="max-height:150px;overflow:auto;margin-top:20px;height:150px;background-color:whitesmoke">
                     <!-- <li class="list-group-item" style="display:flex;flex-direction:row;justify-content:space-between">
                         <div style="display:flex;flex-direction:row">
                             <img src="testing.jpg" style="width:50px;height:50px"></img>
@@ -193,14 +202,14 @@
                     <div style="display:flex;flex-direction:row">
                         <select id="testimoniselect" class="form-control" id="exampleFormControlSelect1">
                           @foreach($testimoni as $testimoni)
-                            <option value="{{$testimoni->id_pelatihantestimoni}}">{{$testimoni->testimoni}}</option>
+                            <option data-id="{{$testimoni->id_pelatihantestimoni}}" data-nama="{{$testimoni->nama}}" value="{{$testimoni->id_pelatihantestimoni}}">{{$testimoni->testimoni}}</option>
                           @endforeach
                         </select>
-                        <button class="btn-primary" style="border:none" type="button">Tambah</button>
+                        <button id="btnTambahTestimoniSelect" class="btn-primary" style="border:none" type="button">Tambah</button>
                     </div>
                   </div>
 
-                  <ul class="list-group" style="max-height:150px;margin-top:20px;height:150px;background-color:whitesmoke">
+                  <ul class="list-group" id="containerListTestimoni" style="max-height:150px;overflow:auto;margin-top:20px;height:150px;background-color:whitesmoke">
                     <!-- <li class="list-group-item" style="display:flex;flex-direction:row;justify-content:space-between">
                         <div style="display:flex;flex-direction:row">
                             <div>
@@ -289,8 +298,8 @@
               </div> -->
           </div>
         </div>
-
-        <button type="submit" style="margin-top:50px;margin-bottom:50px;" class="btn btn-primary">Submit</button>
+        <button type="button" id="btnFakeSubmit" style="margin-top:50px;margin-bottom:50px;" class="btn btn-primary">Submit</button>
+        <button type="submit" id="btnRealSubmit" style="display:none;margin-top:50px;margin-bottom:50px;" class="btn btn-primary">Submit</button>
       </form>
            
       </div>
@@ -471,10 +480,99 @@
              }
           })
 
+          $(document).on("click","#btnHapusIndividualGaleri",(e)=>{
+              e.currentTarget.parentNode.outerHTML=``;
+          })
+
           $(document).on("click","#btnTambahGaleriSelect",()=>{
             let val = document.querySelector("#galeriselect").value;
-            alert(val);
+
+            let id = document.querySelector("#galeriselect").options[document.querySelector("#galeriselect").selectedIndex].getAttribute("data-id");
+            
+            document.querySelector("#containerListGaleri").innerHTML = 
+            document.querySelector("#containerListGaleri").innerHTML + `
+            <li class="list-group-item" id="listGaleri" style="display:flex;flex-direction:row;justify-content:space-between">
+                        <div data-url="${val}" data-id="${id}" id="itemGaleri" style="display:flex;flex-direction:row">
+                            <img src="/storage/public/galeri/${val}" style="width:50px;height:50px"></img>
+                            <div style="margin-left:10px;display:flex;justify-content:center;align-items:center">${val}</div>
+                        </div>
+                  
+                        <div id="btnHapusIndividualGaleri" style="cursor:pointer">
+                          <svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                          </svg>
+                       </div>
+                    </li>
+            `
           })
+
+          $(document).on("click","#btnTambahTestimoniSelect",()=>{
+            let val = document.querySelector("#testimoniselect").value;
+            let text = document.querySelector("#testimoniselect");
+
+            let selectedtext = text.options[text.selectedIndex].text;
+
+            let nama = text.options[text.selectedIndex].getAttribute("data-nama");
+            let id = text.options[text.selectedIndex].getAttribute("data-id");
+
+            document.querySelector("#containerListTestimoni").innerHTML = 
+            document.querySelector("#containerListTestimoni").innerHTML + `
+            <li data-id="${id}" id="listTestimoni" class="list-group-item" style="display:flex;flex-direction:row;justify-content:space-between">
+                        <div style="display:flex;flex-direction:row">
+                            <div>
+                              ${nama}
+                            </div>
+                            <div style="margin-left:10px;word-break:break-all;margin-right:10px">
+                              ${selectedtext}
+                            </div>
+                        </div>
+                        <div style="cursor:pointer">
+                          <svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                          </svg>
+                       </div>
+                    </li>
+            `
+          });
+
+          $(document).on("click","#btnFakeSubmit",()=>{
+             if(promodanpaket.length===0){
+               alert("Isikan promo dan paket terlebih dahulu...");
+             }
+             else{
+                  let listgaleri = document.querySelectorAll("#containerListGaleri #listGaleri");
+                  let galeri = [];
+                  listgaleri.forEach((el,index)=>{
+                    let q = el.querySelector("#itemGaleri");
+                    let url = q.getAttribute("data-url");
+                    let id = q.getAttribute("data-id");
+                    galeri.push({
+                      url,
+                      id
+                    });
+                  });
+
+
+                  let listtestimoni = document.querySelectorAll("#listTestimoni");
+                  let testimoni = [];
+                  listtestimoni.forEach((el,index)=>{
+                    let id = el.getAttribute("data-id");
+                    testimoni.push({
+                      id_pelatihantestimoni:id
+                    })
+                  });
+
+                  document.querySelector("#inputJsonGaleri").value=JSON.stringify(galeri);
+                  document.querySelector("#inputJsonTestimoni").value=JSON.stringify(testimoni);
+
+                  
+
+              }
+           });
+
+           
       </script>
     </body>
 </html>
