@@ -167,6 +167,43 @@ Route::get("/jadwaltrainingterdekat", function (Request $request){
     return $terdekat;
 });
 
+Route::post("/trainingbydateandcategory", function (Request $request){
+
+    $validated = $request->validate([
+        'from' => 'required',
+        'to' => 'required',
+        'id_kategoritraining'=>'required'
+    ]);
+
+    $from = $request->from;
+    $to = $request->to;
+    $id_kategoritraining = $request->id_kategoritraining;
+
+    $req = DB::select("SELECT * FROM training WHERE kategoritraining=? AND jadwaltraining BETWEEN ? AND ?",[$id_kategoritraining,$from,$to]);
+
+    return $req;
+});
+
+Route::post("/trainingbydateandsubcategory", function (Request $request){
+
+    $validated = $request->validate([
+        'from' => 'required',
+        'to' => 'required',
+        'id_kategoritraining'=>'required',
+        'subkategori'=>'required'
+    ]);
+
+    $from = $request->from;
+    $to = $request->to;
+    $id_kategoritraining = $request->id_kategoritraining;
+    $subkategori = $request->subkategori;
+
+    $req = DB::select("SELECT * FROM training WHERE kategoritraining=? AND subkategoritraining=? AND jadwaltraining BETWEEN ? AND ?",[$id_kategoritraining,$subkategori,$from,$to]);
+
+    return $req;
+});
+
+
 Route::post("/trainingbydate", function (Request $request){
 
     $validated = $request->validate([
