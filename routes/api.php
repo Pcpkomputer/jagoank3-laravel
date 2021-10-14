@@ -184,6 +184,16 @@ Route::post("/trainingbydateandcategory", function (Request $request){
     return $req;
 });
 
+
+Route::get("/training/{id}", function(Request $request, $id){
+    $training = DB::select("SELECT * FROM training WHERE id_training=?",[$id]);
+    $itemtraining = DB::select("SELECT * FROM item_training WHERE id_training=?",[$id]);
+
+    $training[0]->itemtraining=$itemtraining;
+
+    return $training;
+});
+
 Route::post("/trainingbydateandsubcategory", function (Request $request){
 
     $validated = $request->validate([
