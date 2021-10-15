@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Middleware\IsAuthenticate;
 use Illuminate\Support\Facades\Crypt;
-
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -122,11 +123,31 @@ Route::post("/login", function (Request $request){
 
     if($exist[0]->email==$email && $exist[0]->kata_sandi==$katasandi){
         $encrypt =  Crypt::encryptString(json_encode($exist[0]));
-        return ["success"=>true,"credentials"=>$encrypt];
+        return ["success"=>true,"credentials"=>
+        [
+            "detail"=>[
+                "id"=>$exist[0]->user_id,
+                "nama"=>$exist[0]->nama,
+                "email"=>$exist[0]->email,
+                "notelepon"=>$exist[0]->no_telepon,
+            ],
+            "token"=>$encrypt
+        ]
+        ];
     }
     else if($exist[0]->username==$email && $exist[0]->kata_sandi==$katasandi){
         $encrypt =  Crypt::encryptString(json_encode($exist[0]));
-        return ["success"=>true,"credentials"=>$encrypt];
+        return ["success"=>true,"credentials"=>
+        [
+            "detail"=>[
+                "id"=>$exist[0]->user_id,
+                "nama"=>$exist[0]->nama,
+                "email"=>$exist[0]->email,
+                "notelepon"=>$exist[0]->no_telepon,
+            ],
+            "token"=>$encrypt
+        ]
+        ];
     }
     else{
         return ["success"=>false,"msg"=>"Login gagal..."];
@@ -299,4 +320,117 @@ Route::post("/gettestimoni", function (Request $request){
     $testimoni = DB::select("SELECT pelatihan_testimoni.*,user.nama FROM pelatihan_testimoni INNER JOIN user ON user.user_id=pelatihan_testimoni.user_id WHERE id_pelatihantestimoni IN (?)",[$join]);
 
     return $testimoni;
+});
+
+Route::post("/createinvoice", function (Request $request){
+    $validated = $request->validate([
+        'pemesanan' => 'required',
+        'credentials' => 'required'
+    ]);
+
+    ///// PROCESS AUTH
+    $token = $request->bearerToken();
+    $tokenparsed = Crypt::decryptString($token);
+    $tokenparsed = json_decode($tokenparsed);
+    $exist = DB::select("SELECT * FROM user WHERE user_id=?",[$tokenparsed->user_id]);
+    if(count($exist)==0){
+        return [
+            "success"=>false,
+            "msg"=>"Unauthorized"
+        ];
+    }
+    else if($tokenparsed->email!=$exist[0]->email && $tokenparsed->password!=$exist[0]->password){
+        return [
+            "success"=>false,
+            "msg"=>"Unauthorized"
+        ];
+    }
+    /////
+
+
+    $pemesanan = $request->pemesanan;
+    $referral = $request->referral;
+    $credentials = $request->credentials;
+    $totaldibayarfrontend = $request->totaldibayarfrontend;
+
+    $total = 0;
+    $diskon = 0;
+    $referral = 0;
+
+    foreach ($pemesanan["keranjang"] as $key => $value) {
+        if($value["itemtraining"]["sedangpromo"]){
+            $promoexpired = Carbon::parse($value["itemtraining"]["tanggalpromoberakhir"])->isPast();
+            if($promoexpired){
+                $total = $total + $value["itemtraining"]["hargapaketpelatihan"];
+            }
+            else{
+                $total = $total + $value["itemtraining"]["hargapromopaketpelatihan"];
+            }
+        }
+        else{
+            $total = $total + $value["itemtraining"]["hargapaketpelatihan"];
+        }
+
+    }
+
+    if($pemesanan["diskon"]!=null){
+        $diskon = 0;
+    }else{
+        $diskon = 0;
+    }
+
+    if($referral!=null){
+        $referral=0;
+    }
+    else{
+        $referral=0;
+    }
+
+    if($totaldibayarfrontend!==$total-($diskon+$referral)){
+        return [
+            "success"=>false,
+            "msg"=>"Terdapat kesalahan dalam perhitungan harga, silakan coba kembali..."
+        ];
+    }
+
+    $uuid = (string)Str::uuid();
+    $date = new Carbon();
+
+    $kodeinvoice = "INV/".$date->format("Y")."/".$date->format("m")."/".$date->format("d")."/".$tokenparsed->user_id."/".$uuid;
+    $idtraining = $pemesanan["keranjang"][0]["training"]["id_training"];
+    $iditemtraining = $pemesanan["keranjang"][0]["itemtraining"]["id"];
+    $userid = $tokenparsed->user_id;
+
+    $promoexpired = Carbon::parse($pemesanan["keranjang"][0]["itemtraining"]["tanggalpromoberakhir"])->isPast();
+    if($promoexpired){
+        $belisaatpromo=false;
+    }
+    else{
+        $belisaatpromo=true;
+    }
+
+    $insert = DB::insert("INSERT INTO invoice_training VALUES (?,?,?,?,?,NOW(),?,?)",[
+        $uuid,
+        $kodeinvoice,
+        $idtraining,
+        $iditemtraining,
+        $userid,
+        $belisaatpromo,
+        "Belum Dibayar"
+    ]);
+
+
+    return [
+        "success"=>true,
+        "data"=>[
+            "pemesanan"=>$pemesanan,
+            "referral"=>$referral,
+            "credentials"=>$credentials
+        ],
+        "total"=>$total,
+        "diskon"=>$diskon,
+        "referral"=>$referral,
+        "totaldibayar"=>$total-($diskon+$referral),
+        "kodeinvoice"=>$kodeinvoice
+    ];
 });
