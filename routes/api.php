@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Middleware\IsAuthenticate;
+use Illuminate\Support\Facades\Crypt;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -119,10 +121,12 @@ Route::post("/login", function (Request $request){
     }
 
     if($exist[0]->email==$email && $exist[0]->kata_sandi==$katasandi){
-        return ["success"=>true,"credentials"=>$exist[0]];
+        $encrypt =  Crypt::encryptString(json_encode($exist[0]));
+        return ["success"=>true,"credentials"=>$encrypt];
     }
     else if($exist[0]->username==$email && $exist[0]->kata_sandi==$katasandi){
-        return ["success"=>true,"credentials"=>$exist[0]];
+        $encrypt =  Crypt::encryptString(json_encode($exist[0]));
+        return ["success"=>true,"credentials"=>$encrypt];
     }
     else{
         return ["success"=>false,"msg"=>"Login gagal..."];
@@ -149,9 +153,14 @@ Route::post("/register", function (Request $request){
     $katasandi = $request->katasandi;
 
     $duplicate = DB::select("SELECT * FROM user WHERE email=?",[$email]);
+    $duplicate2 = DB::select("SELECT * FROM yser WHERE username=?",[$username]);
+
 
     if(count($duplicate)>0){
         return ["success"=>false,"msg"=>"Email telah terdaftar..."];
+    }
+    else if(count($duplicate2)>0){
+        return ["success"=>false,"msg"=>"Username telah terdaftar..."];
     }
 
     $insert = DB::insert("INSERT INTO user VALUES (NULL,?,?,?,?,?,?,?)",[$nama,$username,$nickname,$email,$notelepon,$katasandi,random_strings(6)]);
@@ -255,4 +264,39 @@ Route::get("/kategoritraining", function (Request $request){
         array_push($arr,$payload);
     }
     return $arr;
+});
+
+
+Route::post("/getstokkursi",function (Request $request){
+
+    $validated = $request->validate([
+        'id_training' => 'required',
+        'id_itemtraining' => 'required'
+    ]);
+
+    $id_training = $request->id_training;
+    $id_itemtraining = $request->id_itemtraining;
+
+    $stokkursi = DB::select("SELECT * FROM item_training WHERE id_training=? AND id=?",[$id_training,$id_itemtraining]);
+    $stokterpenuhi = DB::select("SELECT * FROM invoice_training WHERE id_itemtraining=?",[$id_itemtraining]);
+    
+    $stokterpenuhi = count($stokterpenuhi);
+
+    $stokkursi[0]->kursiterpenuhi=$stokterpenuhi;
+
+    return $stokkursi[0];
+});
+
+
+Route::post("/gettestimoni", function (Request $request){
+    $validated = $request->validate([
+        'id_testimoni' => 'required'
+    ]);
+
+    $id = $request->id_testimoni;
+    $join = join(",",$id);
+
+    $testimoni = DB::select("SELECT pelatihan_testimoni.*,user.nama FROM pelatihan_testimoni INNER JOIN user ON user.user_id=pelatihan_testimoni.user_id WHERE id_pelatihantestimoni IN (?)",[$join]);
+
+    return $testimoni;
 });
