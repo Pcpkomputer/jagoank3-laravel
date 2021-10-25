@@ -322,6 +322,64 @@ Route::post("/gettestimoni", function (Request $request){
     return $testimoni;
 });
 
+Route::post("/checkvoucher", function (Request $request){
+    $validated = $request->validate([
+        'kodevoucher' => 'required'
+    ]);
+
+    $kodevoucher = $request->kodevoucher;
+
+    $voucher = DB::select("SELECT * FROM voucher_training WHERE kode_voucher=?",[$kodevoucher]);
+
+    if(count($voucher)==0){
+        return [
+            "success"=>false,
+            "msg"=>"Voucher tidak ditemukan..."
+        ];
+    }
+
+    $usedvoucher = DB::select("SELECT * FROM used_vouchertraining WHERE id_vouchertraining=?",[$voucher[0]->id_vouchertraining]);
+    $countusedvoucher = count($usedvoucher);
+
+    if($voucher[0]->jumlahvoucher-$countusedvoucher<=0){
+        return [
+            "success"=>false,
+            "msg"=>"Voucher yang dimasukkan telah habis..."
+        ];
+    }
+
+    return [
+        "success"=>true,
+        "data"=>[
+            "voucher"=>$voucher[0]
+        ]
+    ];
+});
+
+
+Route::post("/checkreferral", function (Request $request){
+    $validated = $request->validate([
+        'referral' => 'required'
+    ]);
+    
+    $referral = $request->referral;
+
+    $exist = DB::select("SELECT user.referral_code FROM user WHERE user.referral_code=?",[$referral]);
+
+    if(count($exist)>0){
+        return [
+            "exist"=>true
+        ];
+    }
+    else{
+        return [
+            "exist"=>false
+        ];
+    }
+
+});
+
+
 Route::post("/createinvoice", function (Request $request){
     $validated = $request->validate([
         'pemesanan' => 'required',
@@ -355,7 +413,9 @@ Route::post("/createinvoice", function (Request $request){
 
     $total = 0;
     $diskon = 0;
-    $referral = 0;
+    $referral_ = 0;
+
+    $uuid = (string)Str::uuid();
 
     foreach ($pemesanan["keranjang"] as $key => $value) {
         if($value["itemtraining"]["sedangpromo"]){
@@ -375,25 +435,57 @@ Route::post("/createinvoice", function (Request $request){
 
     if($pemesanan["diskon"]!=null){
         $diskon = 0;
+
+        $iddiskon = $pemesanan["diskon"]["id_vouchertraining"];
+        $kodevoucher_ = $pemesanan["diskon"]["kode_voucher"];
+
+        $vc = DB::select("SELECT * FROM voucher_training WHERE id_vouchertraining=?",[$iddiskon]);
+        if(count($vc)==0){
+            return [
+                "success"=>false,
+                "msg"=>"Terdapat kesalahan pada kode voucher yang digunakan..."
+            ];
+        }
+        
+        if($vc[0]->kode_voucher!=$kodevoucher_){
+            return [
+                "success"=>false,
+                "msg"=>"Terdapat kesalahan pada kode voucher yang digunakan..."
+            ];
+        }
+
+        $diskon = $vc[0]->nominal;
     }else{
         $diskon = 0;
     }
 
     if($referral!=null){
-        $referral=0;
+        $referral_=0;
+
+        $exist = DB::select("SELECT user.referral_code FROM user WHERE user.referral_code=?",[$referral]);
+
+        if(count($exist)==0){
+            return [
+                "success"=>false,
+                "msg"=>"Terdapat kesalahan pada kode referral yang digunakan..."
+            ];
+        }
+
+        $referral_=$pemesanan["keranjang"][0]["training"]["nominalpemotonganreferral"];
     }
     else{
-        $referral=0;
+        $referral_=0;
     }
 
-    if($totaldibayarfrontend!==$total-($diskon+$referral)){
+
+    if($totaldibayarfrontend!==$total-($diskon+$referral_)){
         return [
             "success"=>false,
             "msg"=>"Terdapat kesalahan dalam perhitungan harga, silakan coba kembali..."
         ];
     }
 
-    $uuid = (string)Str::uuid();
+  
     $date = new Carbon();
 
     $kodeinvoice = "INV/".$date->format("Y")."/".$date->format("m")."/".$date->format("d")."/".$tokenparsed->user_id."/".$uuid;
@@ -409,16 +501,38 @@ Route::post("/createinvoice", function (Request $request){
         $belisaatpromo=true;
     }
 
-    $insert = DB::insert("INSERT INTO invoice_training VALUES (?,?,?,?,?,NOW(),?,?)",[
-        $uuid,
-        $kodeinvoice,
-        $idtraining,
-        $iditemtraining,
-        $userid,
-        $belisaatpromo,
-        "Belum Dibayar"
-    ]);
+    // $insert = DB::insert("INSERT INTO invoice_training VALUES (?,?,?,?,?,NOW(),?,?,?)",[
+    //     $uuid,
+    //     $kodeinvoice,
+    //     $idtraining,
+    //     $iditemtraining,
+    //     $userid,
+    //     $belisaatpromo,
+    //     "Belum Dibayar",
+    //     json_encode([
+    //         "data"=>[
+    //             "pemesanan"=>$pemesanan,
+    //             "referral"=>$referral,
+    //             "credentials"=>$credentials
+    //         ],
+    //         "total"=>$total,
+    //         "diskon"=>$diskon,
+    //         "referral"=>$referral_,
+    //         "totaldibayar"=>$total-($diskon+$referral),
+    //         "kodeinvoice"=>$kodeinvoice
+    //     ])
+    // ]);
 
+
+    ////MENYIMPAN USED VOUCHER JIKA MENGGUNAKAN VOUCHER
+    if($pemesanan["diskon"]!=null){
+        $insert = DB::insert("INSERT INTO used_vouchertraining VALUES (?,?)",[$pemesanan["diskon"]["id_vouchertraining"],$uuid]);
+    }
+
+    if($referral!=null){
+        $referral = DB::select("SELECT user.user_id FROM user WHERE user.referral_code=?",[$referral]);
+        $insert = DB::insert("INSERT INTO penerima_referral VALUES (?,?)",[$referral[0]->user_id,$uuid]);
+    }
 
     return [
         "success"=>true,
@@ -429,8 +543,10 @@ Route::post("/createinvoice", function (Request $request){
         ],
         "total"=>$total,
         "diskon"=>$diskon,
-        "referral"=>$referral,
-        "totaldibayar"=>$total-($diskon+$referral),
+        "referral"=>$referral_,
+        "totaldibayar"=>$total-($diskon+$referral_),
         "kodeinvoice"=>$kodeinvoice
     ];
 });
+
+
