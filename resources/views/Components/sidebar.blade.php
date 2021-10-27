@@ -73,14 +73,14 @@
             <span>Data Reports</span>
         </h6>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('/admin/order') }}">
+            <a class="nav-link {{($selected=='invoicetraining') ? 'active':''}}" href="{{ url('/admin/invoicetraining') }}">
               <span data-feather="file-text"></span>
               Invoice Training
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/admin/order') }}">
+            <a class="nav-link {{($selected=='invoiceshop') ? 'active':''}}" href="{{ url('/admin/invoiceshop') }}">
               <span data-feather="file-text"></span>
               Invoice Shop
             </a>

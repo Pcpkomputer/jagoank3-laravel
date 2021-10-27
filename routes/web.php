@@ -15,6 +15,8 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\VoucherTrainingController;
 use App\Http\Controllers\DashboardTextController;
 use App\Http\Controllers\OurClientController;
+use App\Http\Controllers\InvoiceTrainingController;
+use App\Http\Controllers\InvoiceShopController;
 
 use App\Http\Middleware\IsAuthenticate;
 
@@ -214,6 +216,31 @@ Route::middleware([IsAuthenticate::class])->group(function () {
     
                 Route::post("/create",[OurClientController::class,"create_post"]);
                 Route::put("/update/{id}",[OurClientController::class,"update_post"]);
+            });
+
+
+              // Invoice Training Route
+              Route::prefix('invoicetraining')->group(function(){
+                Route::get("/",[InvoiceTrainingController::class,"show"]);
+                Route::get("/create",[InvoiceTrainingController::class,"create"]);
+                Route::get("/detail/{id}",[InvoiceTrainingController::class,"detail"]);
+                Route::post("/detail/{id}",[InvoiceTrainingController::class,"updatedetail"]);
+                Route::get("/delete/{id}",[InvoiceTrainingController::class,"delete"]);
+    
+                Route::post("/create",[InvoiceTrainingController::class,"create_post"]);
+                Route::put("/update/{id}",[InvoiceTrainingController::class,"update_post"]);
+            });
+
+              // Invoice Shop Route
+              Route::prefix('invoiceshop')->group(function(){
+                Route::get("/",[InvoiceShopController::class,"show"]);
+                Route::get("/create",[InvoiceShopController::class,"create"]);
+                Route::get("/detail/{id}",[InvoiceShopController::class,"detail"]);
+                Route::post("/detail/{id}",[InvoiceShopController::class,"updatedetail"]);
+                Route::get("/delete/{id}",[InvoiceShopController::class,"delete"]);
+    
+                Route::post("/create",[InvoiceShopController::class,"create_post"]);
+                Route::put("/update/{id}",[InvoiceShopController::class,"update_post"]);
             });
 
         });
