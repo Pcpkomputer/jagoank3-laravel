@@ -105,6 +105,7 @@ Route::get("/ourclient", function (Request $request){
     return $ourclient;
 });
 
+
 Route::post("/login", function (Request $request){
 
     $validated = $request->validate([
@@ -174,7 +175,7 @@ Route::post("/register", function (Request $request){
     $katasandi = $request->katasandi;
 
     $duplicate = DB::select("SELECT * FROM user WHERE email=?",[$email]);
-    $duplicate2 = DB::select("SELECT * FROM yser WHERE username=?",[$username]);
+    $duplicate2 = DB::select("SELECT * FROM user WHERE username=?",[$username]);
 
 
     if(count($duplicate)>0){
@@ -186,7 +187,15 @@ Route::post("/register", function (Request $request){
 
     $insert = DB::insert("INSERT INTO user VALUES (NULL,?,?,?,?,?,?,?)",[$nama,$username,$nickname,$email,$notelepon,$katasandi,random_strings(6)]);
 
-    return ["success"=>true];
+    $insertedid = DB::getPdo()->lastInsertId();
+
+    $select = DB::select("SELECT * FROM user WHERE user_id=?",[$insertedid]);
+
+    $encrypt =  Crypt::encryptString(json_encode($select[0]));
+
+    $select[0]->token=$encrypt;
+
+    return ["success"=>true,"data"=>$select];
 
 });
 
@@ -380,6 +389,238 @@ Route::post("/checkreferral", function (Request $request){
 });
 
 
+Route::post("/akunkamu", function (Request $request){
+
+      ///// PROCESS AUTH
+      $token = $request->bearerToken();
+      $tokenparsed = Crypt::decryptString($token);
+      $tokenparsed = json_decode($tokenparsed);
+      $exist = DB::select("SELECT * FROM user WHERE user_id=?",[$tokenparsed->user_id]);
+      if(count($exist)==0){
+          return [
+              "success"=>false,
+              "msg"=>"Unauthorized"
+          ];
+      }
+      else if($tokenparsed->email!=$exist[0]->email && $tokenparsed->password!=$exist[0]->password){
+          return [
+              "success"=>false,
+              "msg"=>"Unauthorized"
+          ];
+      }
+      /////
+
+    return $tokenparsed;
+});
+
+Route::post("/updateakunkamu", function (Request $request){
+
+    $validated = $request->validate([
+        'nama' => 'required',
+        'username' => 'required',
+        'nickname' => 'required',
+        'email' => 'required',
+        'no_telepon' => 'required'
+    ]);
+
+     ///// PROCESS AUTH
+     $token = $request->bearerToken();
+     $tokenparsed = Crypt::decryptString($token);
+     $tokenparsed = json_decode($tokenparsed);
+     $exist = DB::select("SELECT * FROM user WHERE user_id=?",[$tokenparsed->user_id]);
+     if(count($exist)==0){
+         return [
+             "success"=>false,
+             "msg"=>"Unauthorized"
+         ];
+     }
+     else if($tokenparsed->email!=$exist[0]->email && $tokenparsed->password!=$exist[0]->password){
+         return [
+             "success"=>false,
+             "msg"=>"Unauthorized"
+         ];
+     }
+     /////
+
+     
+     
+     $exist = DB::select("SELECT * FROM user WHERE email=? OR username=?",[$request->email,$request->username]);
+
+
+     if(count($exist)>0){
+         return ["success"=>false,"msg"=>"Email atau username telah terdaftar..."];
+     }
+     
+
+     $update = DB::update("UPDATE user SET nama=?,username=?,nickname=?,email=?,no_telepon=? WHERE user_id=?",
+     [$request->nama,$request->username,$request->nickname,$request->email,$request->no_telepon,$tokenparsed->user_id]);
+
+     $payload = $tokenparsed;
+     $payload->nama=$request->nama;
+     $payload->username=$request->username;
+     $payload->nickname=$request->nickname;
+     $payload->email=$request->email;
+     $payload->no_telepon=$request->no_telepon;
+
+     $encrypt =  Crypt::encryptString(json_encode($payload));
+
+     return ["success"=>true,"data"=>[
+         "nama"=>$request->nama,
+         "username"=>$request->username,
+         "nickname"=>$request->nickname,
+         "email"=>$request->email,
+         "no_telepon"=>$request->no_telepon,
+         "token"=>$encrypt
+     ]];;
+     
+});
+
+Route::post("/getsaldodashboard", function (Request $request){
+      ///// PROCESS AUTH
+      $token = $request->bearerToken();
+      $tokenparsed = Crypt::decryptString($token);
+      $tokenparsed = json_decode($tokenparsed);
+      $exist = DB::select("SELECT * FROM user WHERE user_id=?",[$tokenparsed->user_id]);
+      if(count($exist)==0){
+          return [
+              "success"=>false,
+              "msg"=>"Unauthorized"
+          ];
+      }
+      else if($tokenparsed->email!=$exist[0]->email && $tokenparsed->password!=$exist[0]->password){
+          return [
+              "success"=>false,
+              "msg"=>"Unauthorized"
+          ];
+      }
+      /////
+
+      $saldodashboard = DB::select("SELECT penerima_referral.*, training.nominalpenerimareferral FROM penerima_referral INNER JOIN invoice_training ON penerima_referral.id_invoicetraining=invoice_training.id_invoicetraining INNER JOIN training ON training.id_training=invoice_training.id_training WHERE penerima_referral.user_id=?",[$tokenparsed->user_id]);
+
+      return $saldodashboard;
+});
+
+Route::post("/getmodulpemesanan", function (Request $request){
+        ///// PROCESS AUTH
+        $token = $request->bearerToken();
+        $tokenparsed = Crypt::decryptString($token);
+        $tokenparsed = json_decode($tokenparsed);
+        $exist = DB::select("SELECT * FROM user WHERE user_id=?",[$tokenparsed->user_id]);
+        if(count($exist)==0){
+            return [
+                "success"=>false,
+                "msg"=>"Unauthorized"
+            ];
+        }
+        else if($tokenparsed->email!=$exist[0]->email && $tokenparsed->password!=$exist[0]->password){
+            return [
+                "success"=>false,
+                "msg"=>"Unauthorized"
+            ];
+        }
+        /////
+
+        $modulpemesanan = DB::select("SELECT training.modulyoutube,training.namatraining,training.id_training,invoice_training.status FROM invoice_training INNER JOIN training ON invoice_training.id_training=training.id_training WHERE invoice_training.user_id=? AND invoice_training.status='Sudah Dibayar'",[$tokenparsed->user_id]);
+
+        return $modulpemesanan;
+});
+
+Route::post("/getriwayatpemesanan", function (Request $request){
+    
+      ///// PROCESS AUTH
+      $token = $request->bearerToken();
+      $tokenparsed = Crypt::decryptString($token);
+      $tokenparsed = json_decode($tokenparsed);
+      $exist = DB::select("SELECT * FROM user WHERE user_id=?",[$tokenparsed->user_id]);
+      if(count($exist)==0){
+          return [
+              "success"=>false,
+              "msg"=>"Unauthorized"
+          ];
+      }
+      else if($tokenparsed->email!=$exist[0]->email && $tokenparsed->password!=$exist[0]->password){
+          return [
+              "success"=>false,
+              "msg"=>"Unauthorized"
+          ];
+      }
+      /////
+
+    $riwayatpemesanan = DB::select("SELECT invoice_training.*,training.namatraining,training.tipetraining FROM invoice_training INNER JOIN training ON invoice_training.id_training=training.id_training WHERE invoice_training.user_id=?",[$tokenparsed->user_id]);
+
+    return $riwayatpemesanan;
+});
+
+Route::post("/createinvoiceshop", function (Request $request){
+    $validated = $request->validate([
+        'pemesanan' => 'required',
+        'credentials' => 'required',
+        'totaldibayarfrontend' => 'required',
+    ]);
+
+    ///// PROCESS AUTH
+    $token = $request->bearerToken();
+    $tokenparsed = Crypt::decryptString($token);
+    $tokenparsed = json_decode($tokenparsed);
+    $exist = DB::select("SELECT * FROM user WHERE user_id=?",[$tokenparsed->user_id]);
+    if(count($exist)==0){
+        return [
+            "success"=>false,
+            "msg"=>"Unauthorized"
+        ];
+    }
+    else if($tokenparsed->email!=$exist[0]->email && $tokenparsed->password!=$exist[0]->password){
+        return [
+            "success"=>false,
+            "msg"=>"Unauthorized"
+        ];
+    }
+    /////
+
+    $pemesanan = $request->pemesanan;
+    $credentials = $request->credentials;
+    $totaldibayarfrontend = $request->totaldibayarfrontend;
+
+    $total = 0;
+
+    $uuid = (string)Str::uuid();
+    $date = new Carbon();
+    $kodeinvoice = "INV/SHOP/".$date->format("Y")."/".$date->format("m")."/".$date->format("d")."/".$tokenparsed->user_id."/".$uuid;
+
+    foreach ($pemesanan as $key => $value) {
+        $total = $total + $value["harga"];
+    }
+
+    if($total==$totaldibayarfrontend){
+
+        $insert = DB::insert("INSERT INTO invoice_shop VALUES (?,?,?,NOW(),'Belum Dibayar')",[$uuid, $kodeinvoice, $tokenparsed->user_id]);
+        $insertedid = DB::getPdo()->lastInsertId();
+
+        foreach($pemesanan as $key=>$value){
+            $insertitem = DB::insert("INSERT INTO item_invoiceshop VALUES (?,?)",[$uuid,$value["id_item"]]);
+        }
+
+        return [
+            "success"=>true,
+            "data"=>[
+                "pemesanan"=>$pemesanan,
+                "credentials"=>$credentials
+            ],
+            "pemesanan"=>$pemesanan,
+            "totaldibayar"=>$total,
+            "kodeinvoice"=>$kodeinvoice
+            
+        ];
+    }
+    else{
+        return [
+            "success"=>false,
+            "msg"=>"Harga checkout tidak sesuai..."
+        ];
+    }
+
+});
+
 Route::post("/createinvoice", function (Request $request){
     $validated = $request->validate([
         'pemesanan' => 'required',
@@ -501,27 +742,27 @@ Route::post("/createinvoice", function (Request $request){
         $belisaatpromo=true;
     }
 
-    // $insert = DB::insert("INSERT INTO invoice_training VALUES (?,?,?,?,?,NOW(),?,?,?)",[
-    //     $uuid,
-    //     $kodeinvoice,
-    //     $idtraining,
-    //     $iditemtraining,
-    //     $userid,
-    //     $belisaatpromo,
-    //     "Belum Dibayar",
-    //     json_encode([
-    //         "data"=>[
-    //             "pemesanan"=>$pemesanan,
-    //             "referral"=>$referral,
-    //             "credentials"=>$credentials
-    //         ],
-    //         "total"=>$total,
-    //         "diskon"=>$diskon,
-    //         "referral"=>$referral_,
-    //         "totaldibayar"=>$total-($diskon+$referral),
-    //         "kodeinvoice"=>$kodeinvoice
-    //     ])
-    // ]);
+    $insert = DB::insert("INSERT INTO invoice_training VALUES (?,?,?,?,?,NOW(),?,?,?)",[
+        $uuid,
+        $kodeinvoice,
+        $idtraining,
+        $iditemtraining,
+        $userid,
+        $belisaatpromo,
+        "Belum Dibayar",
+        json_encode([
+            "data"=>[
+                "pemesanan"=>$pemesanan,
+                "referral"=>$referral,
+                "credentials"=>$credentials
+            ],
+            "total"=>$total,
+            "diskon"=>$diskon,
+            "referral"=>$referral_,
+            "totaldibayar"=>$total-($diskon+$referral),
+            "kodeinvoice"=>$kodeinvoice
+        ])
+    ]);
 
 
     ////MENYIMPAN USED VOUCHER JIKA MENGGUNAKAN VOUCHER
