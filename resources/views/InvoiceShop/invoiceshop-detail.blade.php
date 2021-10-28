@@ -53,7 +53,7 @@
 <div class="container-fluid" style="margin-bottom:35px">
   <div class="row">
   
-  @include("Components.sidebar", array("selected"=>"invoicetraining"))
+  @include("Components.sidebar", array("selected"=>"invoiceshop"))
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -76,8 +76,8 @@
           <input type="hidden" name="_method" value="POST">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <label class="mb-2" for="exampleInputEmail1">Sudah Dibayar?</label>
-              <select name="sudahdibayar" value="{{$invoicetraining[0]->status}}" name="statuspembayaran" required class="form-control" id="selecttipetraining">
-                 @if($invoicetraining[0]->status=="Belum Dibayar")
+              <select name="sudahdibayar" value="{{$invoiceshop[0]->status}}" name="statuspembayaran" required class="form-control" id="selecttipetraining">
+                 @if($invoiceshop[0]->status=="Belum Dibayar")
                   <option value="Sudah Dibayar">Sudah Dibayar</option>
                   <option selected value="Belum Dibayar">Belum Dibayar</option>
                 @else
@@ -97,27 +97,11 @@
             </tr>
           </thead>
           <tbody>
-              @foreach($itemtraining as $itemtraining)
+              @foreach($iteminvoiceshop as $iteminvoiceshop)
                 <tr>
-                   <td>{{$itemtraining->namapaketpelatihan}}</td>
-                    @if($invoicetraining[0]->belisaatpromo==1)
-                      <td>{{$itemtraining->hargapromopaketpelatihan}}</td>
-                    @else
-                      <td>{{$itemtraining->hargapaketpelatihan}}</td>
-                    @endif
+                   <td>{{$iteminvoiceshop->nama_barang}}</td>
+                      <td>{{$iteminvoiceshop->harga}}</td>
                 </tr>
-                @if(count($voucher)>0)
-                <tr>
-                    <td>Voucher : {{$voucher[0]->kode_voucher}}</td>
-                    <td>-{{$voucher[0]->nominal}}</td>
-                </tr>
-                @endif
-                @if(count($referral)>0)
-                <tr>
-                    <td>Referral : {{$referral[0]->referral_code}}</td>
-                    <td>-{{$referral[0]->nominalpemotonganreferral}}</td>
-                </tr>
-                @endif
               @endforeach
           </tbody>
         </table>

@@ -34,53 +34,34 @@ class InvoiceShopController extends Controller
     public function updatedetail(Request $request, $id){
         $sudahdibayar = $request->sudahdibayar;
         
-        $update = DB::update("UPDATE invoice_training SET status=? WHERE id_invoicetraining=?",[$sudahdibayar,$id]);
+        $update = DB::update("UPDATE invoice_shop SET status=? WHERE id_invoiceshop=?",[$sudahdibayar,$id]);
 
-        return redirect("/admin/invoicetraining");
+        return redirect("/admin/invoiceshop");
     }
 
     public function detail(Request $request, $id){
 
-        $invoicetraining = DB::select("SELECT * FROM invoice_training WHERE id_invoicetraining=?",[$id]);
-        $itemtraining = DB::select("SELECT * FROM item_training WHERE id=?",[$invoicetraining[0]->id_itemtraining]);
-        $referral = DB::select("SELECT user.referral_code,training.nominalpemotonganreferral FROM penerima_referral INNER JOIN invoice_training ON penerima_referral.id_invoicetraining=invoice_training.id_invoicetraining INNER JOIN item_training ON invoice_training.id_itemtraining=item_training.id INNER JOIN user ON user.user_id=penerima_referral.user_id INNER JOIN training ON training.id_training=invoice_training.id_training WHERE penerima_referral.id_invoicetraining=?",[$id]);
-        $voucher = DB::select("SELECT * FROM used_vouchertraining INNER JOIN voucher_training ON voucher_training.id_vouchertraining=used_vouchertraining.id_vouchertraining WHERE used_vouchertraining.id_invoicetraining=?",[$id]);
+        $invoiceshop = DB::select("SELECT * FROM invoice_shop WHERE id_invoiceshop=?",[$id]);
+        $iteminvoiceshop = DB::select("SELECT * FROM item_invoiceshop INNER JOIN shop ON item_invoiceshop.id_item=shop.id_item WHERE id_invoiceshop=?",[$id]);
 
         $totaldibayar = 0;
-
-        // return $itemtraining;
-
-        if($invoicetraining[0]->belisaatpromo==1){
-            $totaldibayar = $itemtraining[0]->hargapromopaketpelatihan;
-        }   
-        else{   
-            $totaldibayar = $itemtraining[0]->hargapaketpelatihan;
+        foreach ($iteminvoiceshop as $key => $value) {
+            $totaldibayar = $totaldibayar + $value->harga;
         }
 
-        ////
 
-        if(count($referral)>0){
-            $totaldibayar = $totaldibayar - $referral[0]->nominalpemotonganreferral;
-        }
-        
-        if(count($voucher)>0){
-            $totaldibayar = $totaldibayar - $voucher[0]->nominal;
-        }
-
-        return view("InvoiceTraining.invoicetraining-detail",[
-            "invoicetraining"=>$invoicetraining,
-            "itemtraining"=>$itemtraining,
-            "referral"=>$referral,
-            "voucher"=>$voucher,
+        return view("InvoiceShop.invoiceshop-detail",[
+            "invoiceshop"=>$invoiceshop,
+            "iteminvoiceshop"=>$iteminvoiceshop,
             "jumlahdibayar"=>$totaldibayar
         ]);
     }
 
     public function delete(Request $request, $id){
 
-        $delete = DB::delete("DELETE FROM invoice_training WHERE id_invoicetraining=?",[$id]);
+        $delete = DB::delete("DELETE FROM invoice_shop WHERE id_invoiceshop=?",[$id]);
 
-        return redirect("/admin/invoicetraining");
+        return redirect("/admin/invoiceshop");
     }
 
     // public function create_post(Request $request){

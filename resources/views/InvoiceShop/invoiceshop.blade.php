@@ -70,16 +70,26 @@
     <tr>
       <th>Invoice ID</th>
       <th>Kode Invoice</th>
-      <th>Nama Training</th>
       <th>Pemesan</th>
       <th>Tanggal Pemesanan</th>
-      <th>Beli Saat Promo?</th>
       <th>Status</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
- 
+      @foreach($invoiceshop as $value)
+        <tr>
+           <td>{{$value->id_invoiceshop}}</td>
+           <td>{{$value->kode_invoice}}</td>
+           <td>{{$value->nama}}</td>
+           <td>{{$value->tanggalpemesanan}}</td>
+           <td>{{$value->status}}</td>
+           <td>
+                <a href="/admin/invoiceshop/detail/{{$value->id_invoiceshop}}"><button class="btn btn-primary mb-3">Detail</button></a>
+                <a href="/admin/invoiceshop/delete/{{$value->id_invoiceshop}}"><button class="btn btn-danger mb-3">Delete</button></a>
+          </td>
+        </tr>
+      @endforeach
   </tbody>
 </table>
           
