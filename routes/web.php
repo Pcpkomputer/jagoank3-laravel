@@ -17,6 +17,9 @@ use App\Http\Controllers\DashboardTextController;
 use App\Http\Controllers\OurClientController;
 use App\Http\Controllers\InvoiceTrainingController;
 use App\Http\Controllers\InvoiceShopController;
+use App\Http\Controllers\HubungiKamiController;
+use App\Http\Controllers\AlamatKamiController;
+use App\Http\Controllers\TentangJagoanK3Controller;
 
 use App\Http\Middleware\IsAuthenticate;
 
@@ -241,6 +244,26 @@ Route::middleware([IsAuthenticate::class])->group(function () {
     
                 Route::post("/create",[InvoiceShopController::class,"create_post"]);
                 Route::put("/update/{id}",[InvoiceShopController::class,"update_post"]);
+            });
+
+
+             // Hubungi Kami Route
+             Route::prefix('hubungikami')->group(function(){
+                Route::get("/",[HubungiKamiController::class,"show"]);
+                Route::post("/",[HubungiKamiController::class,"update"]);
+            });
+
+
+             // Alamat Kami Route
+             Route::prefix('alamatkami')->group(function(){
+                Route::get("/",[AlamatKamiController::class,"show"]);
+                Route::post("/",[AlamatKamiController::class,"update"]);
+            });
+
+              // Tentang Jagoan K3
+              Route::prefix('tentangjagoank3')->group(function(){
+                Route::get("/",[TentangJagoanK3Controller::class,"show"]);
+                Route::post("/",[TentangJagoanK3Controller::class,"update"]);
             });
 
         });

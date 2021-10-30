@@ -1,4 +1,4 @@
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+<nav id="sidebarMenu" style="overflow:auto;padding-bottom:25px" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
@@ -91,6 +91,10 @@
             <span>Data Extra</span>
         </h6>
         <li class="nav-item">
+        <a class="nav-link {{($selected=='tentangjagoank3' ? 'active':'')}}" href="{{ url('/admin/tentangjagoank3') }}">
+              <span data-feather="file-text"></span>
+              Tentang Jagoan K3
+            </a>
             <a class="nav-link {{($selected=='banner' ? 'active':'')}}" href="{{ url('/admin/banner') }}">
               <span data-feather="file-text"></span>
               Banner
@@ -104,6 +108,25 @@
               Our Client
             </a>
           </li>
+
+
+
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Data Footer</span>
+        </h6>
+
+        <li class="nav-item">
+            <a class="nav-link {{($selected=='hubungikami' ? 'active':'')}}" href="{{ url('/admin/hubungikami') }}">
+              <span data-feather="file-text"></span>
+              Hubungi Kami
+            </a>
+            <a class="nav-link {{($selected=='alamatkami' ? 'active':'')}}" href="{{ url('/admin/alamatkami') }}">
+              <span data-feather="file-text"></span>
+              Alamat Kami
+            </a>
+          </li>
+
+
         <!-- <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="file"></span>
