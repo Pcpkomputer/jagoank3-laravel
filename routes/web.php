@@ -20,6 +20,8 @@ use App\Http\Controllers\InvoiceShopController;
 use App\Http\Controllers\HubungiKamiController;
 use App\Http\Controllers\AlamatKamiController;
 use App\Http\Controllers\TentangJagoanK3Controller;
+use App\Http\Controllers\HalamanBantuanController;
+use App\Http\Controllers\WebinarController;
 
 use App\Http\Middleware\IsAuthenticate;
 
@@ -160,6 +162,18 @@ Route::middleware([IsAuthenticate::class])->group(function () {
                 Route::post("/create",[GaleriController::class,"create_post"]);
                 Route::put("/update/{id}",[GaleriController::class,"update_post"]);
             });
+
+
+            // Webinar Route
+            Route::prefix('webinar')->group(function(){
+                Route::get("/",[WebinarController::class,"show"]);
+                Route::get("/create",[WebinarController::class,"create"]);
+                Route::get("/update/{id}",[WebinarController::class,"update"]);
+                Route::get("/delete/{id}",[WebinarController::class,"delete"]);
+    
+                Route::post("/create",[WebinarController::class,"create_post"]);
+                Route::put("/update/{id}",[WebinarController::class,"update_post"]);
+            });
     
     
             // Instruktur Route
@@ -264,6 +278,12 @@ Route::middleware([IsAuthenticate::class])->group(function () {
               Route::prefix('tentangjagoank3')->group(function(){
                 Route::get("/",[TentangJagoanK3Controller::class,"show"]);
                 Route::post("/",[TentangJagoanK3Controller::class,"update"]);
+            });
+
+               // Halaman Bantuan
+               Route::prefix('halamanbantuan')->group(function(){
+                Route::get("/",[HalamanBantuanController::class,"show"]);
+                Route::post("/",[HalamanBantuanController::class,"update"]);
             });
 
         });

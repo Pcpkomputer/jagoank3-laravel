@@ -55,6 +55,18 @@
               Artikel
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link {{($selected=='webinar') ? 'active':''}}" href="{{ url('/admin/webinar') }}">
+              <span data-feather="file-text"></span>
+              Webinar
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{($selected=='ebook') ? 'active':''}}" href="{{ url('/admin/ebook') }}">
+              <span data-feather="file-text"></span>
+              E-book
+            </a>
+          </li>
 
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
             <span>Data Account</span>
@@ -127,6 +139,17 @@
           </li>
 
 
+
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Data Bantuan</span>
+        </h6>
+
+        <li class="nav-item">
+            <a class="nav-link {{($selected=='halamanbantuan' ? 'active':'')}}" href="{{ url('/admin/halamanbantuan') }}">
+              <span data-feather="file-text"></span>
+              Halaman Bantuan
+            </a>
+    
         <!-- <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="file"></span>
