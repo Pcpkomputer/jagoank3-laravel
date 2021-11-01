@@ -53,65 +53,29 @@
 <div class="container-fluid" style="margin-bottom:35px">
   <div class="row">
   
-  @include("Components.sidebar", array("selected"=>"invoiceshop"))
+  @include("Components.sidebar", array("selected"=>"ebook"))
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Detail Invoice Shop</h1>
+        <h1 class="h2">Update E-Book</h1>
       </div>
         
-      <form id="formSudahDibayar" method="POST" action="">
+      <form method="POST" action="" enctype="multipart/form-data">
       <input type="hidden" name="_method" value="PUT">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">ID Invoice Training</label>
-          <input readonly required value="{{$invoiceshop[0]->id_invoiceshop}}" name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID User">
+          <label class="mb-2" for="exampleInputEmail1">ID E-Book</label>
+          <input name="id" value="{{$ebook->id_ebook}}" readonly required type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID E-book">
         </div>
         <div class="form-group mb-2">
-          <label class="mb-2" for="exampleInputEmail1">Kode Invoice</label>
-          <input readonly required value="{{$invoiceshop[0]->kode_invoice}}" name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Kode Invoice">
+          <label class="mb-2" for="exampleInputEmail1">Nama E-Book</label>
+          <input name="nama" value="{{$ebook->nama_ebook}}" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Nama E-book">
         </div>
-        
-        <form method="POST" action="" class="form-group mb-2">
-          <input type="hidden" name="_method" value="POST">
-          <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          <label class="mb-2" for="exampleInputEmail1">Sudah Dibayar?</label>
-              <select name="sudahdibayar" value="{{$invoiceshop[0]->status}}" name="statuspembayaran" required class="form-control" id="selecttipetraining">
-                 @if($invoiceshop[0]->status=="Belum Dibayar")
-                  <option value="Sudah Dibayar">Sudah Dibayar</option>
-                  <option selected value="Belum Dibayar">Belum Dibayar</option>
-                @else
-                 <option selected value="Sudah Dibayar">Sudah Dibayar</option>
-                  <option value="Belum Dibayar">Belum Dibayar</option>
-                 @endif
-              </select>
-        </form>
         <div class="form-group mb-2">
-        <table data-show-columns="true" 
-              data-sort="true"
-              id="table" data-toggle="table">
-          <thead>
-            <tr>
-              <th>Nama Paket Pelatihan</th>
-              <th>Harga Paket Pelatihan</th>
-            </tr>
-          </thead>
-          <tbody>
-              @foreach($iteminvoiceshop as $iteminvoiceshop)
-                <tr>
-                   <td>{{$iteminvoiceshop->nama_barang}}</td>
-                      <td>{{$iteminvoiceshop->harga}}</td>
-                </tr>
-              @endforeach
-          </tbody>
-        </table>
-          <div style="margin-top:20px">
-            Total Dibayar : {{$jumlahdibayar}}
-          </div>
-          <div style="margin-top:20px;">
-              <div id="btnSimpan" class="btn btn-primary">Simpan</div>
-          </div>
+          <label class="mb-2" for="exampleInputPassword1">File E-Book</label>
+          <input name="file" type="file"  class="form-control">
         </div>
+        <button type="submit" style="margin-top:15px;" class="btn btn-success">Tambah</button>
       </form>
            
       </div>
@@ -125,9 +89,7 @@
       <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="{{url('/dashboard.js')}}"></script>
       <script src="{{url('/bootstrap-table.min.js')}}"></script>
       <script>
-        $(document).on("click","#btnSimpan",()=>{
-           document.querySelector("#formSudahDibayar").submit();
-        })
+        
       </script>
     </body>
 </html>

@@ -22,6 +22,7 @@ use App\Http\Controllers\AlamatKamiController;
 use App\Http\Controllers\TentangJagoanK3Controller;
 use App\Http\Controllers\HalamanBantuanController;
 use App\Http\Controllers\WebinarController;
+use App\Http\Controllers\EbookController;
 
 use App\Http\Middleware\IsAuthenticate;
 
@@ -285,6 +286,18 @@ Route::middleware([IsAuthenticate::class])->group(function () {
                 Route::get("/",[HalamanBantuanController::class,"show"]);
                 Route::post("/",[HalamanBantuanController::class,"update"]);
             });
+
+                // Shop Route
+                Route::prefix('ebook')->group(function(){
+                    Route::get("/",[EbookController::class,"show"]);
+                    Route::get("/create",[EbookController::class,"create"]);
+                    Route::get("/update/{id}",[EbookController::class,"update"]);
+                    Route::get("/delete/{id}",[EbookController::class,"delete"]);
+        
+                    Route::post("/create",[EbookController::class,"create_post"]);
+                    Route::put("/update/{id}",[EbookController::class,"update_post"]);
+                });
+        
 
         });
 

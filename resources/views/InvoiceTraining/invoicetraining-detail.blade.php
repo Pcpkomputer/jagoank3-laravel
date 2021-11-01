@@ -65,11 +65,11 @@
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="form-group mb-2">
           <label class="mb-2" for="exampleInputEmail1">ID Invoice Training</label>
-          <input readonly required value="" name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID User">
+          <input readonly required value="{{$invoicetraining[0]->id_invoicetraining}}" name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="ID Invoice Training">
         </div>
         <div class="form-group mb-2">
           <label class="mb-2" for="exampleInputEmail1">Kode Invoice</label>
-          <input readonly required value="" name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Kode Invoice">
+          <input readonly required value="{{$invoicetraining[0]->kode_invoice}}" name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Kode Invoice">
         </div>
         
         <form method="POST" action="" class="form-group mb-2">
