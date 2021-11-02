@@ -365,6 +365,35 @@ Route::post("/checkvoucher", function (Request $request){
     ];
 });
 
+Route::get("/gethubungikami", function (Request $request){
+    $hubungikami = DB::select("SELECT * FROM hubungikami_html");
+    return $hubungikami[0];
+});
+
+Route::get("/getalamatkami", function (Request $request){
+    $alamatkami = DB::select("SELECT * FROM alamatkami_html");
+    return $alamatkami[0];
+});
+
+Route::get("/getwebinar", function (Request $request){
+    $webinar = DB::select("SELECT * FROM webinar");
+    return $webinar;
+});
+
+
+Route::get("/getebook", function (Request $request){
+    $ebook = DB::select("SELECT * FROM ebook");
+    return $ebook;
+});
+
+
+
+Route::get("/gethalamanbantuan", function (Request $request){
+    $bantuan = DB::select("SELECT * FROM halamanbantuan_html");
+    $parsed = json_decode($bantuan[0]->json);
+    return $parsed;
+});
+
 
 Route::post("/checkreferral", function (Request $request){
     $validated = $request->validate([

@@ -69,7 +69,7 @@
         </div>
         <div class="form-group mb-2">
           <label class="mb-2" for="exampleInputEmail1">Link Youtube</label>
-          <input required name="linkyoutube" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Contoh: https://www.youtube.com/watch?v=N7GU7-fvWQA">
+          <input required name="linkyoutube" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Contoh: https://www.youtube.com/embed/tgbNymZ7vqY">
         </div>
         
         <button type="submit" style="margin-top:15px;" class="btn btn-success">Tambah</button>
