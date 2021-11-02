@@ -381,6 +381,13 @@ Route::get("/getwebinar", function (Request $request){
 });
 
 
+
+Route::get("/getjagoank3", function (Request $request){
+    $tentang = DB::select("SELECT * FROM tentangjagoank3_html");
+    return $tentang;
+});
+
+
 Route::get("/getebook", function (Request $request){
     $ebook = DB::select("SELECT * FROM ebook");
     return $ebook;
