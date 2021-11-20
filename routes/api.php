@@ -106,6 +106,13 @@ Route::get("/ourclient", function (Request $request){
 });
 
 
+Route::get("/availabletrainingschedule", function (Request $request){
+    $schedule = DB::select("SELECT training.kategoritraining, COUNT(training.kategoritraining) as jumlah, kategori_training.nama_kategoritraining FROM training INNER JOIN kategori_training ON kategori_training.id_kategoritraining=training.kategoritraining GROUP BY training.kategoritraining, kategori_training.nama_kategoritraining");
+    
+    return $schedule;
+});
+
+
 Route::post("/login", function (Request $request){
 
     $validated = $request->validate([
