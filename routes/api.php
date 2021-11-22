@@ -543,6 +543,45 @@ Route::post("/getsaldodashboard", function (Request $request){
       return $saldodashboard;
 });
 
+Route::post("/availabletrainingschedule", function (Request $request){
+
+    $validated = $request->validate([
+        'box1' => 'required',
+        'box2' => 'required',
+        'box3' => 'required'
+    ]);
+
+    $box1 = $request->box1;
+    $box2 = $request->box2;
+    $box3 = $request->box3;
+    
+
+    $reqbox1 = DB::select("SELECT * FROM training WHERE kategoritraining=1 AND jadwaltraining BETWEEN ? AND ?",[$box1[0],$box1[1]]);
+    $reqbox2 = DB::select("SELECT * FROM training WHERE kategoritraining=1 AND jadwaltraining BETWEEN ? AND ?",[$box2[0],$box2[1]]);
+    $reqbox3 = DB::select("SELECT * FROM training WHERE kategoritraining=1 AND jadwaltraining BETWEEN ? AND ?",[$box3[0],$box3[1]]);
+
+    foreach ($reqbox1 as $key => $value) {
+        $item = DB::select("SELECT * FROM item_training WHERE id_training=?",[$value->id_training]);
+        $reqbox1[$key]->item=$item;
+    }
+
+    foreach ($reqbox2 as $key => $value) {
+        $item = DB::select("SELECT * FROM item_training WHERE id_training=?",[$value->id_training]);
+        $reqbox2[$key]->item=$item;
+    }
+
+    foreach ($reqbox3 as $key => $value) {
+        $item = DB::select("SELECT * FROM item_training WHERE id_training=?",[$value->id_training]);
+        $reqbox3[$key]->item=$item;
+    }
+
+    return [
+        "box1"=>$reqbox1,
+        "box2"=>$reqbox2,
+        "box3"=>$reqbox3
+    ];
+});
+
 Route::post("/getmodulpemesanan", function (Request $request){
         ///// PROCESS AUTH
         $token = $request->bearerToken();
