@@ -408,6 +408,16 @@ Route::get("/gethalamanbantuan", function (Request $request){
     return $parsed;
 });
 
+Route::get("/linkmobile", function (Request $request){
+    $android = DB::select("SELECT * FROM linkmobile WHERE id='android'")[0];
+    $ios = DB::select("SELECT * FROM linkmobile WHERE id='ios'")[0];
+
+    return [
+        "android"=>$android,
+        "ios"=>$ios
+    ];
+});
+
 
 Route::post("/checkreferral", function (Request $request){
     $validated = $request->validate([
