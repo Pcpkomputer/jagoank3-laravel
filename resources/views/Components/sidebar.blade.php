@@ -119,6 +119,10 @@
               <span data-feather="file-text"></span>
               Our Client
             </a>
+            <a class="nav-link {{($selected=='linkmobile' ? 'active':'')}}" href="{{ url('/admin/linkmobile') }}">
+              <span data-feather="file-text"></span>
+              Link Playstore & Appstore
+            </a>
           </li>
 
 
