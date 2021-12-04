@@ -28,6 +28,19 @@
               Voucher Training
             </a>
           </li>
+
+
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Data Sertifikat</span>
+        </h6>
+        <li class="nav-item">
+            <a class="nav-link {{($selected=='sertifikat' ? 'active':'')}}" href="{{ url('/admin/sertifikat') }}">
+              <span data-feather="file-text"></span>
+              Sertifikat
+            </a>
+          </li>
+
+
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
             <span>Data Master</span>
         </h6>
@@ -125,6 +138,7 @@
             </a>
           </li>
 
+        
 
 
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">

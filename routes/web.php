@@ -24,6 +24,7 @@ use App\Http\Controllers\HalamanBantuanController;
 use App\Http\Controllers\WebinarController;
 use App\Http\Controllers\EbookController;
 use App\Http\Controllers\LinkMobileController;
+use App\Http\Controllers\SertifikatController;
 
 use App\Http\Middleware\IsAuthenticate;
 
@@ -300,17 +301,30 @@ Route::middleware([IsAuthenticate::class])->group(function () {
                 });
 
 
-                     // Link Mobile Route
-                     Route::prefix('linkmobile')->group(function(){
-                         Route::get("/",[LinkMobileController::class,"show"]);
-                         Route::post("/",[LinkMobileController::class,"update"]);
-                        // Route::get("/create",[EbookController::class,"create"]);
-                        // Route::get("/update/{id}",[EbookController::class,"update"]);
-                        // Route::get("/delete/{id}",[EbookController::class,"delete"]);
-            
-                        // Route::post("/create",[EbookController::class,"create_post"]);
-                        // Route::put("/update/{id}",[EbookController::class,"update_post"]);
-                    });
+                // Link Mobile Route
+                Route::prefix('linkmobile')->group(function(){
+                    Route::get("/",[LinkMobileController::class,"show"]);
+                    Route::post("/",[LinkMobileController::class,"update"]);
+                // Route::get("/create",[EbookController::class,"create"]);
+                // Route::get("/update/{id}",[EbookController::class,"update"]);
+                // Route::get("/delete/{id}",[EbookController::class,"delete"]);
+    
+                // Route::post("/create",[EbookController::class,"create_post"]);
+                // Route::put("/update/{id}",[EbookController::class,"update_post"]);
+            });
+
+
+                // Sertifikat Route
+                Route::prefix('sertifikat')->group(function(){
+                    Route::get("/",[SertifikatController::class,"show"]);
+                    Route::post("/create",[SertifikatController::class,"createsertifikat"]);
+                    Route::get("/create",[SertifikatController::class,"create"]);
+                    Route::get("/update/{id}",[SertifikatController::class,"update"]);
+                    // Route::get("/delete/{id}",[EbookController::class,"delete"]);
+        
+                    // Route::post("/create",[EbookController::class,"create_post"]);
+                    Route::put("/update/{id}",[SertifikatController::class,"update_post"]);
+            });
             
         
 
