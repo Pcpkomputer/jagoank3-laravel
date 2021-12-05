@@ -225,7 +225,7 @@ Route::post("/trainingbydateandcategory", function (Request $request){
     $to = $request->to;
     $id_kategoritraining = $request->id_kategoritraining;
 
-    $req = DB::select("SELECT * FROM training WHERE kategoritraining=? AND jadwaltraining BETWEEN ? AND ?",[$id_kategoritraining,$from,$to]);
+    $req = DB::select("SELECT * FROMf training WHERE kategoritraining=? AND jadwaltraining BETWEEN ? AND ?",[$id_kategoritraining,$from,$to]);
 
     return $req;
 });
@@ -425,6 +425,65 @@ Route::post("/previewsertifikat", function (Request $request){
     return $pdf->stream();
 });
 
+Route::get("/generatesertifikatmobile", function(Request $request){
+    $token = $request->query("token");
+    $id_invoice = $request->query("id_invoice");
+    
+     ///// PROCESS AUTH
+     $token = $request->token;
+
+     $tokenparsed = Crypt::decryptString($token);
+     $tokenparsed = json_decode($tokenparsed);
+     $exist = DB::select("SELECT * FROM user WHERE user_id=?",[$tokenparsed->user_id]);
+     if(count($exist)==0){
+         return [
+             "success"=>false,
+             "msg"=>"Unauthorized"
+         ];
+     }
+     else if($tokenparsed->email!=$exist[0]->email && $tokenparsed->password!=$exist[0]->password){
+         return [
+             "success"=>false,
+             "msg"=>"Unauthorized"
+         ];
+     }
+     /////
+
+     $invoice = DB::select("SELECT * FROM invoice_training WHERE id_invoicetraining=? AND user_id=?",[$request->id_invoice,$tokenparsed->user_id]);
+
+     if(count($invoice)>0){
+        if($invoice[0]->status=="Sudah Dibayar"){
+
+            $sertifikat = DB::select("SELECT * FROM sertifikat WHERE id_training=?",[$invoice[0]->id_training]);
+            $training = DB::select("SELECT * FROM training WHERE id_training=?",[$invoice[0]->id_training]);
+
+            $html = str_replace("{{nama}}",$tokenparsed->nama,$sertifikat[0]->html);
+            $html = str_replace("{{namapelatihan}}",$training[0]->namatraining,$html);
+
+
+            $pdf = App::make('dompdf.wrapper');
+            $pdf->loadHTML($html);
+            return $pdf->stream();
+        }
+        else{
+            return [
+                "success"=>false,
+                "msg"=>"Unauthorized"
+            ];
+        }
+    }
+    else{
+            return [
+                "success"=>false,
+                "msg"=>"Unauthorized"
+            ];
+        
+    }
+
+    
+
+});
+
 Route::post("/generatesertifikat", function (Request $request){
 
       ///// PROCESS AUTH
@@ -446,7 +505,6 @@ Route::post("/generatesertifikat", function (Request $request){
           ];
       }
       /////
-
 
     $invoice = DB::select("SELECT * FROM invoice_training WHERE id_invoicetraining=? AND user_id=?",[$request->id_invoice,$tokenparsed->user_id]);
 
