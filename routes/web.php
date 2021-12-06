@@ -25,6 +25,7 @@ use App\Http\Controllers\WebinarController;
 use App\Http\Controllers\EbookController;
 use App\Http\Controllers\LinkMobileController;
 use App\Http\Controllers\SertifikatController;
+use App\Http\Controllers\GambarSection2DashboardController;
 
 use App\Http\Middleware\IsAuthenticate;
 
@@ -281,6 +282,13 @@ Route::middleware([IsAuthenticate::class])->group(function () {
               Route::prefix('tentangjagoank3')->group(function(){
                 Route::get("/",[TentangJagoanK3Controller::class,"show"]);
                 Route::post("/",[TentangJagoanK3Controller::class,"update"]);
+            });
+
+
+             // Gambar Section 2 Dashboard
+             Route::prefix('gambarsection2dashboard')->group(function(){
+                Route::get("/",[GambarSection2DashboardController::class,"show"]);
+                Route::post("/",[GambarSection2DashboardController::class,"update"]);
             });
 
                // Halaman Bantuan

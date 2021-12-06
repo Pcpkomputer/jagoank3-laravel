@@ -54,43 +54,27 @@
   <div class="row">
    
     
-    @include("Components.sidebar", array("selected"=>"training"))
+    @include("Components.sidebar", array("selected"=>"gambarsection2dashboard"))
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Training</h1>
+        <h1 class="h2">Gambar Section 2 Dashboard</h1>
       </div>
-      <div>
-          <a href="/admin/training/create"><button class="btn btn-success mb-3">Tambah</button></a>
+      <div class="flash-message">
+        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+          @if(Session::has('alert-' . $msg))
+          <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}</p>
+          @endif
+        @endforeach
       </div>
-      <table id="table" data-toggle="table">
-  <thead>
-    <tr>
-      <th>Training ID</th>
-      <th>Nama Training</th>
-      <th>Kategori Training</th>
-      <th>Tipe Training</th>
-      <th>Jadwal Training</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach($training as $training)
-    <tr>
-      <td>{{$training->id_training}}</td>
-      <td>{{$training->namatraining}}</td>
-      <td>Kemnaker RI</td>
-      <td>{{$training->tipetraining}}</td>
-      <td>{{$training->jadwaltraining}}</td>
-      <td>
-            <!-- <a href="/admin/training/update/1"><button class="btn btn-primary mb-3">Update</button></a> -->
-            <a href="/admin/training/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>
-      </td>
-    </tr>
-    @endforeach
-  </tbody>
-</table>
-          
+      
+      <form method="POST" enctype="multipart/form-data" style="display:flex;flex-direction:column"  action="">
+          <input type="hidden" name="_method" value="POST">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <input name="foto" type="file">
+          <img src="/storage/public/section2dashboard/thumbnail.jpg" style="width:200px;height:200px;margin-top:25px">
+          <button style="width:fit-content" class="btn btn-primary mt-4">Ubah</button>
+     </form>
            
       </div>
     </main>

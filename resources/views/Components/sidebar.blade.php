@@ -136,6 +136,10 @@
               <span data-feather="file-text"></span>
               Link Playstore & Appstore
             </a>
+            <a class="nav-link {{($selected=='gambarsection2dashboard' ? 'active':'')}}" href="{{ url('/admin/gambarsection2dashboard') }}">
+              <span data-feather="file-text"></span>
+              Gambar Section 2 Dashboard
+            </a>
           </li>
 
         
