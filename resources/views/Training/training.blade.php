@@ -79,12 +79,12 @@
     <tr>
       <td>{{$training->id_training}}</td>
       <td>{{$training->namatraining}}</td>
-      <td>Kemnaker RI</td>
+      <td>{{$training->nama_kategoritraining}}</td>
       <td>{{$training->tipetraining}}</td>
       <td>{{$training->jadwaltraining}}</td>
       <td>
             <!-- <a href="/admin/training/update/1"><button class="btn btn-primary mb-3">Update</button></a> -->
-            <a href="/admin/training/delete/1"><button class="btn btn-danger mb-3">Delete</button></a>
+            <a href="/admin/training/delete/{{$training->id_training}}"><button class="btn btn-danger mb-3">Delete</button></a>
       </td>
     </tr>
     @endforeach

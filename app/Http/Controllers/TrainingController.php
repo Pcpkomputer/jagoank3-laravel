@@ -14,7 +14,7 @@ class TrainingController extends Controller
 {
     public function show(Request $request)
     {
-        $training = DB::select("SELECT * FROM training");
+        $training = DB::select("SELECT * FROM training INNER JOIN kategori_training ON training.kategoritraining=kategori_training.id_kategoritraining");
 
         return view("Training.training",["training"=>$training]);
     }
@@ -47,7 +47,10 @@ class TrainingController extends Controller
     }
 
     public function delete(Request $request, $id){
-        return "delete";
+
+    
+        $delete = DB::delete("DELETE FROM training WHERE id_training=?",[$id]);
+        return redirect("admin/training");
     }
 
     public function create_post(Request $request){

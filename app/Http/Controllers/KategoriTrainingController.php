@@ -32,7 +32,10 @@ class KategoriTrainingController extends Controller
     }
 
     public function delete(Request $request, $id){
-        return "delete";
+
+        $delete = DB::delete("DELETE FROM kategori_training WHERE id_kategoritraining=?",[$id]);
+
+        return redirect("/admin/kategoritraining")->with("alert-success","Sukses menghapus kategori training...");
     }
 
     public function create_post(Request $request){

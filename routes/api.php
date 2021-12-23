@@ -225,7 +225,7 @@ Route::post("/trainingbydateandcategory", function (Request $request){
     $to = $request->to;
     $id_kategoritraining = $request->id_kategoritraining;
 
-    $req = DB::select("SELECT * FROMf training WHERE kategoritraining=? AND jadwaltraining BETWEEN ? AND ?",[$id_kategoritraining,$from,$to]);
+    $req = DB::select("SELECT * FROM training WHERE kategoritraining=? AND jadwaltraining BETWEEN ? AND ?",[$id_kategoritraining,$from,$to]);
 
     return $req;
 });
