@@ -63,10 +63,10 @@ class DashboardTextController extends Controller
             Storage::disk('local')->putFileAs('', $request["section2gambar-0"], 'public'.'/section2'.'/'.'section2gambar-0.jpg');
         }
         if($request->hasFile("section2gambar-1")){
-            Storage::disk('local')->putFileAs('', $request->section2gambar-0, 'public'.'/section2'.'/'.'section2gambar-1.jpg');
+            Storage::disk('local')->putFileAs('', $request["section2gambar-1"], 'public'.'/section2'.'/'.'section2gambar-1.jpg');
         }
         if($request->hasFile("section2gambar-2")){
-            Storage::disk('local')->putFileAs('', $request->section2gambar-0, 'public'.'/section2'.'/'.'section2gambar-2.jpg');
+            Storage::disk('local')->putFileAs('', $request["section2gambar-2"], 'public'.'/section2'.'/'.'section2gambar-2.jpg');
         }
 
         if(count($exist)>0){
