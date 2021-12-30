@@ -11,7 +11,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{url('/bootstrap-table.min.css')}}">
-   
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
 <link href="{{url('/bootstrap.min.css')}}" rel="stylesheet">
@@ -117,7 +117,7 @@
 
               <div class="form-group mb-2">
                 <label class="mb-2" for="exampleInputEmail1">Deskripsi Singkat</label>
-                <textarea name="deskripsisingkat" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Deskripsi Singkat"></textarea>
+                <textarea id="deskripsisingkat" name="deskripsisingkat" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Deskripsi Singkat"></textarea>
               </div>
               <div class="form-group mb-2">
                 <label class="mb-2" for="exampleInputEmail1">Batch</label>
@@ -173,38 +173,38 @@
 
                 <div class="form-group mb-2">
                     <label class="mb-2" for="exampleInputEmail1">Deskripsi Penuh</label>
-                    <textarea name="deskripsipenuh" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Deskripsi Singkat"></textarea>
+                    <textarea id="deskripsipenuh" name="deskripsipenuh" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Deskripsi Singkat"></textarea>
                   </div>
 
 
                 <div class="form-group mb-2">
                     <label class="mb-2" for="exampleInputEmail1">Persyaratan</label>
-                    <textarea name="persyaratan" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Persyaratan"></textarea>
+                    <textarea id="persyaratan" name="persyaratan" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Persyaratan"></textarea>
                   </div>
 
 
                   <div class="form-group mb-2">
                     <label class="mb-2" for="exampleInputEmail1">Fasilitas</label>
-                    <textarea name="fasilitas" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Fasilitas"></textarea>
+                    <textarea id="fasilitas" name="fasilitas" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Fasilitas"></textarea>
                   </div>
                   
 
 
                   <div class="form-group mb-2">
                     <label class="mb-2" for="exampleInputEmail1">Info Pendaftaran</label>
-                    <textarea name="infopendaftaran" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Info Pendaftaran"></textarea>
+                    <textarea id="infopendaftaran" name="infopendaftaran" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Info Pendaftaran"></textarea>
                   </div>
 
 
                   <div class="form-group mb-2">
                     <label class="mb-2" for="exampleInputEmail1">Instruktur</label>
-                    <textarea name="instruktur" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Instruktur"></textarea>
+                    <textarea id="instruktur" name="instruktur" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Instruktur"></textarea>
                   </div>
 
 
                   <div class="form-group mb-2">
                     <label class="mb-2" for="exampleInputEmail1">Ulasan</label>
-                    <textarea name="ulasan" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ulasan"></textarea>
+                    <textarea id="ulasan" name="ulasan" required type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ulasan"></textarea>
                   </div>
 
 
@@ -666,6 +666,42 @@
               e.currentTarget.parentNode.outerHTML=``;
           })
            
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+      <script>
+        $(document).ready(function() {
+            $('#deskripsisingkat').summernote({
+              height:350
+            });
+
+            $('#deskripsipenuh').summernote({
+              height:350
+            });
+
+            $('#persyaratan').summernote({
+              height:350
+            });
+
+            $('#fasilitas').summernote({
+              height:350
+            });
+
+            $('#infopendaftaran').summernote({
+              height:350
+            });
+
+            $('#instruktur').summernote({
+              height:350
+            });
+
+
+            $('#ulasan').summernote({
+              height:350
+            });
+
+
+
+          });
       </script>
     </body>
 </html>

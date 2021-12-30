@@ -56,7 +56,7 @@ class TrainingController extends Controller
     public function create_post(Request $request){
 
         $validated = $request->validate([
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $namatraining = $request->namatraining;

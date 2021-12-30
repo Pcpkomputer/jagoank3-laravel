@@ -11,6 +11,8 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
 
     <link rel="stylesheet" href="{{url('/bootstrap-table.min.css')}}">
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
    
 
     <!-- Bootstrap core CSS -->
@@ -71,8 +73,8 @@
       <form method="POST" enctype="multipart/form-data" style="display:flex;flex-direction:column"  action="">
           <input type="hidden" name="_method" value="POST">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          <textarea name="html" style="height:250px;margin-bottom:20px" class="form-control">{{$tentang->text}}</textarea>
-          <input name="foto" type="file">
+          <textarea id="html" name="html" style="height:250px;margin-bottom:20px" class="form-control">{{$tentang->text}}</textarea>
+          <input style="margin-top:20px" name="foto" type="file">
           <img src="/storage/public/tentangjagoank3/thumbnail.jpg" style="width:200px;height:200px;margin-top:25px">
           <button style="width:fit-content" class="btn btn-primary mt-4">Ubah</button>
      </form>
@@ -92,5 +94,13 @@
              pagination:true
             })
       </script>
+       <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+       <script>
+
+$('#html').summernote({
+              height:350
+            });
+
+       </script>
     </body>
 </html>
